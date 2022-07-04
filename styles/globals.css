@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+  /*Color Scheme*/
+  --col-white-primary: rgb(255, 255, 255);
+  --col-white-01: rgb(220, 220, 220);
+  --col-white-02: rgb(245, 245, 245);
+  --col-white-03: rgb(250, 250, 250);
+  --col-black-primary: rgb(0, 0, 0);
+  --col-black-01: rgb(0, 0, 0, 0.9);
+  --col-black-02: rgb(0, 0, 0, 0.6);
+  --col-black-03: rgb(52, 52, 52, 0.6);
+  --col-navy-vdark: rgb(10, 29, 36);
+  --col-navy-dark: rgb(5, 19, 103);
+  --col-navy: rgb(45, 49, 250);
+  --col-navy-light: rgb(93, 139, 244);
+  --col-navy-sky: rgb(223, 246, 255);
+  /*Fonts*/
+  --font-poppins: "Poppins", sans-serif;
+  --poppins-regular: 400;
+  --poppins-medium: 500;
+  --poppins-semibold: 600;
+  --poppins-bold: 700;
+
+  /*Transition Time*/
+  --trans-01: all 0.1s ease;
+  --trans-02: all 0.2s ease;
+  --trans-03: all 0.3s ease;
+  --trans-04: all 0.4s ease;
+  --trans-05: all 0.5s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-poppins);
+  box-sizing: border-box;
+}
+
+/*Scrollbar*/
+::-webkit-scrollbar {
+  width: 7px;
+  margin-right: 2px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--col-navy-vdark);
+  border-radius: 7px;
+}
