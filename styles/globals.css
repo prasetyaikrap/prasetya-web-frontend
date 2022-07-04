@@ -35,6 +35,13 @@
   padding: 0;
   font-family: var(--font-poppins);
   box-sizing: border-box;
+  font-size: 14px;
+}
+body {
+  min-height: 200vh;
+}
+button {
+  cursor: pointer;
 }
 
 /*Scrollbar*/
@@ -45,4 +52,57 @@
 ::-webkit-scrollbar-thumb {
   background-color: var(--col-navy-vdark);
   border-radius: 7px;
+}
+
+/*Heading Tags*/
+h1 {
+  font-weight: var(--poppins-bold);
+  font-size: 2.5rem;
+  letter-spacing: 0.01rem;
+}
+h2 {
+  font-weight: var(--poppins-bold);
+  font-size: 2rem;
+  letter-spacing: 0.01rem;
+}
+h3 {
+  font-weight: var(--poppins-semibold);
+  font-size: 1.5rem;
+  letter-spacing: 0.01rem;
+}
+h4 {
+  font-weight: var(--poppins-semibold);
+  font-size: 1rem;
+  letter-spacing: 0.01rem;
+}
+/*Content Font*/
+.pageTitle {
+  font-weight: var(--poppins-bold);
+  font-size: 2.5rem;
+  letter-spacing: 0.01rem;
+  line-height: 125%;
+}
+.headline {
+  font-weight: var(--poppins-semibold);
+  font-size: 2rem;
+  letter-spacing: 0.01rem;
+  line-height: 125%;
+}
+.bodyTitle {
+  font-weight: var(--poppins-semibold);
+  font-size: 1.4rem;
+  letter-spacing: 0.01rem;
+  line-height: 125%;
+}
+.bodyText{
+  font-weight: var(--poppins-medium);
+  font-size: 1rem;
+  letter-spacing: 0.01rem;
+  line-height: 125%;
+}
+.smallText{
+  font-weight: var(--poppins-regular);
+  font-size: 0.75rem;
+  letter-spacing: 0.01rem;
+  line-height: 125%;
 }
