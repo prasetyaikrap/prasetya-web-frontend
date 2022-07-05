@@ -37,21 +37,20 @@
   box-sizing: border-box;
   font-size: 14px;
 }
-body {
-  min-height: 200vh;
-}
 button {
   cursor: pointer;
 }
 
 /*Scrollbar*/
 ::-webkit-scrollbar {
-  width: 7px;
-  margin-right: 2px;
+  width: 9px;
 }
 ::-webkit-scrollbar-thumb {
   background-color: var(--col-navy-vdark);
   border-radius: 7px;
+}
+::-webkit-scrollbar-track {
+  background-color: azure;
 }
 
 /*Heading Tags*/

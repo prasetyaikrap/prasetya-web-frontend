@@ -90,3 +90,41 @@
     transform: rotate(360deg);
   }
 }
+
+/*Asset Components*/
+/*ArroJumbotron*/
+.arrowContainer {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.arrowBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 5rem;
+  height: 3rem;
+  background-color: rgba(0,0,0,.3);
+  border-radius: 0 5px 5px 0;
+}
+.arrowBox:hover {
+  cursor: pointer;
+  background-color: rgba(0,0,0,.5);
+  transition: var(--trans-02);
+}
+.rotate180 {
+  transform: rotate(0.5turn);
+}
+.arrow1 {
+  border-top: 2px solid white;
+  width: 1.5rem;
+  transform: translateY(-0.5rem) rotate(.15turn);
+}
+.arrow2 {
+  border-top: 2px solid white;
+  width: 1.5rem;
+  transform: translateY(0.5rem) rotate(-.15turn);
+}

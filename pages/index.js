@@ -1,6 +1,12 @@
 import { Header } from "../components/Header";
+import { Project } from "../components/Project";
 
 export default function Home() {
   const num = 12;
-  return <Header style="header1" />;
+  return (
+    <>
+      <Header />
+      <Project />
+    </>
+  );
 }

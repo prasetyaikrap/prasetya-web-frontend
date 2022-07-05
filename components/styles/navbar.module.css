@@ -27,23 +27,25 @@
   justify-content: flex-end;
   align-items: center;
   width: 70%;
+  overflow: hidden;
 }
 .navBtn {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 90%;
   width: 9rem;
   background-color: transparent;
   border: none;
   border-radius: 2px;
 }
-.navBtnText, .navOptText {
+.navBtnText {
   font-size: 1.1rem;
   color: var(--col-white-01);
   font-weight: 600;
 }
 .navBtn:hover {
-  background-color:rgba(0, 0, 0, 0.205);
+  transform: scale(1.1,1.1);
+  text-decoration: overline ;
   transition: var(--trans-03);
 }

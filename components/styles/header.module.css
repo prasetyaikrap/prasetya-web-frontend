@@ -1,20 +1,74 @@
 .section {
   display: flex;
   justify-content: center;
+  position: relative;
   background-color: var(--col-navy-vdark);
   height: 90vh;
   width: 100%;
 }
-
+.fluidJumbotron{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  overflow-x: hidden;
+}
 .container {
   display: flex;
+  flex-shrink: 0;
   justify-content: center;
-  width: 100%;
+  width: calc(100vw - 9px);
 }
 .box1 {
   background-color: rgba(0, 0, 0, 0.308);
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 60%;
+}
+.profileBox {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+  min-height: 40%;
+  padding: 2rem;
+  border: 1px solid var(--col-white-01);
+  border-radius: 10px;
+}
+.pHeadline1 {
+  color: var(--col-white-01);
+  font-size: 3rem;
+}
+.pHeadline2 {
+  color: var(--col-white-01);
+  font-size: 1.2rem;
+}
+.pHeadline3 {
+  color: var(--col-white-02);
+  font-size: 1rem;
+}
+.pSubHeadline1 {
+  margin: 1rem 0;
+  font-style: italic;
+}
+.keyWordSpinnov {
+  font-size: 1.2rem;
+  color: var(--col-white-01);
+  text-decoration: underline;
+}
+.pBtnBox {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 1.3rem;
+}
+.pBtnBox button {
+  padding: .5rem 1rem;
+  background-color: var(--col-white-02);
+  border: none;
+  border-radius: 5px;
+}
+.pBtnBox button:hover {
+  transform: scale(1.05, 1.05);
+  transition: var(--trans-03);
 }
 .box2 {
   display: flex;
@@ -25,7 +79,7 @@
 .imgProfileBox {
   display: flex;
   position: relative;
-  width: 90%;
+  width: 85%;
   transform: translateY(16%);
 
 }

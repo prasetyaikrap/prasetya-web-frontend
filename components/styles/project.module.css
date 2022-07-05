@@ -1,0 +1,58 @@
+.section {
+  display: flex;
+  justify-content: center;
+  height: 90vh;
+  width: calc(100vw - 9px);
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.boxOne {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 2.5rem;
+  width: 30%;
+  background-color: rgb(235, 235, 235);
+  padding: 4rem 2rem;
+}
+.headlineBox, .categoryBox {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 0.5rem;
+  column-gap: 0.5rem;
+}
+.imgBox {
+  display: flex;
+  justify-content: center;
+  width: 25%;
+}
+.projIcon1 {
+  display: flex;
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+}
+.descBox {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  row-gap: .5rem;
+}
+.descSummary {
+  text-align: justify;
+}
+.categoryBox {
+  flex-direction: column;
+}
+.boxTwo {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 70%;
+  background-color: var(--col-white-primary);
+}
