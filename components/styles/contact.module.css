@@ -1,0 +1,31 @@
+.section {
+  display: flex;
+  width: 100%;
+  height: 80vh;
+}
+
+.boxOne, .boxTwo{
+  display: flex;
+  row-gap: 2rem;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 4rem;
+}
+.boxOne {
+  width: 35%;
+  background-color: var(--col-navy-vdark);
+}
+.boxTwo {
+  width: 65%;
+}
+.headlineBox {
+  width: 100%;
+  height: 20%;
+  background-color: beige;
+}
+.mailFormBox, .contactChannelBox {
+  width: 100%;
+  height: 80%;
+  background-color: rgb(194, 194, 33);
+}

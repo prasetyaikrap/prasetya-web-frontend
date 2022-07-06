@@ -1,80 +1,76 @@
 .section {
-  display: flex;
-  justify-content: center;
   position: relative;
+  justify-content: center;
   background-color: var(--col-navy-vdark);
-  height: 90vh;
-  width: 100%;
+  height: 45vw;
 }
 .fluidJumbotron{
-  display: flex;
-  flex-direction: row;
   justify-content: flex-start;
   overflow-x: hidden;
+  width: 100%;
 }
 .container {
-  display: flex;
   flex-shrink: 0;
   justify-content: center;
-  width: calc(100vw - 9px);
+  width: 100%;
 }
+
 .box1 {
-  background-color: rgba(0, 0, 0, 0.308);
-  display: flex;
   justify-content: center;
   align-items: center;
   width: 60%;
+  background-color: rgba(0, 0, 0, 0.308);
+}
+.box2 {
+  width: 40%;
+  justify-content: center;
+  overflow: hidden;
 }
 .profileBox {
-  display: flex;
-  flex-direction: column;
   width: 65%;
-  min-height: 40%;
-  padding: 2rem;
-  border: 1px solid var(--col-white-01);
-  border-radius: 10px;
+  min-height: 20vw;
+  padding: 2vw;
+  border: .1vw solid var(--col-white-01);
+  border-radius: .5vw;
 }
 .pHeadline1 {
   color: var(--col-white-01);
-  font-size: 3rem;
+  font-size: 3vw;
 }
 .pHeadline2 {
   color: var(--col-white-01);
-  font-size: 1.2rem;
+  font-size: 1.2vw;
 }
 .pHeadline3 {
   color: var(--col-white-02);
-  font-size: 1rem;
+  font-size: 1vw;
 }
 .pSubHeadline1 {
-  margin: 1rem 0;
+  margin: 1vw 0;
+  font-size: 1vw;
   font-style: italic;
 }
 .keyWordSpinnov {
-  font-size: 1.2rem;
+  font-size: 1.2vw;
   color: var(--col-white-01);
   text-decoration: underline;
 }
 .pBtnBox {
   display: flex;
   justify-content: flex-end;
-  column-gap: 1.3rem;
+  column-gap: 1.5vw;
+  margin-top: 1.5vw;
 }
 .pBtnBox button {
-  padding: .5rem 1rem;
+  padding: .5vw 1vw;
   background-color: var(--col-white-02);
   border: none;
-  border-radius: 5px;
+  border-radius: .3vw;
+  font-size: 1.1vw;
 }
 .pBtnBox button:hover {
   transform: scale(1.05, 1.05);
   transition: var(--trans-03);
-}
-.box2 {
-  display: flex;
-  width: 40%;
-  justify-content: center;
-  overflow: hidden;
 }
 .imgProfileBox {
   display: flex;
@@ -84,5 +80,5 @@
 
 }
 .imgProfile {
-  border-radius: 15px 15px 0 0 ;
+  border-radius: 1.2vw 1.2vw 0 0 ;
 }

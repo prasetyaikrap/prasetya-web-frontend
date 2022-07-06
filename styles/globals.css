@@ -10,6 +10,7 @@
   --col-black-01: rgb(0, 0, 0, 0.9);
   --col-black-02: rgb(0, 0, 0, 0.6);
   --col-black-03: rgb(52, 52, 52, 0.6);
+  --col-shadow: rgba(110, 110, 110, 0.6);
   --col-navy-vdark: rgb(10, 29, 36);
   --col-navy-dark: rgb(5, 19, 103);
   --col-navy: rgb(45, 49, 250);
@@ -28,8 +29,12 @@
   --trans-03: all 0.3s ease;
   --trans-04: all 0.4s ease;
   --trans-05: all 0.5s ease;
+
+  /*WebKit*/
+  --scroll-track-width: .7vw;
 }
 
+/*Pure Tags*/
 * {
   margin: 0;
   padding: 0;
@@ -37,13 +42,19 @@
   box-sizing: border-box;
   font-size: 14px;
 }
+html {
+  scroll-behavior: smooth;
+}
 button {
   cursor: pointer;
+}
+section {
+  width: 100%;
 }
 
 /*Scrollbar*/
 ::-webkit-scrollbar {
-  width: 9px;
+  width: var(--scroll-track-width);
 }
 ::-webkit-scrollbar-thumb {
   background-color: var(--col-navy-vdark);
@@ -74,6 +85,7 @@ h4 {
   font-size: 1rem;
   letter-spacing: 0.01rem;
 }
+
 /*Content Font*/
 .pageTitle {
   font-weight: var(--poppins-bold);
@@ -104,4 +116,17 @@ h4 {
   font-size: 0.75rem;
   letter-spacing: 0.01rem;
   line-height: 125%;
+}
+
+/*Custom Class*/
+.flex {
+  display: flex;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
 }

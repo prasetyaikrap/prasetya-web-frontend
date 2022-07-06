@@ -92,7 +92,7 @@
 }
 
 /*Asset Components*/
-/*ArroJumbotron*/
+/*ArrowJumbotron*/
 .arrowContainer {
   display: flex;
   flex-direction: row;
@@ -105,10 +105,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 5rem;
-  height: 3rem;
+  width: 5vmax;
+  height: 3.5vmax;
   background-color: rgba(0,0,0,.3);
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 .3vmax .3vmax 0;
 }
 .arrowBox:hover {
   cursor: pointer;
@@ -119,12 +119,12 @@
   transform: rotate(0.5turn);
 }
 .arrow1 {
-  border-top: 2px solid white;
-  width: 1.5rem;
-  transform: translateY(-0.5rem) rotate(.15turn);
+  border-top: .2vmax solid white;
+  width: 1.5vmax;
+  transform: translateY(-.45vmax) rotate(.15turn);
 }
 .arrow2 {
-  border-top: 2px solid white;
-  width: 1.5rem;
-  transform: translateY(0.5rem) rotate(-.15turn);
+  border-top: .2vmax solid white;
+  width: 1.5vmax;
+  transform: translateY(.45vmax) rotate(-.15turn);
 }

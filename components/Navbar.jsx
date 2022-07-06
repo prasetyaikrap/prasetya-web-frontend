@@ -1,7 +1,7 @@
 //import Component
 import st from './styles/navbar.module.css'
 import Link from 'next/link'
-import * as lang from '../public/data/language';
+import langID from '../public/data/lang_idID.json';
 
 export function Navbar(){
   //Get Language Preference
@@ -12,12 +12,12 @@ export function Navbar(){
       dropdownText,
       dropdownList
     }
-  }= lang.id_ID.home.header;
+  }= langID.home.header;
   
   const navBtnMap = navBtn.map(x => {
     return (
       <Link key = {x.id} href={x.link}>
-        <button className={`${st.navBtn} ${st.navBtnText}`}>{x.title}</button>
+        <button className={`${st.navBtn} ${st.navBtnText} flex`}>{x.title}</button>
       </Link>
     )
   })
@@ -25,13 +25,13 @@ export function Navbar(){
   //Render Component
   return (
     <>
-    <nav className={`${st.navContainer}`}>
-      <div className={`${st.navHeader}`}>
+    <nav className={`${st.navContainer} flex`}>
+      <div className={`${st.navHeader} flex`}>
         <Link href='/'>
-          <h1 className={`${st.headerTitle}`}>{navTitle}</h1>
+          <h1>{navTitle}</h1>
         </Link>
       </div>
-      <div className={`${st.navBtnContainer}`}>
+      <div className={`${st.navBtnContainer} flex`}>
         {navBtnMap}
       </div>
     </nav>

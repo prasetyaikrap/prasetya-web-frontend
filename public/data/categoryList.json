@@ -1,0 +1,34 @@
+{
+  "categoryList": [
+    {
+      "id": 1,
+      "name": "Featured",
+      "icon": "https://drive.google.com/uc?id=111Bze15Y5lbqLhZCzSxj-e8GCTa7UNNh"
+    },
+    {
+      "id": 2,
+      "name": "Google Suites App",
+      "icon": "https://drive.google.com/uc?id=1-j06tzlpU2rHC12rycWTcA_h_AiRKm95"
+    },
+    {
+      "id": 3,
+      "name": "Programming",
+      "icon": "https://drive.google.com/uc?id=1oDmKaQ1MpF0RvzfME961amCeO_UnwilV"
+    },
+    {
+      "id": 4,
+      "name": "Technology",
+      "icon": "https://drive.google.com/uc?id=1SNrGJzlI0uVnowcmM5bfBFIIXSLbErrD"
+    },
+    {
+      "id": 5,
+      "name": "Course",
+      "icon": "https://drive.google.com/uc?id=1_hNk7RmJwrHKuPEl4MxX0n4PjfStNn44"
+    },
+    {
+      "id": 6,
+      "name": "Others",
+      "icon": "https://drive.google.com/uc?id=1j5UXvPrFN-AHShiP_JEUW-8bL0VJ16pj"
+    }
+  ]
+}

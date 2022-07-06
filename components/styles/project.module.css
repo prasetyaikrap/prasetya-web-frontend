@@ -1,58 +1,98 @@
 .section {
-  display: flex;
   justify-content: center;
-  height: 90vh;
-  width: calc(100vw - 9px);
+  height: 45vw;
 }
 .container {
-  display: flex;
-  flex-direction: row;
   width: 100%;
 }
 .boxOne {
-  display: flex;
   justify-content: flex-start;
   align-items: center;
-  flex-direction: column;
-  row-gap: 2.5rem;
+  row-gap: 1.6vw;
   width: 30%;
   background-color: rgb(235, 235, 235);
-  padding: 4rem 2rem;
+  padding: 4vw 2vw;
 }
 .headlineBox, .categoryBox {
-  display: flex;
-  flex-direction: row;
   width: 100%;
-  padding: 0.5rem;
-  column-gap: 0.5rem;
+  padding: .5vw;
+  column-gap: .5vw;
 }
 .imgBox {
-  display: flex;
+  flex-shrink: 0;
   justify-content: center;
   width: 25%;
 }
-.projIcon1 {
-  display: flex;
+.projIcon {
   position: relative;
-  width: 5rem;
-  height: 5rem;
+  width: 5vw;
+  height: 5vw;
 }
 .descBox {
-  display: flex;
-  flex-direction: column;
   width: 75%;
-  row-gap: .5rem;
+  row-gap: .5vw;
+}
+.descBox h3 {
+  font-size: 1.6vw;
 }
 .descSummary {
+  font-size: 1vw;
   text-align: justify;
 }
 .categoryBox {
-  flex-direction: column;
+  align-items:flex-end;
+  row-gap: .5vw;
+}
+.catListBox {
+  column-gap: 1vw;
+  width: 75%;
+  padding: .5vw;
+  border: .1vw solid var(--col-navy-vdark);
+  border-radius: .5vw;
+  cursor: pointer;
+}
+.catListBox span:nth-child(1) {
+  display: flex;
+  position: relative;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 2vw;
+}
+.catListBox span:nth-child(3) {
+  display: flex;
+  width: 2vw;
+}
+.catListBox h4 {
+  display: flex;
+  align-items: center;
+  font-size: 1.05vw;
+  width: 65%;
 }
 .boxTwo {
-  display: flex;
   justify-content: center;
-  flex-direction: column;
   width: 70%;
+  background-color: var(--col-white-primary);
+  padding: 2vw 3vw 2vw 3vw;
+}
+.projItemContainer {
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  /* box-shadow: 0 0 10px var(--col-shadow); */
+  /* border: 1px solid var(--col-navy-vdark); */
+  border-radius: 1vw;
+  width: 100%;
+  height: 100%;
+  padding: 2vw;
+  gap: 1vw;
+}
+.pItemCard {
+  justify-content: center;
+  align-items: center;
+  width: 18vw;
+  height: 16vw;
+  box-shadow: .2vw .2vw 1vw var(--col-shadow);
+  border-radius: .5vw;
   background-color: var(--col-white-primary);
 }
