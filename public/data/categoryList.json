@@ -3,32 +3,32 @@
     {
       "id": 1,
       "name": "Featured",
-      "icon": "https://drive.google.com/uc?id=111Bze15Y5lbqLhZCzSxj-e8GCTa7UNNh"
+      "icon": "/assets/star.png"
     },
     {
       "id": 2,
       "name": "Google Suites App",
-      "icon": "https://drive.google.com/uc?id=1-j06tzlpU2rHC12rycWTcA_h_AiRKm95"
+      "icon": "/assets/google.png"
     },
     {
       "id": 3,
       "name": "Programming",
-      "icon": "https://drive.google.com/uc?id=1oDmKaQ1MpF0RvzfME961amCeO_UnwilV"
+      "icon": "/assets/coding.png"
     },
     {
       "id": 4,
       "name": "Technology",
-      "icon": "https://drive.google.com/uc?id=1SNrGJzlI0uVnowcmM5bfBFIIXSLbErrD"
+      "icon": "/assets/coding.png"
     },
     {
       "id": 5,
       "name": "Course",
-      "icon": "https://drive.google.com/uc?id=1_hNk7RmJwrHKuPEl4MxX0n4PjfStNn44"
+      "icon": "/assets/course.png"
     },
     {
       "id": 6,
       "name": "Others",
-      "icon": "https://drive.google.com/uc?id=1j5UXvPrFN-AHShiP_JEUW-8bL0VJ16pj"
+      "icon": "/assets/more.png"
     }
   ]
 }

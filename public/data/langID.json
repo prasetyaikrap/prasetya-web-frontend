@@ -1,0 +1,59 @@
+{
+  "home": {
+    "header": {
+      "navTitle": {
+        "title": "SPINNOV.ID",
+        "url": "/"
+      },
+      "navBtn": [
+        {
+          "id": 1,
+          "title": "PROJECT",
+          "url": "#project"
+        },
+        {
+          "id": 2,
+          "title": "BLOG",
+          "url": "#blog"
+        },
+        {
+          "id": 3,
+          "title": "TOKO",
+          "url": "#store"
+        },
+        {
+          "id": 4,
+          "title": "KONTAK",
+          "url": "#contact"
+        }
+      ],
+      "dropdownLang": "Bahasa"
+    },
+    "project": {
+      "headline": "Publikasi dan Karya",
+      "subheadline": "Berbagai karya dan publikasi yang saya kerjakan sebagai solusi pekerjaan atau sekedar Have Fun project",
+      "icon": {
+        "url": "/assets/work-projection.png",
+        "alt": "Project, Karya, dan Publikasi"
+      } 
+    },
+    "contact": {
+      "headline": "Ikuti perjalanan dan karya saya",
+      "icon": {
+        "url": "/assets/follow.png",
+        "alt": "Follow and Subscribe"
+      },
+      "mailHeadline": "Tetaplah terhubung",
+      "mailSubheadline": "Punya pertanyaan? atau ingin bekerjasama? let me know....",
+      "mailForm": {
+        "mailName": "Nama",
+        "mailFrom": "Email",
+        "mailContact": "Nomor Kontak (Whatsapp)",
+        "mailSubject": "Subjek Pertanyaan",
+        "mailCategory": "Kategori",
+        "mailMessage": "Pesan",
+        "mailSendBtn": "KIRIM"
+      }
+    }
+  }
+}

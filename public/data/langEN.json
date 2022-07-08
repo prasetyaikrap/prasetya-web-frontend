@@ -1,0 +1,59 @@
+{
+  "home": {
+    "header": {
+      "navTitle": {
+        "name": "SPINNOV.ID",
+        "url": "/"
+      },
+      "navBtn": [
+        {
+          "id": 1,
+          "title": "PROJECT",
+          "url": "#project"
+        },
+        {
+          "id": 2,
+          "title": "BLOG",
+          "url": "#blog"
+        },
+        {
+          "id": 3,
+          "title": "STORE",
+          "url": "#store"
+        },
+        {
+          "id": 4,
+          "title": "CONTACT",
+          "url": "#contact"
+        }
+      ],
+      "dropdownLang": "Language"
+    },
+    "project": {
+      "headline": "Work and Publication",
+      "subheadline": "Various works and publications that I do as a project solutions or just a Have Fun projects",
+      "icon": {
+        "url": "/assets/work-projection.png",
+        "alt": "Project and Publication"
+      } 
+    },
+    "contact": {
+      "headline": "Follow my work and journey",
+      "icon": {
+        "url": "/assets/follow.png",
+        "alt": "Follow and Subscribe"
+      },
+      "mailHeadline": "Get in touch",
+      "mailSubheadline": "Have a question in mind? or interedted in collaborating? let me know....",
+      "mailForm": {
+        "mailName": "Name",
+        "mailFrom": "Email",
+        "mailContact": "Contact Number (Whatsapp)",
+        "mailSubject": "Subject",
+        "mailCategory": "Category",
+        "mailMessage": "Message",
+        "mailSendBtn": "SEND"
+      }
+    }
+  }
+}

@@ -1,12 +1,10 @@
-import st from './styles/project.module.css'
+import st from 'styles/project.module.css'
 import Image from 'next/image'
-import langID from '../public/data/lang_idID.json'
-import projCategory from '../public/data/categoryList.json'
 
 //Category List Generated
-function CategoryList() {
+function CategoryList({projCategory}) {
   //Get Category List
-  const categoryList = projCategory.categoryList.map(item => {
+  const categoryList = projCategory.map(item => {
     return (
       <div key={item.id} className={`${st.catListBox} flex-row`}>
         <span>
@@ -28,7 +26,7 @@ function CategoryList() {
 //Generate Project Item Card
 
 
-export function Project() {
+export function Project({language, projCategory}) {
   //Get Language Content
   const {
     headline,
@@ -37,7 +35,7 @@ export function Project() {
       url,
       alt
     }
-  } = langID.home.project;
+  } = language;
 
   return (
     <>
@@ -62,7 +60,7 @@ export function Project() {
             </div>
           </div>
           <div className={`${st.categoryBox} flex-column`}>
-            <CategoryList />
+            <CategoryList projCategory={projCategory} />
           </div>
         </div>
         <div className={`${st.boxTwo} flex-column`}>

@@ -1,0 +1,39 @@
+{
+  "socmed": [
+    {
+      "id": 1,
+      "name": "linkedin",
+      "icon": "/assets/linkedin.png",
+      "url": "https://www.linkedin.com/in/prasetya-ikrapriyadi/",
+      "description": "Prasetya Ikra Priyadi"
+    },
+    {
+      "id": 2,
+      "name": "instagram",
+      "icon": "/assets/instagram.png",
+      "url": "mailto:prasetya.ikrapriyadi@gmail.com",
+      "description": "prasetya.ikrapriyadi@gmail.com"
+    },
+    {
+      "id": 3,
+      "name": "mail",
+      "icon": "/assets/mail.png",
+      "url": "https://www.instagram.com/prasetyaip/",
+      "description": "Prasetya Priyadi"
+    },
+    {
+      "id": 4,
+      "name": "github",
+      "icon": "/assets/github.png",
+      "url": "https://github.com/prasetyaikrap",
+      "description": "Prasetya Github"
+    },
+    {
+      "id": 5,
+      "name": "hackerrank",
+      "icon": "/assets/hackerrank.png",
+      "url": "https://www.hackerrank.com/prasetyaikrap",
+      "description": "Prasetya Hackerrank"
+    }
+  ]
+}

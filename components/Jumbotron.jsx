@@ -1,5 +1,5 @@
 //Components Import
-import st from './styles/header.module.css'
+import st from 'styles/header.module.css'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -23,7 +23,7 @@ export function Profile(props) {
         <div className={`${st.imgProfileBox}`}>
           <Image 
             alt='Prasetya Ikra Priyadi'
-            src='https://drive.google.com/uc?id=1l1kSJOGRW_KwjEw_a5bK_MIEud9foGjX'
+            src='/assets/profile.jpg'
             objectFit='cover'
             layout='fill'
             className={`${st.imgProfile}`}
