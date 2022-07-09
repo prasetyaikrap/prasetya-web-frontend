@@ -38,17 +38,17 @@
       } 
     },
     "contact": {
-      "headline": "Ikuti perjalanan dan karya saya",
+      "headline": "Mari berteman. It's a good idea right?",
       "icon": {
         "url": "/assets/follow.png",
         "alt": "Follow and Subscribe"
       },
       "mailHeadline": "Tetaplah terhubung",
-      "mailSubheadline": "Punya pertanyaan? atau ingin bekerjasama? let me know....",
+      "mailSubheadline": "Punya pertanyaan? atau ingin bekerjasama? Send me a message and let me know....",
       "mailForm": {
         "mailName": "Nama",
         "mailFrom": "Email",
-        "mailContact": "Nomor Kontak (Whatsapp)",
+        "mailContact": "Kontak (Whatsapp)",
         "mailSubject": "Subjek Pertanyaan",
         "mailCategory": "Kategori",
         "mailMessage": "Pesan",

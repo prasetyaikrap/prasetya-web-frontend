@@ -18,7 +18,7 @@
   font-weight: 1000;
   color: var(--col-white-01);
   cursor: pointer;
-  font-size: 1.9vw;
+  font-size: 2vw;
 }
 .navBtnContainer {
   justify-content: flex-end;

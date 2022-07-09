@@ -2,38 +2,38 @@
   "socmed": [
     {
       "id": 1,
-      "name": "linkedin",
-      "icon": "/assets/linkedin.png",
+      "name": "Linkedin",
+      "icon": "/assets/linkedin-wh.png",
       "url": "https://www.linkedin.com/in/prasetya-ikrapriyadi/",
       "description": "Prasetya Ikra Priyadi"
     },
     {
       "id": 2,
-      "name": "instagram",
-      "icon": "/assets/instagram.png",
+      "name": "Gmail",
+      "icon": "/assets/mail-wh.png",
       "url": "mailto:prasetya.ikrapriyadi@gmail.com",
       "description": "prasetya.ikrapriyadi@gmail.com"
     },
     {
       "id": 3,
-      "name": "mail",
-      "icon": "/assets/mail.png",
+      "name": "Intagram",
+      "icon": "/assets/instagram-wh.png",
       "url": "https://www.instagram.com/prasetyaip/",
-      "description": "Prasetya Priyadi"
+      "description": "Prasetya Ikra Priyadi"
     },
     {
       "id": 4,
-      "name": "github",
-      "icon": "/assets/github.png",
+      "name": "Github",
+      "icon": "/assets/github-wh.png",
       "url": "https://github.com/prasetyaikrap",
       "description": "Prasetya Github"
     },
     {
       "id": 5,
-      "name": "hackerrank",
-      "icon": "/assets/hackerrank.png",
-      "url": "https://www.hackerrank.com/prasetyaikrap",
-      "description": "Prasetya Hackerrank"
+      "name": "Youtube",
+      "icon": "/assets/youtube-wh.png",
+      "url": "https://www.youtube.com/channel/UCROnYG4vf1a_EOJSP9ze6rw",
+      "description": "Prasetya Priyadi"
     }
   ]
 }

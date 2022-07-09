@@ -6,7 +6,7 @@ function CategoryList({projCategory}) {
   //Get Category List
   const categoryList = projCategory.map(item => {
     return (
-      <div key={item.id} className={`${st.catListBox} flex-row`}>
+      <button key={item.id} className={` flex-row ${st.catListBox}`}>
         <span>
           <Image 
           src={item.icon}
@@ -17,7 +17,7 @@ function CategoryList({projCategory}) {
         </span>
         <h4>{item.name}</h4>
         <span></span>
-      </div>
+      </button>
     )
   })
   return categoryList
@@ -26,7 +26,7 @@ function CategoryList({projCategory}) {
 //Generate Project Item Card
 
 
-export function Project({language, projCategory}) {
+export function Project({language, projectData}) {
   //Get Language Content
   const {
     headline,
@@ -36,14 +36,14 @@ export function Project({language, projCategory}) {
       alt
     }
   } = language;
-
+  const [projCategory] = projectData;
   return (
     <>
     <section id='project' className={`${st.section} flex`}>
-      <div className={`${st.container} flex-row`}>
-        <div className={`${st.boxOne} flex-column`}>
-          <div className={`${st.headlineBox} flex-row`}>
-            <div className={`${st.imgBox} flex`}>
+      <div className={`flex-row ${st.container} `}>
+        <div className={`flex-column ${st.boxOne}`}>
+          <div className={`flex-row ${st.headlineBox}`}>
+            <div className={`flex ${st.imgBox}`}>
               <div className={`${st.projIcon}`}>
                 <Image 
                 layout='fill'
@@ -52,15 +52,15 @@ export function Project({language, projCategory}) {
                 alt={alt}/>
               </div>
             </div>
-            <div className={`${st.descBox} flex-column`}>
+            <div className={`flex-column ${st.descBox}`}>
               <h3>{headline}</h3>
-              <div className={`${st.descSummary}`}>
+              <p className={`bodyText ${st.descSummary}`}>
                 {subheadline}
-              </div>
+              </p>
             </div>
           </div>
           <div className={`${st.categoryBox} flex-column`}>
-            <CategoryList projCategory={projCategory} />
+            <CategoryList projCategory={projCategory.categoryList} />
           </div>
         </div>
         <div className={`${st.boxTwo} flex-column`}>

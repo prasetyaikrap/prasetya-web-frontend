@@ -16,7 +16,7 @@ export function Navbar({language}){
   const navBtnMap = navBtn.map(x => {
     return (
       <Link key = {x.id} href={x.url}>
-        <button className={`${st.navBtn} ${st.navBtnText} flex`}>{x.title}</button>
+        <button className={`flex ${st.navBtn} ${st.navBtnText}`}>{x.title}</button>
       </Link>
     )
   })

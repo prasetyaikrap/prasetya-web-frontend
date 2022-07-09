@@ -36,7 +36,6 @@
   font-size: 1.6vw;
 }
 .descSummary {
-  font-size: 1vw;
   text-align: justify;
 }
 .categoryBox {
@@ -45,29 +44,37 @@
 }
 .catListBox {
   column-gap: 1vw;
+  align-items: center;
   width: 75%;
   padding: .5vw;
   border: .1vw solid var(--col-navy-vdark);
   border-radius: .5vw;
-  cursor: pointer;
+}
+.catListBox:hover {
+  background-color: rgba(10, 29, 36, 0.2);
+  transition: var(--trans-03);
+}
+.catListBox:focus {
+  background-color: var(--col-navy-vdark);
+  transition: var(--trans-03);
+  transform: translateX(1vw);
 }
 .catListBox span:nth-child(1) {
   display: flex;
   position: relative;
-  flex-shrink: 0;
   justify-content: center;
   align-items: center;
   width: 2vw;
+  height: 2vw;
 }
 .catListBox span:nth-child(3) {
   display: flex;
   width: 2vw;
 }
 .catListBox h4 {
-  display: flex;
-  align-items: center;
   font-size: 1.05vw;
   width: 65%;
+  text-align: left;
 }
 .boxTwo {
   justify-content: center;

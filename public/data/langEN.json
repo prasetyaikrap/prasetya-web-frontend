@@ -2,7 +2,7 @@
   "home": {
     "header": {
       "navTitle": {
-        "name": "SPINNOV.ID",
+        "title": "SPINNOV.ID",
         "url": "/"
       },
       "navBtn": [
@@ -38,17 +38,17 @@
       } 
     },
     "contact": {
-      "headline": "Follow my work and journey",
+      "headline": "Let's become Friends, shall we?",
       "icon": {
         "url": "/assets/follow.png",
         "alt": "Follow and Subscribe"
       },
       "mailHeadline": "Get in touch",
-      "mailSubheadline": "Have a question in mind? or interedted in collaborating? let me know....",
+      "mailSubheadline": "Have a question in mind? or interested in collaborating? send me a message and let me know....",
       "mailForm": {
         "mailName": "Name",
         "mailFrom": "Email",
-        "mailContact": "Contact Number (Whatsapp)",
+        "mailContact": "Contact (Whatsapp)",
         "mailSubject": "Subject",
         "mailCategory": "Category",
         "mailMessage": "Message",

@@ -5,6 +5,7 @@
       "components/*": ["components/*"],
       "styles/*": ["components/styles/*"],
       "misc/*": ["components/misc/*"],
+      "utils/*": ["components/utils/*"],
       "asset/*": ["public/assets/*"],
       "data/*": ["public/data/*"],
     }
