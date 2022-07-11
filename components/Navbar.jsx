@@ -1,16 +1,19 @@
 //import Component
 import st from 'styles/navbar.module.css'
 import Link from 'next/link'
+import { SwitchLanguage } from './misc/Language';
 
 export function Navbar({language}){
   //Get Language Preference
   const {
-    navTitle: {
-      title,
-      url
-    }, 
-    navBtn, 
-    dropdownLang
+    info,
+    header: {
+      navTitle: {
+        title,
+        url
+      }, 
+      navBtn, 
+    }
   }= language;
   
   const navBtnMap = navBtn.map(x => {
@@ -32,6 +35,7 @@ export function Navbar({language}){
       </div>
       <div className={`${st.navBtnContainer} flex`}>
         {navBtnMap}
+        <SwitchLanguage language={info}/>
       </div>
     </nav>
     </>

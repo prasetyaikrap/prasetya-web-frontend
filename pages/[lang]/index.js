@@ -1,13 +1,13 @@
 import { HomeV1 } from "components/Home";
 import projCategory from "data/categoryList.json";
 import socmedList from "data/socmedList.json";
-import language from "data/language.json";
 import langID from "data/langID.json";
 import langEN from "data/langEN.json";
 
 export async function getStaticPaths() {
-  const paths = language.list.map((item) => {
-    return { params: { lang: item.nameId } };
+  const languageList = ["id", "en"];
+  const paths = languageList.map((item) => {
+    return { params: { lang: item } };
   });
   return {
     paths,
@@ -16,17 +16,19 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  //Set Language
   let language = "";
   switch (params.lang) {
     case "id":
-      language = langID.home;
+      language = langID;
       break;
     case "en":
-      language = langEN.home;
+      language = langEN;
       break;
     default:
-      language = langID.home;
+      language = langID;
   }
+  //Set Project Data
   const projectData = [projCategory];
   const contactData = [socmedList];
   return {
@@ -35,7 +37,6 @@ export async function getStaticProps({ params }) {
       projectData,
       contactData,
     },
-    revalidate: 300,
   };
 }
 

@@ -1,4 +1,10 @@
 {
+  "info": {
+    "id": "2",
+    "code": "en",
+    "description": "English - United State",
+    "icon": "/assets/us-flag.png"
+  },
   "home": {
     "header": {
       "navTitle": {
@@ -26,8 +32,7 @@
           "title": "CONTACT",
           "url": "#contact"
         }
-      ],
-      "dropdownLang": "Language"
+      ]
     },
     "project": {
       "headline": "Work and Publication",
@@ -35,12 +40,13 @@
       "icon": {
         "url": "/assets/work-projection.png",
         "alt": "Project and Publication"
-      } 
+      },
+      "seeMore": "See more project ..."
     },
     "contact": {
       "headline": "Let's become Friends, shall we?",
       "icon": {
-        "url": "/assets/follow.png",
+        "url": "/assets/friends-wh.png",
         "alt": "Follow and Subscribe"
       },
       "mailHeadline": "Get in touch",

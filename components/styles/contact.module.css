@@ -93,7 +93,7 @@
   padding: 2.5vw;
   width: 90%;
   border-radius: .5vw;
-  box-shadow: 0 0 1vw var(--col-shadow);
+  box-shadow: 0 0 .8vw var(--col-shadow);
 }
 .formSection {
   justify-content: space-between;

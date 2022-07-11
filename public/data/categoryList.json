@@ -3,32 +3,44 @@
     {
       "id": 1,
       "name": "Featured",
-      "icon": "/assets/star.png"
+      "icon1": "/assets/star-bl.png",
+      "icon2": "/assets/star-wh.png",
+      "isActive": true
     },
     {
       "id": 2,
       "name": "Google Suites App",
-      "icon": "/assets/google.png"
+      "icon1": "/assets/google-bl.png",
+      "icon2": "/assets/google-wh.png",
+      "isActive": true
     },
     {
       "id": 3,
       "name": "Programming",
-      "icon": "/assets/coding.png"
+      "icon1": "/assets/coding-bl.png",
+      "icon2": "/assets/coding-wh.png",
+      "isActive": true
     },
     {
       "id": 4,
       "name": "Technology",
-      "icon": "/assets/coding.png"
+      "icon1": "/assets/technology-bl.png",
+      "icon2": "/assets/technology-wh.png",
+      "isActive": false
     },
     {
       "id": 5,
       "name": "Course",
-      "icon": "/assets/course.png"
+      "icon1": "/assets/course-bl.png",
+      "icon2": "/assets/course-wh.png",
+      "isActive": false
     },
     {
       "id": 6,
       "name": "Others",
-      "icon": "/assets/more.png"
+      "icon1": "/assets/more-bl.png",
+      "icon2": "/assets/more-wh.png",
+      "isActive": true
     }
   ]
 }

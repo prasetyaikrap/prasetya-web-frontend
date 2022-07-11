@@ -91,6 +91,26 @@
   }
 }
 
+/*Language Component*/
+.slContainer {
+  column-gap: .5vw;
+  padding: .5vw;
+}
+.slContainer span {
+  position: relative;
+  width: 2.4vw;
+}
+.slContainer select{
+  padding: .3vw .5vw;
+  font-size: .9vw;
+  background-color: transparent;
+  border: .1vw solid var(--col-white-02);
+  color: var(--col-white-02)
+}
+.slContainer select option{
+  color:black;
+}
+
 /*Asset Components*/
 /*ArrowJumbotron*/
 .arrowContainer {
@@ -105,10 +125,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 5vmax;
-  height: 3.5vmax;
+  width: 5vw;
+  height: 3.5vw;
   background-color: rgba(0,0,0,.3);
-  border-radius: 0 .3vmax .3vmax 0;
+  border-radius: 0 .3vw .3vw 0;
 }
 .arrowBox:hover {
   cursor: pointer;
@@ -119,12 +139,12 @@
   transform: rotate(0.5turn);
 }
 .arrow1 {
-  border-top: .2vmax solid white;
-  width: 1.5vmax;
-  transform: translateY(-.45vmax) rotate(.15turn);
+  border-top: .2vw solid white;
+  width: 1.5vw;
+  transform: translateY(-.45vw) rotate(.15turn);
 }
 .arrow2 {
-  border-top: .2vmax solid white;
-  width: 1.5vmax;
-  transform: translateY(.45vmax) rotate(-.15turn);
+  border-top: .2vw solid white;
+  width: 1.5vw;
+  transform: translateY(.45vw) rotate(-.15turn);
 }

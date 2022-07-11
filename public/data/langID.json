@@ -1,4 +1,10 @@
 {
+  "info": {
+    "id": "1",
+    "code": "id",
+    "description": "Bahasa Indonesia",
+    "icon": "/assets/indonesia-flag.png"
+  },
   "home": {
     "header": {
       "navTitle": {
@@ -26,8 +32,7 @@
           "title": "KONTAK",
           "url": "#contact"
         }
-      ],
-      "dropdownLang": "Bahasa"
+      ]
     },
     "project": {
       "headline": "Publikasi dan Karya",
@@ -35,12 +40,13 @@
       "icon": {
         "url": "/assets/work-projection.png",
         "alt": "Project, Karya, dan Publikasi"
-      } 
+      },
+      "seeMore": "Lihat project lainnya ..."
     },
     "contact": {
       "headline": "Mari berteman. It's a good idea right?",
       "icon": {
-        "url": "/assets/follow.png",
+        "url": "/assets/friends-wh.png",
         "alt": "Follow and Subscribe"
       },
       "mailHeadline": "Tetaplah terhubung",

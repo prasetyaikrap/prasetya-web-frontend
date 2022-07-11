@@ -130,3 +130,9 @@ h4 {
   display: flex;
   flex-direction: row;
 }
+.display-none {
+  display: none;
+}
+.display-hide {
+  visibility: hidden;
+}

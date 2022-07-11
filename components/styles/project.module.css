@@ -50,16 +50,23 @@
   border: .1vw solid var(--col-navy-vdark);
   border-radius: .5vw;
 }
-.catListBox:hover {
-  background-color: rgba(10, 29, 36, 0.2);
-  transition: var(--trans-03);
-}
-.catListBox:focus {
+.clbOnFocus {
   background-color: var(--col-navy-vdark);
   transition: var(--trans-03);
-  transform: translateX(1vw);
+  transform: translateX(1vw) scale(1.01,1.01);
+  box-shadow: .3vw .3vw .2vw var(--col-shadow);
 }
-.catListBox span:nth-child(1) {
+.catListBox:hover, .clbOnFocus:hover {
+  box-shadow: .3vw .3vw .2vw var(--col-shadow);
+  transform: scale(1.01,1.01);
+  transition: var(--trans-03);
+}
+.clbOnFocus:hover {
+  transform: translateX(1vw) scale(1.01,1.01);
+}
+
+.catListBox span:nth-child(1),
+.catListBox span:nth-child(2) {
   display: flex;
   position: relative;
   justify-content: center;
@@ -67,14 +74,13 @@
   width: 2vw;
   height: 2vw;
 }
-.catListBox span:nth-child(3) {
-  display: flex;
-  width: 2vw;
-}
-.catListBox h4 {
+.catListBox h4, .clbOnFocus h4 {
   font-size: 1.05vw;
   width: 65%;
   text-align: left;
+}
+.clbOnFocus h4 {
+  color: var(--col-white-02);
 }
 .boxTwo {
   justify-content: center;
@@ -91,15 +97,73 @@
   border-radius: 1vw;
   width: 100%;
   height: 100%;
-  padding: 2vw;
+  padding: 2vw 2vw .5vw 2vw;
   gap: 1vw;
 }
-.pItemCard {
-  justify-content: center;
-  align-items: center;
+.pItemCard, .pItemCardEmpty{
+  position: relative;
   width: 18vw;
   height: 16vw;
-  box-shadow: .2vw .2vw 1vw var(--col-shadow);
+  box-shadow: 0 0 .5vw var(--col-shadow);
   border-radius: .5vw;
   background-color: var(--col-white-primary);
+}
+.pItemCardEmpty {
+  visibility: hidden;
+}
+.itemCardImage, .itemCardDesc {
+  position: relative;
+  width: 100%;
+  height: 12.5vw;
+  background-color: white;
+  border-radius: .5vw .5vw 0 0;
+  overflow-y: hidden;
+  justify-content: center;
+  align-items: center;
+}
+.itemCardTitle {
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 3.5vw;
+  border-radius: 0 0 .5vw .5vw;
+  border-top: .01vw solid var(--col-shadow);
+}
+.itemCardDesc {
+  position: absolute;
+  height: 25.5vw;
+  top: 0;
+  z-index: 2;
+  background-color: transparent;
+  transform: translateY(-13vw);
+}
+.itemCardDesc:hover {
+  transform: translateY(0);
+  height: 12.5vw;
+  transition: .6s all ease-in-out;
+}
+.itemCardDesc p {
+  height: 12.5vw;
+  width: 100%;
+  padding: 1vw;
+  background-color: rgba(10, 29, 36, .9);
+  color: var(--col-white-02);
+  border-radius: inherit;
+  text-align: justify;
+  font-size: .85vw;
+}
+.seeMoreBtn {
+  justify-content: center;
+  align-items: center;
+  padding: .4vw 4vw;
+  border-radius: .5vw;
+  border: .1vw solid var(--col-shadow);
+  background-color: transparent;
+  font-size: .85vw;
+}
+.seeMoreBtn:hover {
+  background-color: var(--col-navy-vdark);
+  color: var(--col-white-02);
+  transform: scale(1.02,1.05);
+  transition: var(--trans-03);
 }
