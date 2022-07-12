@@ -5,6 +5,7 @@
   justify-content: space-between;
   height: 14%;
   width: 100%;
+  padding: 0 2vw;
   z-index: 2;
 }
 .navHeader {
@@ -43,4 +44,12 @@
   transform: scale(1.1,1.1);
   text-decoration: overline ;
   transition: var(--trans-03);
+}
+
+
+/*Nav Project Section*/
+.navProject {
+  position: relative;
+  background-color: var(--col-navy-vdark);
+  height: 10%;
 }

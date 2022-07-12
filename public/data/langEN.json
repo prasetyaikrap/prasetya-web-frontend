@@ -61,5 +61,30 @@
         "mailSendBtn": "SEND"
       }
     }
+  },
+  "project": {
+    "header": {
+      "navTitle": {
+        "title": "SPINNOV.ID",
+        "url": "/en"
+      },
+      "navBtn": [
+        {
+          "id": 1,
+          "title": "BLOG",
+          "url": "/en/blog"
+        },
+        {
+          "id": 2,
+          "title": "STORE",
+          "url": "/en/store"
+        },
+        {
+          "id": 3,
+          "title": "CONTACT",
+          "url": "/en#contact"
+        }
+      ]
+    }
   }
 }

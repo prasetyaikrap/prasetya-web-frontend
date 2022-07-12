@@ -1,4 +1,5 @@
 import Image from "next/image"
+import {Footer} from 'components/Footer'
 import st from 'styles/contact.module.css'
 
 export function SocmedList({socmedList}) {
@@ -40,7 +41,6 @@ export function Contact({language,contactData}) {
       mailSendBtn
     },
   } = language;
-  const year = new Date().getFullYear();
   const [socmedList] = contactData
   return (
     <section id="contact" className={`${st.section}`}>
@@ -61,7 +61,7 @@ export function Contact({language,contactData}) {
             <SocmedList socmedList={socmedList.socmed}/>
           </div>
         </div>
-        <footer className={`flex smallText`}>Copyright {year} | Prasetya Ikra Priyadi</footer>
+        <Footer />
       </div>
       <div className={`${st.boxTwo}`}>
         <div className={`flex-column ${st.mailHeadlineBox}`}>
@@ -105,7 +105,7 @@ export function Contact({language,contactData}) {
             </div>
           </div>
           <div className={`flex-row ${st.formSection} ${st.sendBtnContainer}`}>
-            <button>{mailSendBtn}</button>
+            <button className={`bodyText`}>{mailSendBtn}</button>
           </div>
         </div>
       </div>

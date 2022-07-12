@@ -1,7 +1,9 @@
-export function ProjCategoryClicked(e,btnClassCard,focusClass) {
+export function ProjCategoryClicked(e,btnClassCard,focusClass,setProjCard,projectItem) {
   e.preventDefault();
+  const cardId = e.currentTarget.id
   const categoryCard = document.querySelectorAll('.' + btnClassCard);
-  const currentCard = document.querySelector('#' + e.currentTarget.id);
+  const currentCard = document.querySelector('#' + cardId);
+
   //Reset all Card status
   categoryCard.forEach(btn => {
     btn.classList.remove(focusClass)
@@ -15,9 +17,12 @@ export function ProjCategoryClicked(e,btnClassCard,focusClass) {
   currentCard.querySelector('span#black-icon').style.display = 'none';
   currentCard.querySelector('span#white-icon').removeAttribute('style');
   currentCard.querySelector('div[data-arrow=categoryArrow]').style.display = '';
+
+  //set Project Card to current Selected Category
+  setProjCard(projectItem[cardId])
 }
 
-export function generateToken(tokenLength) {
+export function generateRandom(tokenLength) {
   let result           = '';
   let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let charactersLength = characters.length;

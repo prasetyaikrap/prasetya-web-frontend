@@ -3,11 +3,11 @@ import projCategory from "data/categoryList.json";
 import socmedList from "data/socmedList.json";
 import langID from "data/langID.json";
 import langEN from "data/langEN.json";
+import languageList from "data/language.json";
 
 export async function getStaticPaths() {
-  const languageList = ["id", "en"];
-  const paths = languageList.map((item) => {
-    return { params: { lang: item } };
+  const paths = languageList.list.map((item) => {
+    return { params: { lang: item.nameId } };
   });
   return {
     paths,

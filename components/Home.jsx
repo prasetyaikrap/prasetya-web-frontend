@@ -1,5 +1,5 @@
 import { Header } from "components/Header";
-import { Project } from "components/Project";
+import ProjectSection from "components/ProjectSection";
 import { Contact } from "components/Contact";
 
 export function HomeV1({language,projectData,contactData}) {
@@ -14,7 +14,7 @@ export function HomeV1({language,projectData,contactData}) {
   return (
     <>
       <Header language={{info,header}} />
-      <Project language={project} projectData={projectData} />
+      <ProjectSection language={project} projectData={projectData} />
       <Contact language={contact} contactData={contactData} />
     </>
   );

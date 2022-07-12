@@ -61,5 +61,30 @@
         "mailSendBtn": "KIRIM"
       }
     }
+  },
+  "project": {
+    "header": {
+      "navTitle": {
+        "title": "SPINNOV.ID",
+        "url": "/id"
+      },
+      "navBtn": [
+        {
+          "id": 1,
+          "title": "BLOG",
+          "url": "/id/blog"
+        },
+        {
+          "id": 2,
+          "title": "TOKO",
+          "url": "/id/store"
+        },
+        {
+          "id": 3,
+          "title": "KONTAK",
+          "url": "/id#contact"
+        }
+      ]
+    }
   }
 }

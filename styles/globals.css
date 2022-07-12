@@ -32,6 +32,10 @@
 
   /*WebKit*/
   --scroll-track-width: .7vw;
+
+  /*Animation*/
+  --fadeinTop: fadein-top;
+  --scaleIn: scale-in;
 }
 
 /*Pure Tags*/
@@ -135,4 +139,16 @@ h4 {
 }
 .display-hide {
   visibility: hidden;
+}
+
+
+@keyframes scale-in {
+  0% {
+    transform: scale(.8,.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1,1);
+    opacity: 100;
+  }
 }

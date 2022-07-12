@@ -2,6 +2,7 @@
 import st from 'styles/navbar.module.css'
 import Link from 'next/link'
 import { SwitchLanguage } from './misc/Language';
+import {NavbarBtn} from "misc/NavbarBtn";
 
 export function Navbar({language}){
   //Get Language Preference
@@ -15,14 +16,6 @@ export function Navbar({language}){
       navBtn, 
     }
   }= language;
-  
-  const navBtnMap = navBtn.map(x => {
-    return (
-      <Link key = {x.id} href={x.url}>
-        <button className={`flex ${st.navBtn} ${st.navBtnText}`}>{x.title}</button>
-      </Link>
-    )
-  })
 
   //Render Component
   return (
@@ -34,7 +27,33 @@ export function Navbar({language}){
         </Link>
       </div>
       <div className={`${st.navBtnContainer} flex`}>
-        {navBtnMap}
+        <NavbarBtn btnArray={navBtn} />
+        <SwitchLanguage language={info}/>
+      </div>
+    </nav>
+    </>
+  )
+}
+
+export function Navbar2({language}) {
+  const {
+    info, 
+    project: {
+      header: {
+        navTitle,
+        navBtn
+      }
+    }} = language
+  return (
+    <>
+    <nav className={` flex ${st.navContainer} ${st.navProject}`}>
+      <div className={`${st.navHeader} flex`}>
+        <Link href={navTitle.url}>
+          <h1>{navTitle.title}</h1>
+        </Link>
+      </div>
+      <div className={`${st.navBtnContainer} flex`}>
+        <NavbarBtn btnArray={navBtn}/>
         <SwitchLanguage language={info}/>
       </div>
     </nav>

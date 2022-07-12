@@ -8,8 +8,11 @@ export function SwitchLanguage({language}) {
   const router = useRouter();
   const switchLang = () => {
     const selectedLanguage = document.getElementById('switchLanguage').value;
+    const currentPath = router.asPath;
+    const destinationPath = currentPath.split('/');
+      destinationPath[1] = selectedLanguage;
     setLang(selectedLanguage);
-    router.push('/' + selectedLanguage);
+    router.push(destinationPath.join('/'));
   }
   return (
     <div className={`flex-row ${st.slContainer}`}>
