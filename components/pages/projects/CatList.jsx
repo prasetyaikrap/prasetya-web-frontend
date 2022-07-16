@@ -5,6 +5,9 @@ import { useRouter } from "next/router"
 export default function CatList({catList}) {
   const router = useRouter()
   const classes = [st.hCategoryBox,st.hCategoryBoxFocus];
+  if(router.query.category !== undefined) {
+    filterCategory(router.query.category,classes);
+  }
   const generateCategory = catList.map(item => {
     return (
       <button 
@@ -12,7 +15,7 @@ export default function CatList({catList}) {
       id={item.id} 
       className={`bodyText flex ${st.hCategoryBox}`} 
       onClick={e => {
-        filterCategory(e,classes)
+        filterCategory(e.currentTarget.id,classes)
         router.push({
           pathname: "/[lang]/projects",
           query: {lang: router.query.lang,category: e.currentTarget.id,}
@@ -28,7 +31,7 @@ export default function CatList({catList}) {
       id="all"
       className={`bodyText flex ${st.hCategoryBox} ${st.hCategoryBoxFocus}`} 
       onClick={e => {
-        filterCategory(e,classes);
+        filterCategory(e.currentTarget.id,classes);
         router.push({
           pathname: "/[lang]/projects",
           query: {lang: router.query.lang,category: e.currentTarget.id,}
@@ -40,7 +43,7 @@ export default function CatList({catList}) {
       id="featured"
       className={`bodyText flex ${st.hCategoryBox}`} 
       onClick={e => {
-        filterCategory(e,[st.hCategoryBox,st.hCategoryBoxFocus]);
+        filterCategory(e.currentTarget.id,classes);
         router.push({
           pathname: "/[lang]/projects",
           query: {lang: router.query.lang,category: e.currentTarget.id,}

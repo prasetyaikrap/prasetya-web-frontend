@@ -3,33 +3,25 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Image from 'next/image';
 //Components
-import {ProjItemCard,CategoryList} from 'components/Project'
+import CategoryList from 'compPages/homepage/CategoryList'
+import ProjectCards from 'components/ProjectCards';
 import st from 'styles/home.module.css'
 
 
-export default function Project({language, projectData}) {
+export default function Project({language, projectCat, projectData}) {
   const router = useRouter();
   const currentPath = router.asPath.substring(0,3);
   //Get Language Content
   const {headline,subheadline,icon: {url,alt},seeMore} = language;
-  //Get Project Section Data
-  const [projCategory] = projectData;
-  const projectItem = {
-      "category1": ["featured-1","featured-2","featured-3","featured-4"],
-      "category2": ["googleDocs-1","googleDocs-2","googleDocs-3","googleDocs-4","googleDocs-5","googleDocs-6"],
-      "category3": ["programming-1","programming-2"],
-      "category6": ["others-1"]
-  }
-  const [projCard, setProjCard] = useState(projectItem.category1);
 
   //Render Page
   return (
     <>
-    <section id='project' className={`${st.section} flex`}>
-      <div className={`flex-row ${st.container} `}>
-        <div className={`flex-column ${st.boxOne}`}>
-          <div className={`flex-row ${st.headlineBox}`}>
-            <div className={`flex ${st.imgBox}`}>
+    <section id='project' className={`${st.sectionProject} flex`}>
+      <div className={`flex-row ${st.pContainer} `}>
+        <div className={`flex-column ${st.pBoxOne}`}>
+          <div className={`flex-row ${st.pHeadlineBox}`}>
+            <div className={`flex ${st.pImgBox}`}>
               <div className={`${st.projIcon}`}>
                 <Image 
                 layout='fill'
@@ -38,27 +30,25 @@ export default function Project({language, projectData}) {
                 alt={alt}/>
               </div>
             </div>
-            <div className={`flex-column ${st.descBox}`}>
+            <div className={`flex-column ${st.pDescBox}`}>
               <h3>{headline}</h3>
-              <p className={`bodyText ${st.descSummary}`}>
+              <p className={`bodyText ${st.pSummary}`}>
                 {subheadline}
               </p>
             </div>
           </div>
-          <div className={`${st.categoryBox} flex-column`}>
+          <div className={`${st.pCategoryBox} flex-column`}>
             <CategoryList 
-            projCategory={projCategory.categoryList} 
-            setProjCard={setProjCard} 
-            projectItem={projectItem}
+            projectCat={projectCat} 
             />
           </div>
         </div>
-        <div className={`${st.boxTwo} flex-column`}>
-          <div className={`${st.projItemContainer} flex`}>
-            <ProjItemCard data={projCard}/>
+        <div className={`${st.pBoxTwo} flex-column`}>
+          <div className={`${st.pItemContainer} flex`}>
+            <ProjectCards projectData={projectData} rowsData={6}/>
             <button 
-            className={`flex smallText ${st.seeMoreBtn}`} 
-            onClick={e => router.push(currentPath + '/project')}>
+            className={`flex smallText ${st.pSeeMoreBtn}`} 
+            onClick={e => router.push(currentPath + '/projects')}>
               {seeMore}
             </button>
           </div>

@@ -1,26 +1,21 @@
 
-export function ProjCategoryClicked(e,btnClassCard,focusClass,setProjCard,projectItem) {
-  e.preventDefault();
-  const cardId = e.currentTarget.id
+export function ProjCategoryClicked(targetId,btnClassCard,focusClass) {
   const categoryCard = document.querySelectorAll('.' + btnClassCard);
-  const currentCard = document.querySelector('#' + cardId);
+  const currentCard = document.getElementById(targetId);
 
   //Reset all Card status
   categoryCard.forEach(btn => {
     btn.classList.remove(focusClass)
     btn.querySelector('span#black-icon').removeAttribute('style');
     btn.querySelector('span#white-icon').style.display = 'none';
-    btn.querySelector('div[data-arrow=categoryArrow]').style.display = 'none';
+    // btn.querySelector('div[data-arrow=categoryArrow]').style.display = 'none';
   })
 
   //Set selected card status
   currentCard.classList.add(focusClass);
   currentCard.querySelector('span#black-icon').style.display = 'none';
   currentCard.querySelector('span#white-icon').removeAttribute('style');
-  currentCard.querySelector('div[data-arrow=categoryArrow]').style.display = '';
-
-  //set Project Card to current Selected Category
-  setProjCard(projectItem[cardId])
+//   currentCard.querySelector('div[data-arrow=categoryArrow]').style.display = '';
 }
 
 export function generateRandom(charLength) {
@@ -49,12 +44,11 @@ export function closeProject(isOpenHandler,style) {
     setIsOpen(false)
   }
 }
-export function filterCategory(event,classes) {
+export function filterCategory(targetId,classes) {
   const btnElements= document.querySelectorAll("." + classes[0])
-  const selectedId = event.currentTarget.id;
   //Add and Remove highlighted class
   btnElements.forEach(item => {
     item.classList.remove(classes[1])
   })
-  document.getElementById(selectedId).classList.add(classes[1])
+  document.getElementById(targetId).classList.add(classes[1])
 }
