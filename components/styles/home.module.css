@@ -1,12 +1,15 @@
-.section {
+/*Header Section*/
+.sectionHeader {
   position: relative;
   justify-content: center;
   background-color: var(--col-navy-vdark);
   height: 45vw;
+  width: 100%;
 }
 .fluidJumbotron{
   justify-content: flex-start;
   overflow-x: hidden;
+  flex-wrap: nowrap;
   width: 100%;
 }
 .container {
@@ -14,7 +17,6 @@
   justify-content: center;
   width: 100%;
 }
-
 .box1 {
   justify-content: center;
   align-items: center;
@@ -77,8 +79,9 @@
   position: relative;
   width: 85%;
   transform: translateY(16%);
-
 }
 .imgProfile {
   border-radius: 1.2vw 1.2vw 0 0 ;
 }
+
+/*Projects Section*/

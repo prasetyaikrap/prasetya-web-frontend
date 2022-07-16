@@ -148,3 +148,27 @@
   width: 1.5vw;
   transform: translateY(.45vw) rotate(-.15turn);
 }
+
+/*CrossBtn*/
+.crossBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4vw;
+  height: 4vw;
+  background-color: transparent;
+  border: none;
+  border-radius: .2vw;
+}
+.crossLine {
+  position: absolute;
+  width: 100%;
+  border-top: .2vw solid var(--col-navy-vdark);
+  transform: rotate(.125turn);
+}
+.crossLineInvert {
+  position: absolute;
+  width: 100%;
+  border-top: .2vw solid var(--col-navy-vdark);
+  transform: rotate(-.125turn);
+}

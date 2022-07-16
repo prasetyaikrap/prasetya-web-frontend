@@ -1,0 +1,126 @@
+.sectionProject {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+.headerContainer {
+  width: 100%;
+  height: 4.5vw;
+  column-gap: 1vw;
+  padding: 0 10vw;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 .1vw .5vw var(--col-shadow);
+}
+.headerContainer div:nth-child(1),
+.headerContainer div:nth-child(2) {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  column-gap: 1vw;
+}
+.headerContainer div:nth-child(2) {
+  align-items: center;
+  column-gap: .5vw;
+}
+.hCategoryBox {
+  padding: .3vw 1vw;
+  border: .1vw solid var(--col-navy-vdark);
+  background-color: transparent;
+  border-radius: .3vw;
+}
+.hCategoryBoxFocus {
+  background-color: var(--col-navy-vdark);
+  color: white;
+  transition: var(--trans-03);
+}
+.hSearchIcon {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 1.5vw;
+  height: 1.5vw;
+}
+.hSearchBox {
+  width: 15vw;
+  height: 2vw;
+  padding: .1vw .5vw;
+}
+.cbContainer {
+  position: relative;
+  width: 100%;
+  padding: 2vw 10vw;
+}
+.cbContent1st {
+  position: relative;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1.5vw;
+  padding: 1vw;
+  width: 100%;
+  height: 100%;
+}
+.cbContent2nd {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: scale(.5,.5);
+  padding: 4vw 10vw;
+  z-index: 2;
+  transition: var(--trans-04);
+  visibility: hidden;
+}
+.cbContent2ndOpen {
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1,1);
+  transition: var(--trans-04);
+}
+.pContainer {
+  width: 100%;
+  height: 100%;
+  padding: 1vw 2vw;
+  column-gap: 1vw;
+  border-radius: 1vw;
+  box-shadow: 0 0 1vw var(--col-shadow);
+}
+.pMedia1 {
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+}
+.pMedia2 {
+  width: 40%;
+  padding: .5vw 1vw;
+}
+.pmTagsBox {
+  column-gap: .5vw;
+  height: 2vw;
+  align-items: center;
+}
+.pmSummary {
+  margin: 1vw 0;
+  height: 64%;
+  text-align: justify;
+  line-height: 1.5vw;
+}
+.pmActionBox {
+  height: 3vw;
+}
+.crossBtn {
+  position: absolute;
+  background-color: transparent;
+  border-radius: .5vw;
+  border: none;
+  top: 1vw;
+  right: 1vw;
+  height: 3vw;
+  width: 3vw;
+}
+.crossBtn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: var(--trans-02);
+}

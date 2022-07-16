@@ -1,3 +1,4 @@
+
 export function ProjCategoryClicked(e,btnClassCard,focusClass,setProjCard,projectItem) {
   e.preventDefault();
   const cardId = e.currentTarget.id
@@ -22,12 +23,38 @@ export function ProjCategoryClicked(e,btnClassCard,focusClass,setProjCard,projec
   setProjCard(projectItem[cardId])
 }
 
-export function generateRandom(tokenLength) {
+export function generateRandom(charLength) {
   let result           = '';
   let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let charactersLength = characters.length;
-  for ( let i = 0; i < tokenLength; i++ ) {
+  for ( let i = 0; i < charLength; i++ ) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
    return result;
+}
+
+export function openProject(isOpenHandler,style) {
+  const [isOpen, setIsOpen] = isOpenHandler;
+  const projectPageElement = document.getElementById('projectShowcase');
+  if(isOpen === false) {
+    projectPageElement.classList.add(style);
+    setIsOpen(true)
+  }
+}
+export function closeProject(isOpenHandler,style) {
+  const [isOpen, setIsOpen] = isOpenHandler;
+  const projectPageElement = document.getElementById('projectShowcase');
+  if(isOpen === true) {
+    projectPageElement.classList.remove(style);
+    setIsOpen(false)
+  }
+}
+export function filterCategory(event,classes) {
+  const btnElements= document.querySelectorAll("." + classes[0])
+  const selectedId = event.currentTarget.id;
+  //Add and Remove highlighted class
+  btnElements.forEach(item => {
+    item.classList.remove(classes[1])
+  })
+  document.getElementById(selectedId).classList.add(classes[1])
 }

@@ -3,57 +3,31 @@ import st from 'styles/navbar.module.css'
 import Link from 'next/link'
 import { SwitchLanguage } from './misc/Language';
 import {NavbarBtn} from "misc/NavbarBtn";
+import { useEffect } from 'react';
 
-export function Navbar({language}){
+export default function Navbar({language,page}){
   //Get Language Preference
-  const {
-    info,
-    header: {
-      navTitle: {
-        title,
-        url
-      }, 
-      navBtn, 
+  const [info,nav,navBtn] = language;
+  useEffect(() => {
+    const navBar = document.getElementById("navbar");
+    switch(page) {
+      case "projectpage":
+        navBar.classList.add(st.navProject)
+        break;
+      default:
     }
-  }= language;
-
+  })
   //Render Component
   return (
     <>
-    <nav className={`${st.navContainer} flex`}>
+    <nav id="navbar" className={`${st.navContainer} flex`}>
       <div className={`${st.navHeader} flex`}>
-        <Link href={url}>
-          <h1>{title}</h1>
+        <Link href={nav.url}>
+          <h1>{nav.title}</h1>
         </Link>
       </div>
       <div className={`${st.navBtnContainer} flex`}>
         <NavbarBtn btnArray={navBtn} />
-        <SwitchLanguage language={info}/>
-      </div>
-    </nav>
-    </>
-  )
-}
-
-export function Navbar2({language}) {
-  const {
-    info, 
-    project: {
-      header: {
-        navTitle,
-        navBtn
-      }
-    }} = language
-  return (
-    <>
-    <nav className={` flex ${st.navContainer} ${st.navProject}`}>
-      <div className={`${st.navHeader} flex`}>
-        <Link href={navTitle.url}>
-          <h1>{navTitle.title}</h1>
-        </Link>
-      </div>
-      <div className={`${st.navBtnContainer} flex`}>
-        <NavbarBtn btnArray={navBtn}/>
         <SwitchLanguage language={info}/>
       </div>
     </nav>

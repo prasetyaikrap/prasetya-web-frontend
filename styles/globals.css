@@ -36,6 +36,7 @@
   /*Animation*/
   --fadeinTop: fadein-top;
   --scaleIn: scale-in;
+  --scaleOut: scale-out;
 }
 
 /*Pure Tags*/
@@ -150,5 +151,15 @@ h4 {
   100% {
     transform: scale(1,1);
     opacity: 100;
+  }
+}
+@keyframes scale-out {
+  0% {
+    transform: scale(1,1);
+    opacity: 100;
+  }
+  100% {
+    transform: scale(.8,.8);
+    opacity: 0;
   }
 }

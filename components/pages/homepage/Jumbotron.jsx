@@ -1,13 +1,10 @@
 //Components Import
-import st from 'styles/header.module.css'
+import st from 'styles/home.module.css'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import {useRouter} from 'next/router'
 
 export function ProfileJumbotron(props) {
-  const router = useRouter();
-  const path = router.asPath;
   return (
     <div className ={`${st.container} flex`}>
       <div className={`${st.box1} flex`}>

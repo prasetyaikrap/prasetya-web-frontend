@@ -1,4 +1,4 @@
-import { Header } from "components/Header";
+import { Header } from "components/pages/homepage/Header";
 import ProjectSection from "components/ProjectSection";
 import { Contact } from "components/Contact";
 

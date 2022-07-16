@@ -1,9 +1,11 @@
-import { HomeV1 } from "components/Home";
 import projCategory from "data/categoryList.json";
 import socmedList from "data/socmedList.json";
 import langID from "data/langID.json";
 import langEN from "data/langEN.json";
 import languageList from "data/language.json";
+
+import Header from "compPages/homepage/Header";
+import st from "styles/home.module.css";
 
 export async function getStaticPaths() {
   const paths = languageList.list.map((item) => {
@@ -41,11 +43,13 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Home({ language, projectData, contactData }) {
+  const {
+    info,
+    home: { header, project, contact },
+  } = language;
   return (
-    <HomeV1
-      language={language}
-      projectData={projectData}
-      contactData={contactData}
-    />
+    <>
+      <Header language={{ info, header }} />
+    </>
   );
 }
