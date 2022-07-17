@@ -8,9 +8,9 @@ import langEN from "data/langEN.json";
 import languageList from "data/language.json";
 import projects from "data/projects.json";
 
-import Header from "compPages/homepage/Header";
-import Project from "compPages/homepage/Project";
-import Contact from "compPages/homepage/Contact";
+import Header from "pages/homepage/Header";
+import Project from "pages/homepage/Project";
+import Contact from "pages/homepage/Contact";
 
 export async function getStaticPaths() {
   const paths = languageList.list.map((item) => {

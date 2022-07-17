@@ -49,7 +49,9 @@
 
 /*Nav Project Section*/
 .navProject {
-  position: relative;
+  position: fixed;
+  top: 0;
+  z-index: 2;
   background-color: var(--col-navy-vdark);
   height: 4.5vw;
 }

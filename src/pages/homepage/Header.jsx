@@ -1,7 +1,7 @@
 //import Components
 import st from 'styles/home.module.css'
 import Navbar from 'components/Navbar'
-import {ProfileJumbotron} from 'compPages/homepage/Jumbotron'
+import {ProfileJumbotron} from 'pages/homepage/Jumbotron'
 
 export default function Header({language}) {
   const {

@@ -1,9 +1,8 @@
 //Next and React
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import Image from 'next/image';
 //Components
-import CategoryList from 'compPages/homepage/CategoryList'
+import CategoryList from 'pages/homepage/CategoryList'
 import ProjectCards from 'components/ProjectCards';
 import st from 'styles/home.module.css'
 

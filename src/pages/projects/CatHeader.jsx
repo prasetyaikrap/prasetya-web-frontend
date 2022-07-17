@@ -1,6 +1,6 @@
 import Image from "next/image"
 import st from "styles/projects.module.css"
-import CatList from "compPages/projects/CatList"
+import CatList from "pages/projects/CatList"
 
 export default function CatHeader({projectCat}) {
   const catList = projectCat.category.filter(item => {

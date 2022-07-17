@@ -1,9 +1,12 @@
 .sectionProject {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 9vw);
 }
 .headerContainer {
+  position: fixed;
+  top: 4.5vw;
+  z-index: 2;
   width: 100%;
   height: 4.5vw;
   column-gap: 1vw;
@@ -11,6 +14,7 @@
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 .1vw .5vw var(--col-shadow);
+  background-color: white;
 }
 .headerContainer div:nth-child(1),
 .headerContainer div:nth-child(2) {
@@ -49,7 +53,8 @@
 .cbContainer {
   position: relative;
   width: 100%;
-  padding: 2vw 10vw;
+  padding: 1.5vw 10vw;
+  margin-top: 9vw;
 }
 .cbContent1st {
   position: relative;
@@ -61,17 +66,17 @@
   height: 100%;
 }
 .cbContent2nd {
-  position: absolute;
+  position: fixed;
   width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+  height: 38.5vw;
+  top: 9.5vw;
   opacity: 0;
   transform: scale(.5,.5);
   padding: 4vw 10vw;
-  z-index: 2;
+  z-index: 3;
   transition: var(--trans-04);
   visibility: hidden;
+  background-color: white;
 }
 .cbContent2ndOpen {
   visibility: visible;

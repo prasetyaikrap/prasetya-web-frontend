@@ -1,4 +1,3 @@
-import st from "styles/projects.module.css"
 
 export default function Tags({tagsData}) {
   const dataDummy = [1,2,3,4,5];

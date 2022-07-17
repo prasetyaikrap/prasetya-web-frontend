@@ -1,0 +1,58 @@
+.sectionLogin {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.loginBox, .loginBox form {
+  padding: 3vw;
+  border-radius: .5vw;
+  box-shadow: 0 0 1vw var(--col-shadow);
+  width: 25vw;
+  justify-content: center;
+  align-items: center;
+}
+.loginBox form {
+  display: inherit;
+  flex-direction: inherit;
+  padding: 0;
+  width: 100%;
+  box-shadow: none;
+}
+
+.loginBox p#alert {
+  background-color: rgb(255, 157, 157);
+  padding: .2vw 0;
+  text-align: center;
+  width: 80%;
+  border-radius: .2vw;
+  margin: .5vw 0 1vw 0;
+}
+
+.loginBox div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1vw;
+  width: 100%;
+}
+
+.loginBox div input {
+  padding: .2vw .5vw;
+  border-radius: .3vw;
+}
+.loginBox button {
+  padding: .3vw 3vw;
+  background-color: var(--col-navy-vdark);
+  color: var(--col-white-02);
+  font-size: 1.1vw;
+  font-weight: 800;
+  border-radius: .3vw;
+  border: none;
+  width: 50%;
+}
+.loginBox button:hover {
+  opacity: .95;
+  transform: scale(1.02,1.02);
+  transition: var(--trans-03);
+}

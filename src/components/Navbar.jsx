@@ -1,7 +1,7 @@
 //import Component
 import st from 'styles/navbar.module.css'
 import Link from 'next/link'
-import { SwitchLanguage } from './misc/Language';
+import { SwitchLanguage } from 'misc/Language';
 import {NavbarBtn} from "misc/NavbarBtn";
 import { useEffect } from 'react';
 

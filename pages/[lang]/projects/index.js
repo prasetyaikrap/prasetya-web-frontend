@@ -5,12 +5,15 @@ import projectCat from "data/categoryList.json";
 import projects from "data/projects.json";
 
 import Navbar from "components/Navbar";
-import CatHeader from "compPages/projects/CatHeader";
-import ContentBody from "compPages/projects/ContentBody";
+import CatHeader from "pages/projects/CatHeader";
+import ContentBody from "pages/projects/ContentBody";
+import ProjectShowcase from "pages/projects/ProjectsShowcase";
 import st from "styles/projects.module.css";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import TestButton from "components/TestButton";
+import { openProject } from "utils/Handler";
 
 export async function getStaticPaths() {
   const paths = languageList.list.map((item) => {
@@ -83,6 +86,12 @@ export default function Project({ language, projectCat, projects }) {
       <Navbar language={[info, nav, navBtn]} page="projectpage" />
       <CatHeader projectCat={projectCat} />
       <ContentBody projectData={project} isOpenState={[isOpen, setIsOpen]} />
+      <ProjectShowcase isOpenState={[isOpen, setIsOpen]} />
+      <TestButton
+        handler={(e) => openProject([isOpen, setIsOpen], st.cbContent2ndOpen)}
+        position={{ top: "1vw", left: "3vw" }}
+        name="Open Project Showcase"
+      />
     </section>
   );
 }

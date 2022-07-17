@@ -34,7 +34,7 @@
   height: 25.5vw;
   width: 100%;
   top: 0;
-  z-index: 2;
+  z-index: 1;
   background-color: transparent;
   transform: translateY(-13vw);
 }
