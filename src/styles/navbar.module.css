@@ -55,3 +55,10 @@
   background-color: var(--col-navy-vdark);
   height: 4.5vw;
 }
+
+/*Navbar Admin*/
+.navAdmin {
+  position: relative;
+  background-color: var(--col-navy-vdark);
+  height: 4.5vw;
+}

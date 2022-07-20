@@ -56,3 +56,34 @@
   transform: scale(1.02,1.02);
   transition: var(--trans-03);
 }
+
+/*Dashboard*/
+.dummyNavbar {
+  width: 100%;
+  height: 4.5vw;
+  background-color: blue;
+}
+#adminDashboard {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.sidePanelContainer {
+  position: fixed;
+  align-items: flex-end;
+  box-shadow: .4vw 0 1vw var(--col-shadow);
+  padding: 2.5vw 0;
+  width: 15vw;
+  height: calc(100vh - 4.5vw);
+}
+.menuBox {
+  padding: 1vw 0 1vw 3vw;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+}
+.menuBox:hover {
+  background-color: var(--col-white-02);
+  transition: var(--trans-03);
+}

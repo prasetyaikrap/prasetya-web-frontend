@@ -6,7 +6,7 @@
   height: 45vw;
   width: 100%;
 }
-.fluidJumbotron{
+.fluidJumbotron {
   justify-content: flex-start;
   overflow-x: hidden;
   flex-wrap: nowrap;
@@ -32,8 +32,8 @@
   width: 65%;
   min-height: 20vw;
   padding: 2vw;
-  border: .1vw solid var(--col-white-01);
-  border-radius: .5vw;
+  border: 0.1vw solid var(--col-white-01);
+  border-radius: 0.5vw;
 }
 .pHeadline1 {
   color: var(--col-white-01);
@@ -64,10 +64,10 @@
   margin-top: 1.5vw;
 }
 .pBtnBox button {
-  padding: .5vw 1vw;
+  padding: 0.5vw 1vw;
   background-color: var(--col-white-02);
   border: none;
-  border-radius: .3vw;
+  border-radius: 0.3vw;
   font-size: 1.1vw;
 }
 .pBtnBox button:hover {
@@ -81,7 +81,7 @@
   transform: translateY(16%);
 }
 .imgProfile {
-  border-radius: 1.2vw 1.2vw 0 0 ;
+  border-radius: 1.2vw 1.2vw 0 0;
 }
 
 /*Projects Section*/
@@ -100,10 +100,11 @@
   background-color: rgb(235, 235, 235);
   padding: 4vw 2vw;
 }
-.pHeadlineBox, .pCategoryBox {
+.pHeadlineBox,
+.pCategoryBox {
   width: 100%;
-  padding: .5vw;
-  column-gap: .5vw;
+  padding: 0.5vw;
+  column-gap: 0.5vw;
 }
 .pImgBox {
   flex-shrink: 0;
@@ -117,7 +118,7 @@
 }
 .pDescBox {
   width: 75%;
-  row-gap: .5vw;
+  row-gap: 0.5vw;
 }
 .pDescBox h3 {
   font-size: 1.6vw;
@@ -126,31 +127,32 @@
   text-align: justify;
 }
 .pCategoryBox {
-  align-items:flex-end;
-  row-gap: .5vw;
+  align-items: flex-end;
+  row-gap: 0.5vw;
 }
 .catListBox {
   column-gap: 1vw;
   align-items: center;
   width: 75%;
-  padding: .5vw;
-  border: .1vw solid var(--col-navy-vdark);
-  border-radius: .5vw;
+  padding: 0.5vw;
+  border: 0.1vw solid var(--col-navy-vdark);
+  border-radius: 0.5vw;
 }
 .clbOnFocus {
   background-color: var(--col-navy-vdark) !important;
   transition: var(--trans-03);
-  transform: translateX(1vw) scale(1.01,1.01);
-  box-shadow: .3vw .3vw .2vw var(--col-shadow);
+  transform: translateX(1vw) scale(1.01, 1.01);
+  box-shadow: 0.3vw 0.3vw 0.2vw var(--col-shadow);
   color: var(--col-white-02) !important;
 }
-.catListBox:hover, .clbOnFocus:hover {
-  box-shadow: .3vw .3vw .2vw var(--col-shadow);
-  transform: scale(1.01,1.01);
+.catListBox:hover,
+.clbOnFocus:hover {
+  box-shadow: 0.3vw 0.3vw 0.2vw var(--col-shadow);
+  transform: scale(1.01, 1.01);
   transition: var(--trans-03);
 }
 .clbOnFocus:hover {
-  transform: translateX(1vw) scale(1.01,1.01);
+  transform: translateX(1vw) scale(1.01, 1.01);
 }
 
 .catListBox span:nth-child(1),
@@ -162,7 +164,8 @@
   width: 2vw;
   height: 2vw;
 }
-.catListBox h4, .clbOnFocus h4 {
+.catListBox h4,
+.clbOnFocus h4 {
   font-size: 1.05vw;
   width: 65%;
   text-align: left;
@@ -182,21 +185,116 @@
   border-radius: 1vw;
   width: 100%;
   height: 100%;
-  padding: 2vw 2vw .5vw 2vw;
+  padding: 2vw 2vw 0.5vw 2vw;
   gap: 1vw;
 }
 .pSeeMoreBtn {
   justify-content: center;
   align-items: center;
-  padding: .4vw 4vw;
-  border-radius: .5vw;
-  border: .1vw solid var(--col-shadow);
+  padding: 0.4vw 4vw;
+  border-radius: 0.5vw;
+  border: 0.1vw solid var(--col-shadow);
   background-color: transparent;
-  font-size: .85vw;
+  font-size: 0.85vw;
 }
 .pSeeMoreBtn:hover {
   background-color: var(--col-navy-vdark);
   color: var(--col-white-02);
-  transform: scale(1.02,1.05);
+  transform: scale(1.02, 1.05);
   transition: var(--trans-03);
+}
+
+/*Contact Section*/
+.sectionContact {
+  display: flex;
+  width: 100%;
+  height: 40vw;
+}
+
+.boxOne,
+.boxTwo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+.boxOne {
+  row-gap: 2vw;
+  width: 35%;
+  background-color: var(--col-navy-vdark);
+}
+.boxTwo {
+  row-gap: 2vw;
+  width: 65%;
+  padding: 3vw 4vw;
+}
+.socmedBox {
+  row-gap: 2vw;
+  padding: 3vw 4vw 0 4vw;
+  width: 100%;
+  height: 85%;
+}
+.boxOne footer {
+  justify-content: center;
+  align-items: center;
+  color: var(--col-white-02);
+  width: 100%;
+  height: 15%;
+}
+.headlineBox {
+  column-gap: 1vw;
+  padding: 0.5vw;
+}
+.headlineBox span {
+  position: relative;
+  height: 6vw;
+  width: 7.5vw;
+}
+.headlineBox h3 {
+  color: var(--col-white-02);
+}
+.contactChannelBox {
+  padding: 0.5vw;
+  justify-content: flex-start;
+  align-items: flex-end;
+  width: 100%;
+  height: 85%;
+  row-gap: 0.5vw;
+}
+.smCardContainer {
+  position: relative;
+  column-gap: 1vw;
+  width: 90%;
+  padding: 0 0.5vw;
+  /* border: .1vw solid var(--col-white-02); */
+  border-radius: 0.5vw;
+  cursor: pointer;
+  align-items: center;
+}
+.smCardContainer span {
+  position: relative;
+  width: 2.5vw;
+  height: 2.5vw;
+}
+.smCardContainer h4 a {
+  font-size: 1.05vw;
+  color: var(--col-white-02);
+  text-decoration: none;
+}
+.mailHeadlineBox {
+  width: 100%;
+  height: 15%;
+}
+.mailHeadlineBox {
+  row-gap: 0.5vw;
+  padding: 0 2vw;
+}
+.mailHeadlineBox h3 {
+  text-align: center;
+}
+.mailHeadlineBox p {
+  text-align: justify;
+}
+.mailForm {
+  width: 90%;
 }

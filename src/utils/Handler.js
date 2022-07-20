@@ -16,16 +16,6 @@ export function ProjCategoryClicked(targetId, btnClassCard, focusClass) {
   currentCard.querySelector("span#white-icon").removeAttribute("style");
   //   currentCard.querySelector('div[data-arrow=categoryArrow]').style.display = '';
 }
-export function generateRandom(charLength) {
-  let result = "";
-  let characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let charactersLength = characters.length;
-  for (let i = 0; i < charLength; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
 export function openProject(isOpenHandler, style) {
   const [isOpen, setIsOpen] = isOpenHandler;
   const projectPageElement = document.getElementById("projectShowcase");

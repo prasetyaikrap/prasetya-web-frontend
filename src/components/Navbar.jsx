@@ -34,3 +34,15 @@ export default function Navbar({language,page}){
     </>
   )
 }
+
+export function NavbarAdmin() {
+  return (
+    <nav id="navbar" className={`flex ${st.navContainer} ${st.navAdmin}`}>
+      <div className={`${st.navHeader} flex`}>
+        <Link href="/" target="_blank">
+          <h1>SPINNOVID</h1>
+        </Link>
+      </div>
+    </nav>
+  )
+}

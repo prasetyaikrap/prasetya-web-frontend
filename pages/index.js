@@ -7,13 +7,13 @@ export default function Redirect() {
     const userLanguage = window.navigator.language;
     switch (userLanguage.substring(0, 2)) {
       case "id":
-        router.push("/id");
+        router.replace("/id");
         break;
       case "en":
-        router.push("/en");
+        router.replace("/en");
         break;
       default:
-        router.push("/id");
+        router.replace("/id");
     }
   });
 }
