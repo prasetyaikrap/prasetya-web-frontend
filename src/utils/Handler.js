@@ -16,30 +16,6 @@ export function ProjCategoryClicked(targetId, btnClassCard, focusClass) {
   currentCard.querySelector("span#white-icon").removeAttribute("style");
   //   currentCard.querySelector('div[data-arrow=categoryArrow]').style.display = '';
 }
-export function openProject(isOpenHandler, style) {
-  const [isOpen, setIsOpen] = isOpenHandler;
-  const projectPageElement = document.getElementById("projectShowcase");
-  if (isOpen === false) {
-    projectPageElement.classList.add(style);
-    setIsOpen(true);
-  }
-}
-export function closeProject(isOpenHandler, style) {
-  const [isOpen, setIsOpen] = isOpenHandler;
-  const projectPageElement = document.getElementById("projectShowcase");
-  if (isOpen === true) {
-    projectPageElement.classList.remove(style);
-    setIsOpen(false);
-  }
-}
-export function filterCategory(targetId, classes) {
-  const btnElements = document.querySelectorAll("." + classes[0]);
-  //Add and Remove highlighted class
-  btnElements.forEach((item) => {
-    item.classList.remove(classes[1]);
-  });
-  document.getElementById(targetId).classList.add(classes[1]);
-}
 export function loginAdminHandler(event, setLoading, setIsAlert) {
   event.preventDefault();
   setLoading(true);

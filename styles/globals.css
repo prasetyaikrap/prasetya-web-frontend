@@ -31,7 +31,7 @@
   --trans-05: all 0.5s ease;
 
   /*WebKit*/
-  --scroll-track-width: .7vw;
+  --scroll-track-width: 0.7vw;
 
   /*Animation*/
   --fadeinTop: fadein-top;
@@ -96,31 +96,34 @@ h4 {
   font-weight: var(--poppins-bold);
   font-size: 2.5vw;
   letter-spacing: 0.01vw;
-  line-height: 1.25vw;
+  line-height: 125%;
 }
 .headline {
   font-weight: var(--poppins-semibold);
   font-size: 2vw;
   letter-spacing: 0.01vw;
-  line-height: 1.25vw;
+  line-height: 125%;
 }
-.bodyTitle, .btnBig {
+.bodyTitle,
+.btnBig {
   font-weight: var(--poppins-semibold);
   font-size: 1.4vw;
   letter-spacing: 0.01vw;
-  line-height: 1.25vw;
+  line-height: 125%;
 }
-.bodyText, .btnMedium{
+.bodyText,
+.btnMedium {
   font-weight: var(--poppins-medium);
   font-size: 1vw;
   letter-spacing: 0.01vw;
-  line-height: 1.25vw;
+  line-height: 125%;
 }
-.smallText, .btnSmall{
+.smallText,
+.btnSmall {
   font-weight: var(--poppins-regular);
-  font-size: .75vw;
+  font-size: 0.75vw;
   letter-spacing: 0.01vw;
-  line-height: 1.25vw;
+  line-height: 125%;
 }
 
 /*Custom Class*/
@@ -142,24 +145,23 @@ h4 {
   visibility: hidden;
 }
 
-
 @keyframes scale-in {
   0% {
-    transform: scale(.8,.8);
+    transform: scale(0.8, 0.8);
     opacity: 0;
   }
   100% {
-    transform: scale(1,1);
+    transform: scale(1, 1);
     opacity: 100;
   }
 }
 @keyframes scale-out {
   0% {
-    transform: scale(1,1);
+    transform: scale(1, 1);
     opacity: 100;
   }
   100% {
-    transform: scale(.8,.8);
+    transform: scale(0.8, 0.8);
     opacity: 0;
   }
 }
