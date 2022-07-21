@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+export const nextConfig = {
   reactStrictMode: true,
   env: {
     MAILSENDER_SCRIPT_TOKEN: process.env.MAILSENDER_SCRIPT_TOKEN,
@@ -9,5 +9,3 @@ const nextConfig = {
     domains: ["drive.google.com"],
   },
 };
-
-module.exports = nextConfig;
