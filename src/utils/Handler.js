@@ -1,3 +1,5 @@
+import { Router } from "next/router";
+
 export function ProjCategoryClicked(targetId, btnClassCard, focusClass) {
   const categoryCard = document.querySelectorAll("." + btnClassCard);
   const currentCard = document.getElementById(targetId);
@@ -15,30 +17,4 @@ export function ProjCategoryClicked(targetId, btnClassCard, focusClass) {
   currentCard.querySelector("span#black-icon").style.display = "none";
   currentCard.querySelector("span#white-icon").removeAttribute("style");
   //   currentCard.querySelector('div[data-arrow=categoryArrow]').style.display = '';
-}
-export function loginAdminHandler(event, setLoading, setIsAlert) {
-  event.preventDefault();
-  setLoading(true);
-  setIsAlert(false);
-  const validation = {
-    email: "prasetya.ikrapriyadi@gmail.com",
-    password: "admin12345",
-  };
-  const authData = {
-    email: document.getElementById("email").value,
-    password: document.getElementById("password").value,
-  };
-  setTimeout(() => {
-    if (
-      authData.email === validation.email &&
-      authData.password === validation.password
-    ) {
-      console.log(authData);
-      setLoading(false);
-    } else {
-      console.log("Email atau Password Salah");
-      setLoading(false);
-      setIsAlert(true);
-    }
-  }, 3000);
 }
