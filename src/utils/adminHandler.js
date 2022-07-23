@@ -43,26 +43,25 @@ export async function handleLogin(
   }
   console.clear();
 }
-export function handleLogout(router, logout) {
-  logout();
-  router.push("/admin");
-}
 //Project Panel
-export function editpvProject() {
+export function editpvProject(setOpenState) {
   //Open Project Preview
   const pvElement = document.getElementById(st.pvContainer);
   pvElement.classList.add(st.pvContainerOpen);
+  setOpenState("EDIT");
 }
-export function createpvProject() {
+export function createpvProject(setOpenState) {
   //Open Project Preview
   const pvElement = document.getElementById(st.pvContainer);
   pvElement.classList.add(st.pvContainerOpen);
+  setOpenState("CREATE");
 }
-export function projectOnSave(targetId) {
+export function projectOnSave(targetId, openState) {
   const form = document.getElementById(targetId);
   const data = {
     title: form.querySelector("#title").value,
     description: form.querySelector("#description").value,
+    category: form.querySelector("#setCategory").value,
     tags: form
       .querySelector("#tags")
       .value.split(",")

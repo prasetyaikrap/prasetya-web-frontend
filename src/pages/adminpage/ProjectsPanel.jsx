@@ -1,9 +1,10 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import st from "styles/admin.module.css";
 import ProjectView from "./ProjectView";
 import { editpvProject, createpvProject } from "utils/adminHandler";
 
 export default function ProjectPanel({ projectData }) {
+  const [openState, setOpenState] = useState(null);
   const searchRef = useRef();
   return (
     <div id="projectPanel" className={`flex-column ${st.projectPanel}`}>
@@ -23,24 +24,27 @@ export default function ProjectPanel({ projectData }) {
           ></input>
         </div>
         <div>
-          <button className={`bodyText`} onClick={(e) => createpvProject()}>
+          <button
+            className={`bodyText`}
+            onClick={(e) => createpvProject(setOpenState)}
+          >
             Create
           </button>
         </div>
       </div>
       <div className={`flex-column ${st.ppcContent}`}>
-        <Cards projectData={projectData} />
+        <Cards projectData={projectData} setOpenState={setOpenState} />
       </div>
-      <ProjectView />
+      <ProjectView viewState={openState} />
     </div>
   );
 }
 
-export function Cards() {
+export function Cards({ projectData, setOpenState }) {
   let cards = [];
   for (let i = 1; i <= 10; i++) {
     cards.push(
-      <div className={`flex-row ${st.ppcProject}`}>
+      <div key={i} className={`flex-row ${st.ppcProject}`}>
         <span id={st.pPreview}>
           <div></div>
           <div>
@@ -90,7 +94,7 @@ export function Cards() {
             id={st.actionEdit}
             className={`bodyText`}
             onClick={(e) => {
-              editpvProject();
+              editpvProject(setOpenState);
             }}
           >
             Edit

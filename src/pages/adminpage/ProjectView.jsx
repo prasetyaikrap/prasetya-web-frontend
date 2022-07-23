@@ -2,17 +2,17 @@ import CrossBtn from "misc/CrossBtn";
 import st from "styles/admin.module.css";
 import { projectOnSave } from "utils/adminHandler";
 
-export default function ProjectView() {
+export default function ProjectView({ viewState }) {
   return (
     <form
       id={st.pvContainer}
       className={`flex-column ${st.pvContainer}`}
       onSubmit={(e) => {
         e.preventDefault();
-        projectOnSave(e.currentTarget.id);
+        projectOnSave(e.currentTarget.id, viewState);
       }}
     >
-      <h2>Add Project</h2>
+      <h2>{viewState == "EDIT" ? "Edit Project" : "Create Project"}</h2>
       <div className={`flex-column ${st.pvSection}`}>
         <label htmlFor="title" className={`bodyText`}>
           Project Title
@@ -42,6 +42,7 @@ export default function ProjectView() {
           />
           <button
             className={`bodyText `}
+            type="button"
             onClick={(e) => {
               e.preventDefault();
               document.getElementById("pvUploadImage").click();
@@ -102,6 +103,27 @@ export default function ProjectView() {
       <div className={`flex-column ${st.pvSection} `}>
         <p className={`bodyText`}>Additional Settings</p>
         <div className={`flex-row ${st.addSettings}`}>
+          <span>
+            <label htmlFor="setCategory" className={`bodyText`}>
+              Category
+            </label>
+            <select
+              className={`bodyText`}
+              id="setCategory"
+              name="setCategory"
+              required
+            >
+              <option value="unknown" disabled>
+                category...
+              </option>
+              <option value="Google Workspace">Google Workspace</option>
+              <option value="Programming">Programming</option>
+              <option value="Others">Others</option>
+              <option value="Google Workspace">Google Workspace</option>
+              <option value="Programming">Programming</option>
+              <option value="Others">Others</option>
+            </select>
+          </span>
           <span>
             <label htmlFor="setFeatured" className={`bodyText`}>
               Featured ?

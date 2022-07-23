@@ -1,6 +1,5 @@
 import st from "styles/projects.module.css";
 import CrossBtn from "misc/CrossBtn";
-import { closeProject } from "utils/Handler";
 import Tags from "pages/projects/Tags";
 
 export default function ProjectPreview({ data }) {

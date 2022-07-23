@@ -5,7 +5,6 @@ import projectCat from "data/categoryList.json";
 import socmedList from "data/socmedList.json";
 import langID from "data/langID.json";
 import langEN from "data/langEN.json";
-import languageList from "data/language.json";
 import projects from "data/projects.json";
 
 import Header from "pages/homepage/Header";
@@ -13,8 +12,8 @@ import Project from "pages/homepage/Project";
 import Contact from "pages/homepage/Contact";
 
 export async function getStaticPaths() {
-  const paths = languageList.list.map((item) => {
-    return { params: { lang: item.nameId } };
+  const paths = ["id", "en"].map((item) => {
+    return { params: { lang: item } };
   });
   return {
     paths,
@@ -35,6 +34,7 @@ export async function getStaticProps({ params }) {
     default:
       language = langID;
   }
+
   //Set Project Data
   const contactData = [socmedList];
   return {

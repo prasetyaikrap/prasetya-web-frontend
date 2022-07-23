@@ -4,8 +4,9 @@ import { NavbarAdmin } from "components/Navbar";
 import ProjectPanel from "pages/adminpage/ProjectsPanel";
 import { useAuth } from "context/AuthContext";
 import { useRouter } from "next/router";
+
 export default function DashboardAdmin() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
   if (!user) {
     router.replace("/admin");
@@ -15,7 +16,7 @@ export default function DashboardAdmin() {
         <NavbarAdmin />
         <div className={`flex-row ${st.dashboardContainer}`}>
           <SidePanel />
-          <ProjectPanel />
+          <ProjectPanel projectData="" />
         </div>
       </section>
     );

@@ -1,5 +1,5 @@
 import st from "styles/projects.module.css";
-import { openProject } from "utils/projectPreview";
+import { openProject } from "utils/projectDashboard";
 
 export default function Cards({ projectData, rows, setSelectedProject }) {
   try {

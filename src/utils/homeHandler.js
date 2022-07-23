@@ -1,8 +1,33 @@
 import axios from "axios";
 
-export default async function mailSender(confirmClass, setConfirmMessage) {
+export function categoryClicked(targetId, btnClassCard, focusClass) {
+  const categoryCard = document.querySelectorAll("." + btnClassCard);
+  const currentCard = document.getElementById(targetId);
+
+  //Reset all Card status
+  categoryCard.forEach((btn) => {
+    btn.classList.remove(focusClass);
+    btn.querySelector("span#black-icon").removeAttribute("style");
+    btn.querySelector("span#white-icon").style.display = "none";
+  });
+
+  //Set selected card status
+  currentCard.classList.add(focusClass);
+  currentCard.querySelector("span#black-icon").style.display = "none";
+  currentCard.querySelector("span#white-icon").removeAttribute("style");
+}
+
+export default async function mailSender(
+  confirmClass,
+  mailSendingClass,
+  confirmMessage,
+  setBtnDisabled,
+  setMessageLen
+) {
   const form = document.getElementById("contactMail");
   const confirmationBox = form.querySelector("#confirmationBox");
+  form.querySelector("#mailSending").classList.add(mailSendingClass);
+  setBtnDisabled(true);
   const postData = {
     name: form.querySelector("#name").value,
     email: form.querySelector("#email").value,
@@ -20,34 +45,25 @@ export default async function mailSender(confirmClass, setConfirmMessage) {
     });
     const data = res.data;
     if (data.status === "success") {
-      setConfirmMessage(
-        "Hi, " +
-          postData.name +
-          ", I Have recevied your message. Thank you for visiting and nice to meet you"
-      );
+      form.querySelector("#confirmMessage").innerHTML =
+        confirmMessage.success.replace("[SENDER]", postData.name);
       confirmationBox.classList.add(confirmClass);
-      //Reset Field
-      form.querySelector("#name").value = "";
-      form.querySelector("#email").value = "";
-      form.querySelector("#contactNumber").value = "";
-      form.querySelector("#category").value = "general";
-      form.querySelector("#subject").value = "";
-      form.querySelector("#mailMessage").value = "";
+      form.querySelector("#mailSending").classList.remove(mailSendingClass);
+      setMessageLen(0);
+      form.reset();
     } else {
-      setConfirmMessage(
-        "Hi, " +
-          postData.name +
-          ", something went wrong. I can't receive your message recently. Please try again later."
-      );
+      form.querySelector("#confirmMessage").innerHTML =
+        confirmMessage.failed.replace("[SENDER]", postData.name);
       confirmationBox.classList.add(confirmClass);
+      form.querySelector("#mailSending").classList.remove(mailSendingClass);
+      setBtnDisabled(false);
     }
   } catch (err) {
-    setConfirmMessage(
-      "Hey, " +
-        postData.name +
-        ", Sorry, I cannot receive any message recently. But, you can contact me directly through my email on the left panel."
-    );
+    form.querySelector("#confirmMessage").innerHTML =
+      confirmMessage.error.replace("[SENDER]", postData.name);
     confirmationBox.classList.add(confirmClass);
+    form.querySelector("#mailSending").classList.remove(mailSendingClass);
+    setBtnDisabled(false);
   }
 }
 

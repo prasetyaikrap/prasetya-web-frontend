@@ -7,7 +7,6 @@ export default function ContactMail({ language, style = "" }) {
   const nameRef = useRef();
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [messageLen, setMessageLen] = useState(0);
-  const [confirmMessage, setConfirmMessage] = useState("");
   useEffect(() => {
     if (messageLen < 20 || messageLen > 500) {
       setBtnDisabled(true);
@@ -23,12 +22,24 @@ export default function ContactMail({ language, style = "" }) {
     mailCategory,
     mailMessage,
     mailSendBtn,
+    mailSending,
+    confirmMessage,
   } = language;
   return (
     <>
-      <div
+      <form
         id="contactMail"
         className={`flex-column ${st.mailFormBox} ${style}`}
+        onSubmit={(e) => {
+          e.preventDefault();
+          mailSender(
+            st.confirmationBoxOpen,
+            st.mailSendingLoading,
+            confirmMessage,
+            setBtnDisabled,
+            setMessageLen
+          );
+        }}
       >
         <div className={`flex-row ${st.formSection}`}>
           <div className={`flex-column ${st.col3Box}`}>
@@ -93,23 +104,24 @@ export default function ContactMail({ language, style = "" }) {
             style={{ opacity: btnDisabled ? ".8" : "1" }}
             type="submit"
             className={`bodyText`}
-            onClick={(e) => {
-              mailSender(st.confirmationBoxOpen, setConfirmMessage);
-            }}
           >
             {mailSendBtn}
           </button>
+          <span id="mailSending" className={`bodyText ${st.mailSending}`}>
+            {mailSending}
+          </span>
         </div>
         <div id="confirmationBox" className={`flex ${st.confirmationBox}`}>
-          <h3>{confirmMessage}</h3>
+          <h3 id="confirmMessage">confirmMessage</h3>
           <CrossBtn
             handler={(e) => {
+              e.preventDefault();
               closeConfirmationBox(st.confirmationBoxOpen);
             }}
             addClass={st.closeConfirmationBtn}
           />
         </div>
-      </div>
+      </form>
     </>
   );
 }

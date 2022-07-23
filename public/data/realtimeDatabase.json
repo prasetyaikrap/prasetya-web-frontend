@@ -1,0 +1,184 @@
+{
+  "language": {
+    "id": {
+      "info": {
+        "id": "id-ID",
+        "code": "id",
+        "description": "Bahasa Indonesia",
+        "icon": "/assets/indonesia-flag.png"
+      },
+      "home": {
+        "header": {
+          "nav": {
+            "title": "SPINNOV.ID",
+            "url": "/"
+          },
+          "navBtn": [
+            {
+              "id": 1,
+              "title": "PROJECT",
+              "url": "#project"
+            },
+            {
+              "id": 2,
+              "title": "BLOG",
+              "url": "#blog"
+            },
+            {
+              "id": 3,
+              "title": "TOKO",
+              "url": "#store"
+            },
+            {
+              "id": 4,
+              "title": "KONTAK",
+              "url": "#contact"
+            }
+          ]
+        },
+        "project": {
+          "headline": "Publikasi dan Karya",
+          "subheadline": "Berbagai karya dan publikasi yang saya kerjakan sebagai solusi pekerjaan atau sekedar Have Fun project",
+          "icon": {
+            "url": "/assets/work-projection.png",
+            "alt": "Project, Karya, dan Publikasi"
+          },
+          "seeMore": "Lihat project lainnya ..."
+        },
+        "contact": {
+          "headline": "Mari berteman. It's a good idea right?",
+          "icon": {
+            "url": "/assets/friends-wh.png",
+            "alt": "Follow and Subscribe"
+          },
+          "mailHeadline": "Tetaplah terhubung",
+          "mailSubheadline": "Punya pertanyaan? atau ingin bekerjasama? Send me a message and let me know....",
+          "mailForm": {
+            "mailName": "Nama",
+            "mailFrom": "Email",
+            "mailContact": "Kontak (Whatsapp)",
+            "mailSubject": "Subjek Pertanyaan",
+            "mailCategory": "Kategori",
+            "mailMessage": "Pesan",
+            "mailSendBtn": "KIRIM"
+          }
+        }
+      },
+      "project": {
+        "header": {
+          "nav": {
+            "title": "SPINNOV.ID",
+            "url": "/id"
+          },
+          "navBtn": [
+            {
+              "id": 1,
+              "title": "BLOG",
+              "url": "/id/blog"
+            },
+            {
+              "id": 2,
+              "title": "TOKO",
+              "url": "/id/store"
+            },
+            {
+              "id": 3,
+              "title": "KONTAK",
+              "url": "/id#contact"
+            }
+          ]
+        }
+      }
+    },
+    "en": {
+      "info": {
+        "id": "en-EN",
+        "code": "en",
+        "description": "English - United State",
+        "icon": "/assets/us-flag.png"
+      },
+      "home": {
+        "header": {
+          "nav": {
+            "title": "SPINNOV.ID",
+            "url": "/"
+          },
+          "navBtn": [
+            {
+              "id": 1,
+              "title": "PROJECT",
+              "url": "#project"
+            },
+            {
+              "id": 2,
+              "title": "BLOG",
+              "url": "#blog"
+            },
+            {
+              "id": 3,
+              "title": "STORE",
+              "url": "#store"
+            },
+            {
+              "id": 4,
+              "title": "CONTACT",
+              "url": "#contact"
+            }
+          ]
+        },
+        "project": {
+          "headline": "Work and Publication",
+          "subheadline": "Various works and publications that I do as a project solutions or just a Have Fun projects",
+          "icon": {
+            "url": "/assets/work-projection.png",
+            "alt": "Project and Publication"
+          },
+          "seeMore": "See more project ..."
+        },
+        "contact": {
+          "headline": "Let's become Friends, shall we?",
+          "icon": {
+            "url": "/assets/friends-wh.png",
+            "alt": "Follow and Subscribe"
+          },
+          "mailHeadline": "Get in touch",
+          "mailSubheadline": "Have a question in mind? or interested in collaborating? send me a message and let me know....",
+          "mailForm": {
+            "mailName": "Name",
+            "mailFrom": "Email",
+            "mailContact": "Contact (Whatsapp)",
+            "mailSubject": "Subject",
+            "mailCategory": "Category",
+            "mailMessage": "Message",
+            "mailSendBtn": "SEND"
+          }
+        }
+      },
+      "project": {
+        "header": {
+          "nav": {
+            "title": "SPINNOV.ID",
+            "url": "/en"
+          },
+          "navBtn": [
+            {
+              "id": 1,
+              "title": "BLOG",
+              "url": "/en/blog"
+            },
+            {
+              "id": 2,
+              "title": "STORE",
+              "url": "/en/store"
+            },
+            {
+              "id": 3,
+              "title": "CONTACT",
+              "url": "/en#contact"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -9,7 +9,7 @@
     "header": {
       "nav": {
         "title": "SPINNOV.ID",
-        "url": "/"
+        "url": "/en"
       },
       "navBtn": [
         {
@@ -58,7 +58,13 @@
         "mailSubject": "Subject",
         "mailCategory": "Category",
         "mailMessage": "Message",
-        "mailSendBtn": "SEND"
+        "mailSendBtn": "SEND",
+        "mailSending": "sending...",
+        "confirmMessage": {
+          "success": "Hi [SENDER], I have recevied your message. Thank you for visiting and nice to meet you",
+          "failed": "Hi [SENDER], Sorry, I can't receive your message. Please try again later",
+          "error": "Hi [SENDER], Sorry, I can't receive any message recently. Please send me direct message to my email on the left panel. Thanks"
+        }
       }
     }
   },

@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 import st from "styles/home.module.css";
-import { ProjCategoryClicked } from "utils/Handler";
+import { categoryClicked } from "utils/homeHandler";
 
 export default function CategoryList({ projectCat }) {
   const router = useRouter();
   useEffect(() => {
     if (router.query.category !== undefined) {
-      ProjCategoryClicked(router.query.category, st.catListBox, st.clbOnFocus);
+      categoryClicked(router.query.category, st.catListBox, st.clbOnFocus);
     }
   }, [router.query.category]);
   //Get Category List
@@ -22,11 +22,7 @@ export default function CategoryList({ projectCat }) {
           id={item.id}
           className={`flex-row ${st.catListBox}`}
           onClick={(e) => {
-            ProjCategoryClicked(
-              e.currentTarget.id,
-              st.catListBox,
-              st.clbOnFocus
-            );
+            categoryClicked(e.currentTarget.id, st.catListBox, st.clbOnFocus);
             router.replace(
               {
                 pathname: "/[lang]",
@@ -67,7 +63,7 @@ export default function CategoryList({ projectCat }) {
         id="featured"
         className={`flex-row ${st.catListBox} ${st.clbOnFocus}`}
         onClick={(e) => {
-          ProjCategoryClicked(e.currentTarget.id, st.catListBox, st.clbOnFocus);
+          categoryClicked(e.currentTarget.id, st.catListBox, st.clbOnFocus);
           router.replace(
             {
               pathname: "/[lang]",

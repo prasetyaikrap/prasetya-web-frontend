@@ -162,3 +162,13 @@
 .closeConfirmationBtn:hover {
   background-color: var(--col-white-02);
 }
+.mailSending {
+  letter-spacing: 0.1vw;
+  width: 0vw;
+  overflow: hidden;
+  animation: var(--blinking) 0.7s alternate infinite;
+}
+.mailSendingLoading {
+  width: 9vw;
+  transition: var(--trans-03);
+}

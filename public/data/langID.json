@@ -9,7 +9,7 @@
     "header": {
       "nav": {
         "title": "SPINNOV.ID",
-        "url": "/"
+        "url": "/id"
       },
       "navBtn": [
         {
@@ -58,7 +58,13 @@
         "mailSubject": "Subjek Pertanyaan",
         "mailCategory": "Kategori",
         "mailMessage": "Pesan",
-        "mailSendBtn": "KIRIM"
+        "mailSendBtn": "KIRIM",
+        "mailSending": "mengirim...",
+        "confirmMessage": {
+          "success": "Hi [SENDER], pesan mu sudah saya terima. Terima ksih telah berkunjung, senang bertemu dengan mu",
+          "failed": "Hi [SENDER], Maaf, pesan mu gagal terkirim untuk saat ini. Coba lagi beberapa saat",
+          "error": "Hi [SENDER], Maaf, untuk sementara saya tidak menerima pesan apapun disini. Coba kirim pesan langsung melalui email yang tertera di panel sebelah kiri. Terima kasih"
+        }
       }
     }
   },

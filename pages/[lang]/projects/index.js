@@ -1,4 +1,3 @@
-import languageList from "data/language.json";
 import langID from "data/langID";
 import langEN from "data/langEN";
 import projectCat from "data/categoryList.json";
@@ -12,12 +11,10 @@ import st from "styles/projects.module.css";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import TestButton from "components/TestButton";
-import { openProject } from "utils/Handler";
 
 export async function getStaticPaths() {
-  const paths = languageList.list.map((item) => {
-    return { params: { lang: item.nameId } };
+  const paths = ["id", "en"].map((item) => {
+    return { params: { lang: item } };
   });
   return {
     paths,

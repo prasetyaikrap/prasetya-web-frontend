@@ -1,5 +1,5 @@
 import st from "styles/projects.module.css";
-import { filterCategory } from "utils/projectPreview";
+import { filterCategory } from "utils/projectDashboard";
 import { useRouter } from "next/router";
 
 export default function CatList({ catList }) {
