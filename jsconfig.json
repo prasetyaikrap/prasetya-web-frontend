@@ -8,7 +8,7 @@
       "styles/*": ["src/styles/*"],
       "misc/*": ["src/misc/*"],
       "utils/*": ["src/utils/*"],
-      "asset/*": ["public/assets/*"],
+      "assets/*": ["public/assets/*"],
       "data/*": ["public/data/*"]
     }
   }

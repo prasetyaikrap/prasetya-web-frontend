@@ -7,7 +7,6 @@ import { getDatabase } from "firebase/database";
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FAPIKEY,
   authDomain: process.env.NEXT_PUBLIC_FAUTHDOMAIN,
-  databaseURL: process.env.NEXT_PUBLIC_FDATABASEURL,
   projectId: process.env.NEXT_PUBLIC_FPROJECTID,
   storageBucket: process.env.NEXT_PUBLIC_FSTORAGEBUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FMESSAGINGSENDERID,

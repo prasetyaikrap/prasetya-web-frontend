@@ -6,7 +6,9 @@ export default function ProjectPreview({ data }) {
   return (
     <div id="projectPreview" className={`flex ${st.cbContent2nd}`}>
       <div className={`flex-row ${st.pContainer}`}>
-        <div className={`flex ${st.pMedia1}`}></div>
+        <div className={`flex ${st.pMedia1}`}>
+          <div className={`${st.pmImage}`}></div>
+        </div>
         <div className={`flex-column ${st.pMedia2}`}>
           <h2>{data.title}</h2>
           <div className={`flex-row ${st.pmTagsBox}`}>

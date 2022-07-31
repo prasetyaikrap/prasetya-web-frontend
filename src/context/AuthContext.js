@@ -11,22 +11,20 @@ export const useAuth = () => useContext(AuthContext);
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   //Check current user
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-      } else {
-        setUser(null);
-      }
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
     });
+    return unsubscribe;
   }, []);
-
   //Login Handler
   async function login(email, password) {
     let response = {};
     try {
-      const result = await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       response = {
         status: "OK",
       };
@@ -44,7 +42,7 @@ export default function AuthProvider({ children }) {
   }
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 }

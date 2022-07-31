@@ -1,18 +1,37 @@
 import CrossBtn from "misc/CrossBtn";
 import st from "styles/admin.module.css";
-import { projectOnSave } from "utils/adminHandler";
+import {
+  projectOnCancel,
+  projectOnSave,
+  uploadThumbnailOnChange,
+} from "utils/adminHandler";
+import Image from "next/image";
+import { useState } from "react";
 
 export default function ProjectView({ viewState }) {
+  const [openState, setOpenState] = viewState;
+  const [thumbnail, setThumbnail] = useState("/assets/imgUnavailable.jpeg");
+  const [uploadError, setUploadError] = useState("");
+  const [saveLoading, setSaveLoading] = useState(false);
+  const [saveMsg, setSaveMsg] = useState("");
   return (
     <form
-      id={st.pvContainer}
+      id="projectView"
+      data-projectid="cXnK9HjqF2Xh5Mok5QSO"
       className={`flex-column ${st.pvContainer}`}
       onSubmit={(e) => {
         e.preventDefault();
-        projectOnSave(e.currentTarget.id, viewState);
+        projectOnSave(
+          e.currentTarget.id,
+          viewState,
+          setSaveLoading,
+          setSaveMsg,
+          setThumbnail,
+          setUploadError
+        );
       }}
     >
-      <h2>{viewState == "EDIT" ? "Edit Project" : "Create Project"}</h2>
+      <h2>{openState == "EDIT" ? "Edit Project" : "Create Project"}</h2>
       <div className={`flex-column ${st.pvSection}`}>
         <label htmlFor="title" className={`bodyText`}>
           Project Title
@@ -23,7 +42,7 @@ export default function ProjectView({ viewState }) {
         <label htmlFor="description" className={`bodyText`}>
           Description
         </label>
-        <textarea id="description" name="description" rows="6" required />
+        <textarea id="description" name="description" rows="12" required />
       </div>
       <div className={`flex-row ${st.pvSection} ${st.pvCol2}`}>
         <span className={`flex-column`}>
@@ -32,26 +51,45 @@ export default function ProjectView({ viewState }) {
           </label>
           <input type="text" id="tags" name="tags" required />
         </span>
-        <span className={`flex-column ${st.pvUploadFile}`}>
-          <input
-            id="pvUploadImage"
-            type="file"
-            name="pvUploadImage"
-            accept="image/*"
-            hidden
+      </div>
+      <div className={`flex-column ${st.pvSection} ${st.pvUploadImage}`}>
+        <label htmlFor="pvUploadImage" className={`bodyText`}>
+          Thumbnail
+        </label>
+        <input
+          id="pvUploadImage"
+          type="file"
+          name="pvUploadImage"
+          accept="image/*"
+          onChange={(e) =>
+            uploadThumbnailOnChange(
+              e.currentTarget.id,
+              setThumbnail,
+              setUploadError
+            )
+          }
+          hidden
+        />
+        <span id="thumbnailPreview" className={`flex ${st.thumbnailClosed}`}>
+          <Image
+            id="imgThumbnail"
+            alt=""
+            src={thumbnail}
+            layout="fill"
+            objectFit="cover"
+            style={{ borderRadius: ".3vw" }}
           />
-          <button
-            className={`bodyText `}
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("pvUploadImage").click();
-            }}
-          >
-            Upload
-          </button>
-          <p className={`bodyText`}>Uploaded File Name</p>
         </span>
+        <p className={`smallText ${st.uploadErrorText}`}>{uploadError}</p>
+        <button
+          className={`bodyText `}
+          type="button"
+          onClick={(e) => {
+            document.getElementById("pvUploadImage").click();
+          }}
+        >
+          Upload
+        </button>
       </div>
       <div className={`flex-column ${st.pvSection}`}>
         <p style={{ marginBottom: "0.5vw" }} className={`bodyText`}>
@@ -116,12 +154,9 @@ export default function ProjectView({ viewState }) {
               <option value="unknown" disabled>
                 category...
               </option>
-              <option value="Google Workspace">Google Workspace</option>
-              <option value="Programming">Programming</option>
-              <option value="Others">Others</option>
-              <option value="Google Workspace">Google Workspace</option>
-              <option value="Programming">Programming</option>
-              <option value="Others">Others</option>
+              <option value="1">Google Workspace</option>
+              <option value="2">Programming</option>
+              <option value="99">Others</option>
             </select>
           </span>
           <span>
@@ -129,8 +164,8 @@ export default function ProjectView({ viewState }) {
               Featured ?
             </label>
             <select className={`bodyText`} id="setFeatured" name="setFeatured">
-              <option value="false">No</option>
-              <option value="true">Yes</option>
+              <option value={false}>No</option>
+              <option value={true}>Yes</option>
             </select>
           </span>
           <span>
@@ -142,31 +177,33 @@ export default function ProjectView({ viewState }) {
               id="setVisibility"
               name="setVisibility"
             >
-              <option value="true">Public</option>
-              <option value="false">Private</option>
+              <option value={true}>Public</option>
+              <option value={false}>Private</option>
             </select>
           </span>
         </div>
       </div>
       <div className={`flex-row ${st.pvSection} ${st.pvAction}`}>
-        <button type="submit" className={`bodyText`}>
+        <p id="saveMsg" className={`bodyText`}>
+          {saveMsg}
+        </p>
+        <button type="submit" className={`bodyText`} disabled={saveLoading}>
           Save
         </button>
         <button
           className={`bodyText`}
+          type="button"
           onClick={(e) => {
-            e.preventDefault();
+            projectOnCancel(setOpenState, setThumbnail, setUploadError);
           }}
+          disabled={saveLoading}
         >
           Cancel
         </button>
       </div>
       <CrossBtn
         handler={(e) => {
-          e.preventDefault();
-          document
-            .getElementById(st.pvContainer)
-            .classList.remove(st.pvContainerOpen);
+          projectOnCancel(setOpenState, setThumbnail, setUploadError);
         }}
         addClass={st.pvCloseBtn}
       />

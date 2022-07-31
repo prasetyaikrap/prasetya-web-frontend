@@ -1,13 +1,17 @@
 import { useRef, useState } from "react";
 import st from "styles/admin.module.css";
 import ProjectView from "./ProjectView";
-import { editpvProject, createpvProject } from "utils/adminHandler";
+import { openProject } from "utils/adminHandler";
+import { firestore } from "utils/firebaseConfig";
 
-export default function ProjectPanel({ projectData }) {
+export default function ProjectPanel() {
   const [openState, setOpenState] = useState(null);
+  const [data, setData] = useState([]);
   const searchRef = useRef();
+  //Get Projects Data
+
   return (
-    <div id="projectPanel" className={`flex-column ${st.projectPanel}`}>
+    <div className={`flex-column ${st.projectPanel}`}>
       <h2>Projects</h2>
       <div className={`flex-row ${st.ppcHeader}`}>
         <div>
@@ -26,25 +30,26 @@ export default function ProjectPanel({ projectData }) {
         <div>
           <button
             className={`bodyText`}
-            onClick={(e) => createpvProject(setOpenState)}
+            onClick={(e) => openProject("CREATE", setOpenState)}
           >
             Create
           </button>
         </div>
       </div>
       <div className={`flex-column ${st.ppcContent}`}>
-        <Cards projectData={projectData} setOpenState={setOpenState} />
+        <Cards data={data} setOpenState={setOpenState} />
       </div>
-      <ProjectView viewState={openState} />
+      <ProjectView viewState={[openState, setOpenState]} />
     </div>
   );
 }
 
-export function Cards({ projectData, setOpenState }) {
+export function Cards({ data, setOpenState }) {
   let cards = [];
   for (let i = 1; i <= 10; i++) {
+    const id = "projectId" + i;
     cards.push(
-      <div key={i} className={`flex-row ${st.ppcProject}`}>
+      <div key={i} id={id} className={`flex-row ${st.ppcProject}`}>
         <span id={st.pPreview}>
           <div></div>
           <div>
@@ -92,9 +97,10 @@ export function Cards({ projectData, setOpenState }) {
         <span id={st.pAction}>
           <button
             id={st.actionEdit}
+            type="button"
             className={`bodyText`}
             onClick={(e) => {
-              editpvProject(setOpenState);
+              openProject("EDIT", setOpenState);
             }}
           >
             Edit

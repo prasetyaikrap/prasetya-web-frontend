@@ -1,4 +1,4 @@
-function generateRandom(charLength) {
+export default function generateRandom(charLength) {
   let result = "";
   let characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -8,5 +8,3 @@ function generateRandom(charLength) {
   }
   return result;
 }
-
-console.log(generateRandom(30));
