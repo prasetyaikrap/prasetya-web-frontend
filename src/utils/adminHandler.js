@@ -6,6 +6,12 @@ import {
   addDoc,
   serverTimestamp,
   collection,
+  query,
+  where,
+  orderBy,
+  limit,
+  onSnapshot,
+  FieldValue,
 } from "firebase/firestore";
 import {
   ref,
@@ -61,17 +67,22 @@ export async function handleLogin(
 //Project Panel
 export function openProject(action, setOpenState) {
   //Open Project Preview
+  setOpenState(action);
+  if (action == "EDIT") {
+    const thumbnailPreview = document.getElementById("thumbnailPreview");
+    thumbnailPreview.classList.add(st.thumbnailUploaded);
+  }
   const pvElement = document.getElementById("projectView");
   pvElement.classList.add(st.pvContainerOpen);
-  setOpenState(action);
 }
 export async function projectOnSave(
   targetId,
   viewState,
   setSaveLoading,
   setSaveMsg,
-  setThumbnail,
-  setUploadError
+  setUploadError,
+  setSelectedProjectId,
+  oldThumbnail
 ) {
   //Processing State
   const [openState, setOpenState] = viewState;
@@ -79,7 +90,6 @@ export async function projectOnSave(
   const smId = document.getElementById("saveMsg");
   const thumbnailPreview = document.getElementById("thumbnailPreview");
   const blobImg = form.querySelector("#pvUploadImage").files[0];
-  const previousImg = form.querySelector("#imgThumbnail").src;
   const projectId = document
     .getElementById(targetId)
     .getAttribute("data-projectid");
@@ -93,6 +103,15 @@ export async function projectOnSave(
     .value.split(",")
     .map((item) => {
       return item.trim();
+    })
+    .slice(0, 3);
+  //Array Search
+  const arraySearch = form
+    .querySelector("#title")
+    .value.toLowerCase()
+    .split(" ")
+    .filter((item) => {
+      return item != "";
     });
   //Upload Image Function
   const uploadImg = async () => {
@@ -109,6 +128,7 @@ export async function projectOnSave(
     const data = {
       title: form.querySelector("#title").value,
       description: form.querySelector("#description").value,
+      author: "Prasetya Ikra Priyadi",
       categoryId: form.querySelector("#setCategory").value,
       categoryName:
         form.querySelector("#setCategory").options[
@@ -123,13 +143,10 @@ export async function projectOnSave(
           name: form.querySelector("#btnName2").value,
           url: form.querySelector("#btnLink2").value,
         },
-        {
-          name: form.querySelector("#btnName3").value,
-          url: form.querySelector("#btnLink3").value,
-        },
       ],
       isFeatured: form.querySelector("#setFeatured").value,
       isPublic: form.querySelector("#setVisibility").value,
+      arraySearch: arraySearch,
     };
 
     //Add to Firestore
@@ -146,9 +163,8 @@ export async function projectOnSave(
     }
     if (openState == "EDIT") {
       //Upload Image
-      if (blobImg != undefined) {
-        const fileRef = storage.refFromUrl(previousImg);
-        await deleteObject(fileRef);
+      if (blobImg && oldThumbnail) {
+        await deleteObject(ref(storage, oldThumbnail));
         data.imageUrl = await uploadImg();
       }
       data.tags = tagsGenerated;
@@ -165,12 +181,13 @@ export async function projectOnSave(
       thumbnailPreview.classList.remove(st.thumbnailUploaded);
       smId.classList.remove(st.loadingMsg);
       smId.classList.remove(st.errorMsg);
+      form.querySelector("#imgThumbnail").src = "/assets/imgUnavailable.jpeg";
       setOpenState(null);
-      setThumbnail("/assets/imgUnavailable.jpeg");
       setUploadError("");
       setSaveMsg("");
       setSaveLoading(false);
-    }, 3500);
+      setSelectedProjectId(null);
+    }, 3000);
   } catch (err) {
     setSaveMsg("Something Went Wrong... " + err);
     setSaveLoading(false);
@@ -178,34 +195,30 @@ export async function projectOnSave(
     smId.classList.add(st.errorMsg);
   }
 }
-export function projectOnCancel(setOpenState, setThumbnail, setUploadError) {
+export function projectOnCancel(setOpenState, setUploadError) {
   const form = document.getElementById("projectView");
   const thumbnailPreview = document.getElementById("thumbnailPreview");
   form.reset();
   form.classList.remove(st.pvContainerOpen);
   thumbnailPreview.classList.remove(st.thumbnailUploaded);
   setOpenState(null);
-  setThumbnail("/assets/imgUnavailable.jpeg");
+  form.querySelector("#imgThumbnail").src = "/assets/imgUnavailable.jpeg";
   setUploadError("");
 }
-export function uploadThumbnailOnChange(
-  targetId,
-  setThumbnail,
-  setUploadError
-) {
+export function uploadThumbnailOnChange(targetId, setUploadError) {
   const image = document.getElementById(targetId).files[0];
   const thumbnailPreview = document.getElementById("thumbnailPreview");
   const reader = new FileReader();
   switch (true) {
     case image.size > 1024 * 1000:
       setUploadError("Upload failed. Image size is over 1mb");
-      setThumbnail("/assets/imgUnavailable.jpeg");
+      form.querySelector("#imgThumbnail").src = "/assets/imgUnavailable.jpeg";
       thumbnailPreview.classList.remove(st.thumbnailUploaded);
       document.getElementById(targetId).value = null;
       break;
     case image.type.slice(0, 5) != "image":
       setUploadError("Upload failed. Image type is invalid");
-      setThumbnail("/assets/imgUnavailable.jpeg");
+      form.querySelector("#imgThumbnail").src = "/assets/imgUnavailable.jpeg";
       thumbnailPreview.classList.remove(st.thumbnailUploaded);
       document.getElementById(targetId).value = null;
       break;
@@ -213,8 +226,57 @@ export function uploadThumbnailOnChange(
       reader.readAsDataURL(image);
       reader.onload = () => {
         setUploadError("");
-        setThumbnail(reader.result);
+        form.querySelector("#imgThumbnail").src = reader.result;
         thumbnailPreview.classList.add(st.thumbnailUploaded);
       };
+  }
+}
+export function getProjectList(routerQuery, dataState, visibleState) {
+  const [data, setData] = dataState;
+  const [lastVisible, setLastVisible] = visibleState;
+  if (!routerQuery) {
+    const queryRef = query(
+      collection(firestore, "projects"),
+      orderBy("createdAt"),
+      limit(5)
+    );
+    const unsub = onSnapshot(
+      queryRef,
+      { includeMetadataChanges: true },
+      (snapshot) => {
+        let docData = [];
+        if (!snapshot.metadata.hasPendingWrites) {
+          snapshot.forEach((doc) => {
+            docData.push({ id: doc.id, data: doc.data() });
+          });
+          setData(docData);
+        }
+      }
+    );
+  } else {
+    let docData = [];
+    const arrayQuery = routerQuery
+      .split(" ")
+      .splice(0, 5)
+      .filter((item) => {
+        return item != "";
+      });
+    const queryRef = query(
+      collection(firestore, "projects"),
+      where("arraySearch", "array-contains-any", arrayQuery)
+    );
+    const unsub = onSnapshot(
+      queryRef,
+      { includeMetadataChanges: true },
+      (snapshot) => {
+        let docData = [];
+        if (!snapshot.metadata.hasPendingWrites) {
+          snapshot.forEach((doc) => {
+            docData.push({ id: doc.id, data: doc.data() });
+          });
+          setData(docData);
+        }
+      }
+    );
   }
 }

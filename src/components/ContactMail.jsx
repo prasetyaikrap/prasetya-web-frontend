@@ -101,7 +101,10 @@ export default function ContactMail({ language, style = "" }) {
           </span>
           <button
             disabled={btnDisabled}
-            style={{ opacity: btnDisabled ? ".8" : "1" }}
+            style={{
+              opacity: btnDisabled ? ".8" : "1",
+              cursor: btnDisabled ? "default" : "pointer",
+            }}
             type="submit"
             className={`bodyText`}
           >

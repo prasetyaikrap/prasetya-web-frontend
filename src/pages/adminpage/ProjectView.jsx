@@ -6,18 +6,47 @@ import {
   uploadThumbnailOnChange,
 } from "utils/adminHandler";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function ProjectView({ viewState }) {
+export default function ProjectView({
+  viewState,
+  selectedProject,
+  setSelectedProjectId,
+}) {
+  const {
+    id,
+    data: {
+      title,
+      description,
+      tags,
+      categoryId,
+      imageUrl,
+      btnLink,
+      isFeatured,
+      isPublic,
+    },
+  } = selectedProject;
+  const categoryList = [
+    { id: "cat0", name: "General" },
+    { id: "cat1", name: "Google Apps" },
+    { id: "cat2", name: "Programming" },
+  ];
+  const options = categoryList.map((item) => {
+    return (
+      <option key={item.id} value={item.id}>
+        {item.name}
+      </option>
+    );
+  });
+
   const [openState, setOpenState] = viewState;
-  const [thumbnail, setThumbnail] = useState("/assets/imgUnavailable.jpeg");
   const [uploadError, setUploadError] = useState("");
   const [saveLoading, setSaveLoading] = useState(false);
   const [saveMsg, setSaveMsg] = useState("");
   return (
     <form
       id="projectView"
-      data-projectid="cXnK9HjqF2Xh5Mok5QSO"
+      data-projectid={id}
       className={`flex-column ${st.pvContainer}`}
       onSubmit={(e) => {
         e.preventDefault();
@@ -26,8 +55,9 @@ export default function ProjectView({ viewState }) {
           viewState,
           setSaveLoading,
           setSaveMsg,
-          setThumbnail,
-          setUploadError
+          setUploadError,
+          setSelectedProjectId,
+          imageUrl
         );
       }}
     >
@@ -36,20 +66,38 @@ export default function ProjectView({ viewState }) {
         <label htmlFor="title" className={`bodyText`}>
           Project Title
         </label>
-        <input type="text" id="title" name="title" required />
+        <input
+          type="text"
+          id="title"
+          name="title"
+          defaultValue={title}
+          required
+        />
       </div>
       <div className={`flex-column ${st.pvSection}`}>
         <label htmlFor="description" className={`bodyText`}>
           Description
         </label>
-        <textarea id="description" name="description" rows="12" required />
+        <textarea
+          id="description"
+          name="description"
+          className={`${st.description}`}
+          defaultValue={description}
+          required
+        />
       </div>
       <div className={`flex-row ${st.pvSection} ${st.pvCol2}`}>
         <span className={`flex-column`}>
           <label htmlFor="tags" className={`bodyText`}>
             Tags
           </label>
-          <input type="text" id="tags" name="tags" required />
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            defaultValue={tags.join(",")}
+            required
+          />
         </span>
       </div>
       <div className={`flex-column ${st.pvSection} ${st.pvUploadImage}`}>
@@ -62,11 +110,7 @@ export default function ProjectView({ viewState }) {
           name="pvUploadImage"
           accept="image/*"
           onChange={(e) =>
-            uploadThumbnailOnChange(
-              e.currentTarget.id,
-              setThumbnail,
-              setUploadError
-            )
+            uploadThumbnailOnChange(e.currentTarget.id, setUploadError)
           }
           hidden
         />
@@ -74,7 +118,7 @@ export default function ProjectView({ viewState }) {
           <Image
             id="imgThumbnail"
             alt=""
-            src={thumbnail}
+            src={imageUrl}
             layout="fill"
             objectFit="cover"
             style={{ borderRadius: ".3vw" }}
@@ -100,13 +144,23 @@ export default function ProjectView({ viewState }) {
             <label htmlFor="btnName1" className={`bodyText`}>
               Button Name
             </label>
-            <input type="text" id="btnName1" name="btnName1" />
+            <input
+              type="text"
+              id="btnName1"
+              name="btnName1"
+              defaultValue={btnLink[0].name}
+            />
           </span>
           <span>
             <label htmlFor="btnLink1" className={`bodyText`}>
               Url
             </label>
-            <input type="text" id="btnLink1" name="btnLink1" />
+            <input
+              type="text"
+              id="btnLink1"
+              name="btnLink1"
+              defaultValue={btnLink[0].url}
+            />
           </span>
         </div>
         <div className={`flex-row ${st.pvsLinkBtn}`}>
@@ -114,27 +168,23 @@ export default function ProjectView({ viewState }) {
             <label htmlFor="btnName2" className={`bodyText`}>
               Button Name
             </label>
-            <input type="text" id="btnName2" name="btnName2" />
+            <input
+              type="text"
+              id="btnName2"
+              name="btnName2"
+              defaultValue={btnLink[1].name}
+            />
           </span>
           <span>
             <label htmlFor="btnLink2" className={`bodyText`}>
               Url
             </label>
-            <input type="text" id="btnLink2" name="btnLink2" />
-          </span>
-        </div>
-        <div className={`flex-row ${st.pvsLinkBtn}`}>
-          <span>
-            <label htmlFor="btnName3" className={`bodyText`}>
-              Button Name
-            </label>
-            <input type="text" id="btnName3" name="btnName3" />
-          </span>
-          <span>
-            <label htmlFor="btnLink3" className={`bodyText`}>
-              Url
-            </label>
-            <input type="text" id="btnLink3" name="btnLink3" />
+            <input
+              type="text"
+              id="btnLink2"
+              name="btnLink2"
+              defaultValue={btnLink[1].url}
+            />
           </span>
         </div>
       </div>
@@ -149,21 +199,22 @@ export default function ProjectView({ viewState }) {
               className={`bodyText`}
               id="setCategory"
               name="setCategory"
+              defaultValue={categoryId}
               required
             >
-              <option value="unknown" disabled>
-                category...
-              </option>
-              <option value="1">Google Workspace</option>
-              <option value="2">Programming</option>
-              <option value="99">Others</option>
+              {options}
             </select>
           </span>
           <span>
             <label htmlFor="setFeatured" className={`bodyText`}>
               Featured ?
             </label>
-            <select className={`bodyText`} id="setFeatured" name="setFeatured">
+            <select
+              className={`bodyText`}
+              id="setFeatured"
+              name="setFeatured"
+              defaultValue={isFeatured}
+            >
               <option value={false}>No</option>
               <option value={true}>Yes</option>
             </select>
@@ -176,6 +227,7 @@ export default function ProjectView({ viewState }) {
               className={`bodyText`}
               id="setVisibility"
               name="setVisibility"
+              defaultValue={isPublic}
             >
               <option value={true}>Public</option>
               <option value={false}>Private</option>
@@ -194,7 +246,8 @@ export default function ProjectView({ viewState }) {
           className={`bodyText`}
           type="button"
           onClick={(e) => {
-            projectOnCancel(setOpenState, setThumbnail, setUploadError);
+            setSelectedProjectId(null);
+            projectOnCancel(setOpenState, setUploadError);
           }}
           disabled={saveLoading}
         >
@@ -203,7 +256,8 @@ export default function ProjectView({ viewState }) {
       </div>
       <CrossBtn
         handler={(e) => {
-          projectOnCancel(setOpenState, setThumbnail, setUploadError);
+          setSelectedProjectId(null);
+          projectOnCancel(setOpenState, setUploadError);
         }}
         addClass={st.pvCloseBtn}
       />

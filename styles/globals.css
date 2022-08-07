@@ -34,7 +34,7 @@
   --scroll-track-width: 0.7vw;
 
   /*Animation*/
-  --fadeinTop: fadein-top;
+  --fadeIn: fade-in;
   --scaleIn: scale-in;
   --scaleOut: scale-out;
   --blinking: blinking;
@@ -146,6 +146,14 @@ h4 {
   visibility: hidden;
 }
 
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
+}
 @keyframes scale-in {
   0% {
     transform: scale(0.8, 0.8);
