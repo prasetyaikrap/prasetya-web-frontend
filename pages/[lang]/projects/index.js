@@ -11,6 +11,7 @@ import st from "styles/projects.module.css";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import WebHead from "components/Head";
 
 export async function getStaticPaths() {
   const paths = ["id", "en"].map((item) => {
@@ -92,15 +93,38 @@ export default function Project({ language, projectCat, projects }) {
     isFeatured: false,
   };
   const [selectedProject, setSelectedProject] = useState(projectDefault);
+  const meta = [
+    { name: "robots", property: "", content: "all" },
+    {
+      name: "description",
+      property: "",
+      content:
+        "Prasetya Ikra Priyadi - Spinnovid - Home for technology enthusiast",
+    },
+    {
+      name: "keywords",
+      property: "",
+      content:
+        "Technology, Nextjs, Web Development, Full Stack Developer, Data, Google Apps, Javascript, Open To work, Content Creator",
+    },
+    { name: "author", property: "", content: "Prasetya Ikra Priyadi" },
+  ];
   return (
-    <section className={`${st.sectionProject}`}>
-      <Navbar language={[info, nav, navBtn]} page="projectpage" />
-      <CatHeader projectCat={projectCat} />
-      <ContentBody
-        projectData={project}
-        setSelectedProject={setSelectedProject}
+    <>
+      <WebHead
+        title="Project Collection - Prasetya Ikra Priyadi"
+        meta={meta}
+        link={[]}
       />
-      <ProjectPreview data={selectedProject} />
-    </section>
+      <section className={`${st.sectionProject}`}>
+        <Navbar language={[info, nav, navBtn]} page="projectpage" />
+        <CatHeader projectCat={projectCat} />
+        <ContentBody
+          projectData={project}
+          setSelectedProject={setSelectedProject}
+        />
+        <ProjectPreview data={selectedProject} />
+      </section>
+    </>
   );
 }

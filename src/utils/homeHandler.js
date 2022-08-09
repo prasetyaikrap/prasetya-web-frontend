@@ -71,3 +71,5 @@ export function closeConfirmationBox(confirmClass) {
   const confirmBox = document.getElementById("confirmationBox");
   confirmBox.classList.remove(confirmClass);
 }
+
+export function getAllProjects() {}

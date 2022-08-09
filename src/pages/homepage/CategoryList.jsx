@@ -8,10 +8,10 @@ import { categoryClicked } from "utils/homeHandler";
 export default function CategoryList({ projectCat }) {
   const router = useRouter();
   useEffect(() => {
-    if (router.query.category !== undefined) {
-      categoryClicked(router.query.category, st.catListBox, st.clbOnFocus);
+    if (router.query.cat !== undefined) {
+      categoryClicked(router.query.cat, st.catListBox, st.clbOnFocus);
     }
-  }, [router.query.category]);
+  }, [router.query.cat]);
   //Get Category List
   const categoryList = projectCat.category
     .filter((item) => item.isActive === true)
@@ -28,7 +28,7 @@ export default function CategoryList({ projectCat }) {
                 pathname: "/[lang]",
                 query: {
                   lang: router.query.lang,
-                  category: e.currentTarget.id,
+                  cat: e.currentTarget.id,
                 },
               },
               undefined,
@@ -53,7 +53,6 @@ export default function CategoryList({ projectCat }) {
             />
           </span>
           <h4>{item.name}</h4>
-          {/* <ArrowProjCategory itemId={item.id}/> */}
         </button>
       );
     });
@@ -67,7 +66,7 @@ export default function CategoryList({ projectCat }) {
           router.replace(
             {
               pathname: "/[lang]",
-              query: { lang: router.query.lang, category: e.currentTarget.id },
+              query: { lang: router.query.lang, cat: e.currentTarget.id },
             },
             undefined,
             { shallow: true }
@@ -91,7 +90,6 @@ export default function CategoryList({ projectCat }) {
           />
         </span>
         <h4>Featured</h4>
-        {/* <ArrowProjCategory itemId={item.id}/> */}
       </button>
       {categoryList}
     </>

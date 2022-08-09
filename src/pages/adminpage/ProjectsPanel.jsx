@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import st from "styles/admin.module.css";
 import ProjectView from "./ProjectView";
 import {
+  deleteProject,
   getProjectList,
-  getSearchProjectList,
+  refreshProjectList,
   openProject,
 } from "utils/adminHandler";
 import { useRouter } from "next/router";
@@ -12,24 +13,22 @@ import Image from "next/image";
 export default function ProjectPanel() {
   const initialProject = {
     id: "",
-    data: {
-      title: "",
-      description: "",
-      tags: [],
-      author: "Prasetya Ikra Priyadi",
-      categoryId: "unknown",
-      categoryName: "",
-      imageUrl: "/assets/imgUnavailable.jpeg",
-      btnLink: [
-        { name: "", url: "" },
-        { name: "", url: "" },
-      ],
-      isFeatured: "false",
-      isPublic: "true",
-      createdAt: "",
-      updatedAt: "",
-      arraySearch: [],
-    },
+    title: "",
+    description: "",
+    tags: [],
+    author: "Prasetya Ikra Priyadi",
+    categoryId: "unknown",
+    categoryName: "",
+    imageUrl: "/assets/imgUnavailable.jpeg",
+    btnLink: [
+      { name: "", url: "" },
+      { name: "", url: "" },
+    ],
+    isFeatured: false,
+    isPublic: true,
+    createdAt: "",
+    updatedAt: "",
+    arraySearch: [],
   };
   const router = useRouter();
   const [openState, setOpenState] = useState(null);
@@ -37,18 +36,24 @@ export default function ProjectPanel() {
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [selectedProject, setSelectedProject] = useState(initialProject);
   const [lastVisible, setLastVisible] = useState(null);
+  const [refreshList, setRefreshList] = useState(false);
   const searchRef = useRef();
   //Get Projects Data
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
+    console.log("triggered");
     //Get list of project based
     getProjectList(
       router.query.qs,
       [data, setData],
-      [lastVisible, setLastVisible]
+      [lastVisible, setLastVisible],
+      3
     );
+    if (router.query.qs != undefined) {
+      document.querySelector("#clearSearch").hidden = false;
+    }
   }, [router.query.qs]);
 
   //setPreview Data
@@ -96,7 +101,7 @@ export default function ProjectPanel() {
                   undefined,
                   { shallow: true }
                 );
-                document.getElementById("clearSearch").hidden = false;
+                document.querySelector("#clearSearch").hidden = false;
               }
             }}
           />
@@ -116,7 +121,7 @@ export default function ProjectPanel() {
                 undefined,
                 { shallow: true }
               );
-              document.getElementById("clearSearch").hidden = true;
+              document.querySelector("#clearSearch").hidden = true;
               document.getElementById("searchBar").value = "";
             }}
           >
@@ -124,6 +129,21 @@ export default function ProjectPanel() {
           </button>
         </div>
         <div>
+          <button
+            hidden={refreshList ? false : true}
+            className={`smallText ${st.refreshList}`}
+            onClick={async (e) => {
+              getProjectList(
+                router.query.qs,
+                [data, setData],
+                [lastVisible, setLastVisible],
+                3
+              );
+              setRefreshList(false);
+            }}
+          >
+            Changes detected. Click to refresh
+          </button>
           <button
             className={`bodyText`}
             onClick={(e) => {
@@ -140,35 +160,56 @@ export default function ProjectPanel() {
           data={data}
           setOpenState={setOpenState}
           setSelectedProjectId={setSelectedProjectId}
+          setRefreshList={setRefreshList}
         />
+        <button
+          id="loadMoreBtn"
+          hidden={lastVisible == "EMPTY" ? true : false}
+          className={st.loadMoreBtn}
+          onClick={(e) => {
+            getProjectList(
+              router.query.qs,
+              [data, setData],
+              [lastVisible, setLastVisible],
+              3,
+              true
+            );
+          }}
+        >
+          Load More
+        </button>
       </div>
       <ProjectView
         viewState={[openState, setOpenState]}
         selectedProject={selectedProject}
         setSelectedProjectId={setSelectedProjectId}
+        setRefreshList={setRefreshList}
       />
     </div>
   );
 }
 
-export function Cards({ data, setOpenState, setSelectedProjectId }) {
+export function Cards({
+  data,
+  setOpenState,
+  setSelectedProjectId,
+  setRefreshList,
+}) {
   let cards = data.map((item) => {
     const {
       id,
-      data: {
-        title,
-        description,
-        author,
-        categoryId,
-        categoryName,
-        btnLink,
-        isFeatured,
-        isPublic,
-        tags,
-        imageUrl,
-        createdAt,
-        updatedAt,
-      },
+      title,
+      description,
+      author,
+      categoryId,
+      categoryName,
+      btnLink,
+      isFeatured,
+      isPublic,
+      tags,
+      imageUrl,
+      createdAt,
+      updatedAt,
     } = item;
     const tagsMap = tags.map((tag) => {
       return (
@@ -251,18 +292,57 @@ export function Cards({ data, setOpenState, setSelectedProjectId }) {
             type="button"
             className={`bodyText`}
             onClick={(e) => {
-              const parent = document.getElementById(e.currentTarget.id)
-                .parentNode.parentNode;
+              const parent = e.currentTarget.parentNode.parentNode;
               setSelectedProjectId(parent.id);
               openProject("EDIT", setOpenState);
             }}
           >
             Edit
           </button>
-          <button id={st.actionDelete} type="button" className={`bodyText`}>
+          <button
+            id={st.actionDelete}
+            type="button"
+            className={`bodyText`}
+            onClick={(e) => {
+              document
+                .getElementById(id)
+                .querySelector(`#${st.pActionConfirm}`)
+                .classList.add(st.pACDelete);
+            }}
+          >
             Delete
           </button>
         </span>
+        <span id={st.pActionConfirm} className={`${st.pActionDelete}`}>
+          <p className={`bodyText`}>Delete project?</p>
+          <button
+            className={`bodyText`}
+            onClick={(e) => {
+              const projectData = {
+                projectId: id,
+                thumbnailUrl: imageUrl,
+                actionBtn: e.currentTarget,
+                setRefreshList: setRefreshList,
+                cardElm: document.getElementById(id),
+              };
+              deleteProject(projectData);
+            }}
+          >
+            Yes
+          </button>
+          <button
+            className={`bodyText`}
+            onClick={(e) => {
+              document
+                .getElementById(id)
+                .querySelector(`#${st.pActionConfirm}`)
+                .classList.remove(st.pACDelete);
+            }}
+          >
+            No
+          </button>
+        </span>
+        <span id="deletedCard" className={""}></span>
       </div>
     );
   });

@@ -6,57 +6,54 @@ import {
   uploadThumbnailOnChange,
 } from "utils/adminHandler";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import cat from "data/categoryList.json";
 
 export default function ProjectView({
   viewState,
   selectedProject,
   setSelectedProjectId,
+  setRefreshList,
 }) {
   const {
     id,
-    data: {
-      title,
-      description,
-      tags,
-      categoryId,
-      imageUrl,
-      btnLink,
-      isFeatured,
-      isPublic,
-    },
+    title,
+    description,
+    tags,
+    categoryId,
+    categoryName,
+    imageUrl,
+    btnLink,
+    isFeatured,
+    isPublic,
   } = selectedProject;
-  const categoryList = [
-    { id: "cat0", name: "General" },
-    { id: "cat1", name: "Google Apps" },
-    { id: "cat2", name: "Programming" },
-  ];
-  const options = categoryList.map((item) => {
+  const options = cat.category.map((item) => {
     return (
       <option key={item.id} value={item.id}>
         {item.name}
       </option>
     );
   });
-
   const [openState, setOpenState] = viewState;
   const [uploadError, setUploadError] = useState("");
   const [saveLoading, setSaveLoading] = useState(false);
+  // const [thumbnail, setThumbnail] = useState(imageUrl);
   const [saveMsg, setSaveMsg] = useState("");
   return (
     <form
       id="projectView"
       data-projectid={id}
       className={`flex-column ${st.pvContainer}`}
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        projectOnSave(
+        await projectOnSave(
           e.currentTarget.id,
           viewState,
           setSaveLoading,
           setSaveMsg,
           setUploadError,
           setSelectedProjectId,
+          setRefreshList,
           imageUrl
         );
       }}
@@ -110,7 +107,7 @@ export default function ProjectView({
           name="pvUploadImage"
           accept="image/*"
           onChange={(e) =>
-            uploadThumbnailOnChange(e.currentTarget.id, setUploadError)
+            uploadThumbnailOnChange(e.currentTarget, setUploadError)
           }
           hidden
         />
@@ -193,7 +190,7 @@ export default function ProjectView({
         <div className={`flex-row ${st.addSettings}`}>
           <span>
             <label htmlFor="setCategory" className={`bodyText`}>
-              Category
+              {`Category (${categoryName})`}
             </label>
             <select
               className={`bodyText`}
@@ -207,7 +204,7 @@ export default function ProjectView({
           </span>
           <span>
             <label htmlFor="setFeatured" className={`bodyText`}>
-              Featured ?
+              {`Featured? (${isFeatured ? "Yes" : "No"})`}
             </label>
             <select
               className={`bodyText`}
@@ -221,7 +218,7 @@ export default function ProjectView({
           </span>
           <span>
             <label htmlFor="setVisibility" className={`bodyText`}>
-              Visibility
+              {`Visibility (${isPublic ? "Yes" : "No"})`}
             </label>
             <select
               className={`bodyText`}

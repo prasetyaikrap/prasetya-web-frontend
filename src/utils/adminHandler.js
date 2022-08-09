@@ -4,14 +4,15 @@ import {
   doc,
   setDoc,
   addDoc,
-  serverTimestamp,
+  getDocs,
+  deleteDoc,
   collection,
   query,
   where,
   orderBy,
   limit,
-  onSnapshot,
-  FieldValue,
+  serverTimestamp,
+  startAfter,
 } from "firebase/firestore";
 import {
   ref,
@@ -21,7 +22,6 @@ import {
 } from "firebase/storage";
 import generateRandom from "./generateRandomToken";
 
-//Login and Logout Handler
 export async function handleLogin(
   event,
   setLoading,
@@ -64,7 +64,6 @@ export async function handleLogin(
   }
   console.clear();
 }
-//Project Panel
 export function openProject(action, setOpenState) {
   //Open Project Preview
   setOpenState(action);
@@ -82,6 +81,7 @@ export async function projectOnSave(
   setSaveMsg,
   setUploadError,
   setSelectedProjectId,
+  setRefreshList,
   oldThumbnail
 ) {
   //Processing State
@@ -144,8 +144,8 @@ export async function projectOnSave(
           url: form.querySelector("#btnLink2").value,
         },
       ],
-      isFeatured: form.querySelector("#setFeatured").value,
-      isPublic: form.querySelector("#setVisibility").value,
+      isFeatured: form.querySelector("#setFeatured").value == "true",
+      isPublic: form.querySelector("#setVisibility").value == "true",
       arraySearch: arraySearch,
     };
 
@@ -187,6 +187,7 @@ export async function projectOnSave(
       setSaveMsg("");
       setSaveLoading(false);
       setSelectedProjectId(null);
+      setRefreshList(true);
     }, 3000);
   } catch (err) {
     setSaveMsg("Something Went Wrong... " + err);
@@ -202,81 +203,137 @@ export function projectOnCancel(setOpenState, setUploadError) {
   form.classList.remove(st.pvContainerOpen);
   thumbnailPreview.classList.remove(st.thumbnailUploaded);
   setOpenState(null);
-  form.querySelector("#imgThumbnail").src = "/assets/imgUnavailable.jpeg";
   setUploadError("");
 }
-export function uploadThumbnailOnChange(targetId, setUploadError) {
-  const image = document.getElementById(targetId).files[0];
+export function uploadThumbnailOnChange(target, setUploadError) {
+  const image = target.files[0];
   const thumbnailPreview = document.getElementById("thumbnailPreview");
   const reader = new FileReader();
-  switch (true) {
-    case image.size > 1024 * 1000:
-      setUploadError("Upload failed. Image size is over 1mb");
-      form.querySelector("#imgThumbnail").src = "/assets/imgUnavailable.jpeg";
-      thumbnailPreview.classList.remove(st.thumbnailUploaded);
-      document.getElementById(targetId).value = null;
-      break;
-    case image.type.slice(0, 5) != "image":
-      setUploadError("Upload failed. Image type is invalid");
-      form.querySelector("#imgThumbnail").src = "/assets/imgUnavailable.jpeg";
-      thumbnailPreview.classList.remove(st.thumbnailUploaded);
-      document.getElementById(targetId).value = null;
-      break;
-    default:
-      reader.readAsDataURL(image);
-      reader.onload = () => {
-        setUploadError("");
-        form.querySelector("#imgThumbnail").src = reader.result;
-        thumbnailPreview.classList.add(st.thumbnailUploaded);
-      };
+  try {
+    switch (true) {
+      case image.size > 1024 * 1000:
+        setUploadError("Upload failed. Image size is over 1mb");
+        setThumbnail("/assets/imgUnavailable.jpeg");
+        target.parentNode.querySelector("#imgThumbnail").src =
+          "/assets/imgUnavailable.jpeg";
+        target.value = null;
+        break;
+      case image.type.slice(0, 5) != "image":
+        setUploadError("Upload failed. Image type is invalid");
+        target.parentNode.querySelector("#imgThumbnail").src =
+          "/assets/imgUnavailable.jpeg";
+        thumbnailPreview.classList.remove(st.thumbnailUploaded);
+        target.value = null;
+        break;
+      default:
+        reader.readAsDataURL(image);
+        reader.onload = () => {
+          setUploadError("");
+          target.parentNode.querySelector("#imgThumbnail").src = reader.result;
+          target.parentNode
+            .querySelector("#imgThumbnail")
+            .removeAttribute("srcset");
+          thumbnailPreview.classList.add(st.thumbnailUploaded);
+        };
+    }
+  } catch (err) {
+    target.parentNode.querySelector("#imgThumbnail").src =
+      "/assets/imgUnavailable.jpeg";
+    target.parentNode.querySelector("#imgThumbnail").removeAttribute("srcset");
+    thumbnailPreview.classList.remove(st.thumbnailUploaded);
+    target.value = null;
   }
 }
-export function getProjectList(routerQuery, dataState, visibleState) {
+export async function getProjectList(
+  routerQuery,
+  dataState,
+  visibleState,
+  pageRange = 5,
+  paginate = false
+) {
   const [data, setData] = dataState;
   const [lastVisible, setLastVisible] = visibleState;
-  if (!routerQuery) {
-    const queryRef = query(
-      collection(firestore, "projects"),
-      orderBy("createdAt"),
-      limit(5)
-    );
-    const unsub = onSnapshot(
-      queryRef,
-      { includeMetadataChanges: true },
-      (snapshot) => {
-        let docData = [];
-        if (!snapshot.metadata.hasPendingWrites) {
-          snapshot.forEach((doc) => {
-            docData.push({ id: doc.id, data: doc.data() });
-          });
-          setData(docData);
-        }
+  let queryRef;
+  switch (true) {
+    case !routerQuery:
+      if (paginate) {
+        queryRef = query(
+          collection(firestore, "projects"),
+          orderBy("createdAt", "desc"),
+          startAfter(lastVisible),
+          limit(pageRange)
+        );
+      } else {
+        queryRef = query(
+          collection(firestore, "projects"),
+          orderBy("createdAt", "desc"),
+          limit(pageRange)
+        );
       }
-    );
-  } else {
-    let docData = [];
-    const arrayQuery = routerQuery
-      .split(" ")
-      .splice(0, 5)
-      .filter((item) => {
-        return item != "";
-      });
-    const queryRef = query(
-      collection(firestore, "projects"),
-      where("arraySearch", "array-contains-any", arrayQuery)
-    );
-    const unsub = onSnapshot(
-      queryRef,
-      { includeMetadataChanges: true },
-      (snapshot) => {
-        let docData = [];
-        if (!snapshot.metadata.hasPendingWrites) {
-          snapshot.forEach((doc) => {
-            docData.push({ id: doc.id, data: doc.data() });
-          });
-          setData(docData);
-        }
+      break;
+    case routerQuery != undefined:
+      const arrayQuery = routerQuery
+        .split(" ")
+        .splice(0, 5)
+        .filter((item) => {
+          return item != "";
+        });
+      if (paginate) {
+        queryRef = query(
+          collection(firestore, "projects"),
+          where("arraySearch", "array-contains-any", arrayQuery),
+          orderBy("createdAt", "desc"),
+          startAfter(lastVisible),
+          limit(pageRange)
+        );
+      } else {
+        queryRef = query(
+          collection(firestore, "projects"),
+          where("arraySearch", "array-contains-any", arrayQuery),
+          orderBy("createdAt", "desc"),
+          limit(pageRange)
+        );
       }
-    );
+      break;
+    default:
   }
+  try {
+    const snapshots = await getDocs(queryRef);
+    const cursorDoc =
+      snapshots.empty || snapshots.docs.length < pageRange
+        ? "EMPTY"
+        : snapshots.docs[snapshots.docs.length - 1];
+    if (paginate) {
+      setData([
+        ...data,
+        ...snapshots.docs.map((doc) => ({ ...doc.data(), id: doc.id })),
+      ]);
+    } else {
+      setData(snapshots.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }
+    setLastVisible(cursorDoc);
+  } catch (err) {
+    console.log(err);
+  }
+}
+export async function deleteProject(projectData) {
+  const { projectId, thumbnailUrl, actionBtn, setRefreshList, cardElm } =
+    projectData;
+  actionBtn.textContent = "Deleting...";
+  actionBtn.classList.add(st.loadingProcess);
+  setTimeout(async () => {
+    try {
+      await deleteDoc(doc(firestore, "projects", projectId));
+      await deleteObject(ref(storage, thumbnailUrl));
+      actionBtn.textContent = "Yes";
+      actionBtn.classList.remove(st.loadingProcess);
+      setRefreshList(true);
+      cardElm
+        .querySelector(`#${st.pActionConfirm}`)
+        .classList.remove(st.pACDelete);
+      cardElm.querySelector(`#deletedCard`).classList.add(st.deletedCard);
+    } catch (err) {
+      console.log(err);
+    }
+  }, 2500);
 }
