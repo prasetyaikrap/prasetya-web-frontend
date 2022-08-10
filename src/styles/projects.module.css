@@ -16,14 +16,14 @@
   box-shadow: 0 0.1vw 0.5vw var(--col-shadow);
   background-color: white;
 }
-.headerContainer div:nth-child(1),
-.headerContainer div:nth-child(2) {
+.headerContainer > div:nth-child(1),
+.headerContainer > div:nth-child(2) {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   column-gap: 1vw;
 }
-.headerContainer div:nth-child(2) {
+.headerContainer > div:nth-child(2) {
   align-items: center;
   column-gap: 0.5vw;
 }
@@ -72,7 +72,7 @@
   border: none;
   background-color: var(--col-white-03);
   box-shadow: 0 0 0.5vw var(--col-shadow);
-  padding: 1vw;
+  padding: 1vw 1.5vw;
   animation: var(--scaleIn) 0.5s;
 }
 .cardsProjectEmpty {
@@ -84,7 +84,7 @@
   color: white;
   transition: var(--trans-03);
 }
-.cardsProject #pcTitle {
+.cardsProject > #pcTitle {
   width: 100%;
   text-align: left;
   margin-bottom: 0.3vw;
@@ -92,31 +92,40 @@
   white-space: nowrap;
   overflow: hidden;
 }
-.cardsProject #pcTags {
+.cardsProject > #pcTags {
   width: 100%;
   column-gap: 0.5vw;
   padding-bottom: 0.2vw;
   border-bottom: 0.1vw solid var(--col-white-01);
   margin-bottom: 0.5vw;
 }
-.cardsProject #pcTags span {
+.cardsProject > #pcTags > span {
   background-color: var(--col-white-01);
-  font-size: 0.75vw;
-  padding: 0.1vw 0.6vw;
+  font-size: 0.6vw;
+  width: 4vw;
+  padding: 0.1vw 0.3vw;
   border-radius: 0.1vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.cardsProject:hover #pcTags span,
-.pActive #pcTags span {
+.cardsProject:hover > #pcTags > span,
+.pActive > #pcTags > span {
   background-color: var(--col-white-primary);
   color: black;
 }
-.cardsProject #pcSummary {
-  font-size: 0.9vw;
+.cardsProject > #pcSummary {
+  font-size: 0.75vw;
   width: 100%;
   text-align: justify;
-  height: calc(1vw * 1.25 * 3);
+  height: calc(1vw * 1.2 * 4);
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--col-black-03);
+}
+.cardsProject:hover > #pcSummary,
+.pActive > #pcSummary {
+  color: var(--col-white-03);
 }
 .cbContent2nd {
   position: fixed;
@@ -136,7 +145,7 @@
   visibility: visible;
   opacity: 1;
   transform: scale(1, 1);
-  transition: var(--trans-04);
+  transition: var(--trans-05);
 }
 .pContainer {
   width: 95%;
@@ -159,23 +168,72 @@
   height: 100%;
   background-color: var(--col-shadow);
 }
+.pmImage > span {
+  border-radius: 0.5vw;
+}
 .pMedia2 {
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-rows: min-content;
   width: 40%;
-  padding: 0.5vw 1vw;
+  padding: 0.5vw 0.5vw 0.5vw 1vw;
+  row-gap: 0.5vw;
+  overflow: auto;
+}
+.pMedia2 > h2 {
+  font-size: 1.7vw;
+}
+.pmInfo {
+  gap: 0.3vw 1vw;
+  flex-wrap: wrap;
+}
+.pmInfo > span {
+  font-size: 0.75vw;
+  font-style: italic;
+  color: var(--col-black-03);
+  white-space: nowrap;
 }
 .pmTagsBox {
-  column-gap: 0.5vw;
-  height: 2vw;
+  column-gap: 0.4vw;
   align-items: center;
 }
+.pmTagsBox > span {
+  background-color: var(--col-white-01);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0.2vw 0.6vw;
+  border-radius: 0.2vw;
+  text-align: center;
+}
 .pmSummary {
+  position: relative;
   margin: 1vw 0;
-  height: 64%;
+  padding: 0 0.5vw;
+  row-gap: 0.7vw;
+  min-height: 13.5vw;
+}
+.pmSummary > p {
   text-align: justify;
   line-height: 1.5vw;
 }
 .pmActionBox {
-  height: 3vw;
+  justify-content: flex-end;
+  column-gap: 1vw;
+}
+.pmActionBox > a {
+  padding: 0.2vw 1vw;
+  text-decoration: none;
+  color: var(--col-white-primary);
+  background-color: var(--col-navy-vdark);
+  border-radius: 0.2vw;
+  font-size: 1vw;
+  text-align: center;
+  align-items: center;
+}
+.pmActionBox > a:hover {
+  opacity: 0.8;
+  transition: var(--trans-03);
 }
 .crossBtn {
   position: absolute;

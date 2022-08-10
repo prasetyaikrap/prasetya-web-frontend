@@ -13,7 +13,7 @@ export default function CategoryList({ projectCat }) {
     }
   }, [router.query.cat]);
   //Get Category List
-  const categoryList = projectCat.category
+  const categoryList = projectCat
     .filter((item) => item.isActive === true)
     .map((item) => {
       return (
@@ -40,7 +40,7 @@ export default function CategoryList({ projectCat }) {
             <Image
               layout="fill"
               objectFit="cover"
-              src={item.icon1}
+              src={item.icon[0].url}
               alt={item.name}
             />
           </span>
@@ -48,7 +48,7 @@ export default function CategoryList({ projectCat }) {
             <Image
               layout="fill"
               objectFit="cover"
-              src={item.icon2}
+              src={item.icon[1].url}
               alt={item.name}
             />
           </span>

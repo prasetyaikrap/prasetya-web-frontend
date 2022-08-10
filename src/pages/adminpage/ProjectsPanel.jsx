@@ -1,12 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import st from "styles/admin.module.css";
 import ProjectView from "./ProjectView";
-import {
-  deleteProject,
-  getProjectList,
-  refreshProjectList,
-  openProject,
-} from "utils/adminHandler";
+import { deleteProject, getProjectList, openProject } from "utils/adminHandler";
 import { useRouter } from "next/router";
 import Image from "next/image";
 

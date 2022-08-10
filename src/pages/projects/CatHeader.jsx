@@ -1,29 +1,29 @@
-import Image from "next/image"
-import st from "styles/projects.module.css"
-import CatList from "pages/projects/CatList"
+import Image from "next/image";
+import st from "styles/projects.module.css";
+import CatList from "pages/projects/CatList";
 
-export default function CatHeader({projectCat}) {
-  const catList = projectCat.category.filter(item => {
-    return item.isActive === true
-  })
+export default function CatHeader({ projectCat }) {
   return (
     <div className={`flex-row ${st.headerContainer}`}>
       <div>
-        <CatList 
-        catList={catList} 
-        />
+        <CatList catList={projectCat} />
       </div>
       <div>
         <span className={`${st.hSearchIcon}`}>
-          <Image 
-          src="/assets/search.png"
-          alt='Search Project'
-          layout='fill'
-          objectFit='cover'
+          <Image
+            src="/assets/search.png"
+            alt="Search Project"
+            layout="fill"
+            objectFit="cover"
           />
         </span>
-        <input id="projectSearch" className={st.hSearchBox} type="search" name="projectSearch" />
+        <input
+          id="projectSearch"
+          className={st.hSearchBox}
+          type="search"
+          name="projectSearch"
+        />
       </div>
     </div>
-  )
+  );
 }

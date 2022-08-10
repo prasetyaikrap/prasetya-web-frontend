@@ -1,4 +1,3 @@
-import ProjectCards from "components/ProjectCards";
 import st from "styles/projects.module.css";
 import Cards from "./Cards";
 

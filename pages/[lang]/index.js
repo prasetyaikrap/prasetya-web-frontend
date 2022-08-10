@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-import projectCat from "data/categoryList.json";
-import socmedList from "data/socmedList.json";
+import pc from "data/category.json";
+import sm from "data/socmedList.json";
 import langID from "data/langID.json";
 import langEN from "data/langEN.json";
 
@@ -12,8 +12,15 @@ import Contact from "pages/homepage/Contact";
 import WebHead from "components/Head";
 
 import { firestore } from "utils/firebaseConfig";
-import { getDocs, collection, query, orderBy } from "firebase/firestore";
-import { stringify } from "@firebase/util";
+import {
+  getDocs,
+  collection,
+  query,
+  orderBy,
+  limit,
+  where,
+} from "firebase/firestore";
+import { push } from "firebase/database";
 
 export async function getStaticPaths() {
   const paths = ["id", "en"].map((item) => {
@@ -38,14 +45,40 @@ export async function getStaticProps({ params }) {
     default:
       language = langID;
   }
+  //Get Projects
+  const projectCat = pc.data;
+  let projects = [];
+  projectCat
+    .filter((cat) => {
+      cat.isActive == true;
+    })
+    .forEach(async (cat) => {
+      const snapshot = await getDocs(
+        query(
+          collection(firestore, "projects"),
+          where("categoryId", "==", cat.id),
+          orderBy("createdAt", "desc"),
+          limit(6)
+        )
+      );
+      projects.push(
+        ...snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      );
+    });
+  //Get Featured List
   const snapshot = await getDocs(
-    query(collection(firestore, "projects"), orderBy("createdAt", "desc"))
+    query(
+      collection(firestore, "projects"),
+      where("isFeatured", "==", true),
+      orderBy("createdAt", "desc"),
+      limit(6)
+    )
   );
-  const projects = JSON.stringify([
-    ...snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
-  ]);
-  //Set Project Data
-  const contactData = [socmedList];
+  projects.push(...snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+  //Conver to JSON
+  projects = JSON.stringify([...new Set(projects)]);
+  //Set Contact Data
+  const contactData = sm.data;
   return {
     props: {
       language,
@@ -57,31 +90,27 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Home({ language, projectCat, projects, contactData }) {
-  const [projectData, setProjectData] = useState(JSON.parse(projects));
-  console.log(projectData);
+  const [projectData, setProjectData] = useState([]);
   const router = useRouter();
+  console.log(projectData);
   useEffect(() => {
-    if (!router.isReady) return;
-    const category = router.query.cat;
-    let filteredData = [];
-    switch (true) {
-      case category === "featured" || category === undefined:
-        filteredData = JSON.parse(projects)
-          .filter((item) => {
-            return item.isFeatured === true;
+    if (!router.isReady) {
+      return;
+    }
+    if (router.query.cat == undefined || router.query.cat == "featured") {
+      setProjectData(
+        JSON.parse(projects)
+          .filter((project) => {
+            return project.isFeatured == true;
           })
-          .slice(0, 6);
-        setProjectData(filteredData);
-        break;
-      case category !== undefined:
-        filteredData = JSON.parse(projects)
-          .filter((item) => {
-            return item.categoryId === category;
-          })
-          .slice(0, 6);
-        setProjectData(filteredData);
-        break;
-      default:
+          .slice(0, 6)
+      );
+    } else {
+      setProjectData(
+        JSON.parse(projects).filter((project) => {
+          return project.categoryId == router.query.cat;
+        })
+      );
     }
   }, [router.query.cat]);
 

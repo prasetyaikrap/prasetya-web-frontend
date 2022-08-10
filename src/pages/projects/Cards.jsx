@@ -19,8 +19,8 @@ export default function Cards({ projectData, rows, setSelectedProject }) {
               return <span key={tag}>{tag}</span>;
             })}
           </div>
-          <p id={st.pcSummary} className={`bodyText`}>
-            {project.summary}
+          <p id={st.pcSummary} className={`smallText`}>
+            {project.description}
           </p>
         </button>
       );

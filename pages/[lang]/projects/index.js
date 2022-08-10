@@ -1,17 +1,19 @@
 import langID from "data/langID";
 import langEN from "data/langEN";
-import projectCat from "data/categoryList.json";
-import projects from "data/projects.json";
+import pc from "data/category.json";
 
 import Navbar from "components/Navbar";
 import CatHeader from "pages/projects/CatHeader";
 import ContentBody from "pages/projects/ContentBody";
 import ProjectPreview from "pages/projects/ProjectsPreview";
+import WebHead from "components/Head";
 import st from "styles/projects.module.css";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import WebHead from "components/Head";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { firestore } from "utils/firebaseConfig";
+import { openProject } from "utils/projectDashboard";
 
 export async function getStaticPaths() {
   const paths = ["id", "en"].map((item) => {
@@ -35,6 +37,14 @@ export async function getStaticProps({ params }) {
     default:
   }
 
+  //Get Project
+  const projectCat = pc.data;
+  const snapshots = await getDocs(
+    query(collection(firestore, "projects"), orderBy("createdAt", "desc"))
+  );
+  const projects = JSON.stringify([
+    ...snapshots.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
+  ]);
   return {
     props: {
       language,
@@ -45,31 +55,35 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Project({ language, projectCat, projects }) {
+  //convert projects to object
+  projects = JSON.parse(projects);
   const [project, setProject] = useState(projects);
+  const [selectedProject, setSelectedProject] = useState([]);
   const router = useRouter();
   useEffect(() => {
     if (!router.isReady) return;
-    const category = router.query.category;
-    let filteredData = [];
+    const category = router.query.cat;
     switch (true) {
       case category === "all" || category === undefined:
         setProject(projects);
         break;
       case category === "featured":
-        filteredData = projects.filter((item) => {
-          return item.isFeatured === true;
-        });
-        setProject(filteredData);
+        setProject(
+          projects.filter((item) => {
+            return item.isFeatured === true;
+          })
+        );
         break;
       case category !== undefined:
-        filteredData = projects.filter((item) => {
-          return item.categoryId.toString() === category;
-        });
-        setProject(filteredData);
+        setProject(
+          projects.filter((item) => {
+            return item.categoryId.toString() === category;
+          })
+        );
         break;
       default:
     }
-  }, [router.isReady, router.query.category, projects]);
+  }, [router.isReady, router.query.cat]);
   //language
   const {
     info,
@@ -77,22 +91,18 @@ export default function Project({ language, projectCat, projects }) {
       header: { nav, navBtn },
     },
   } = language;
+  useEffect(() => {
+    const pid = router.query.pid;
+    if (pid) {
+      const project = projects.filter((p) => {
+        return p.id == pid;
+      });
+      setTimeout(() => {
+        openProject(pid, project[0], setSelectedProject);
+      }, 500);
+    }
+  }, [router.query.pid]);
   //selected project data for Project Preview
-  const projectDefault = {
-    id: 0,
-    categoryId: 2,
-    author: "Prasetya Ikra Priyadi",
-    createdAt: "2022-07-01T00:00:00.000Z",
-    lastUpdate: "2022-07-01T00:00:00.000Z",
-    title: "Programming 2",
-    summary: "Summary",
-    description: "Description",
-    image: ["img1"],
-    publishedAt: "2022-03-01T00:00:00.000Z",
-    tags: ["tags1", "tags2", "tags3"],
-    isFeatured: false,
-  };
-  const [selectedProject, setSelectedProject] = useState(projectDefault);
   const meta = [
     { name: "robots", property: "", content: "all" },
     {
@@ -123,7 +133,7 @@ export default function Project({ language, projectCat, projects }) {
           projectData={project}
           setSelectedProject={setSelectedProject}
         />
-        <ProjectPreview data={selectedProject} />
+        <ProjectPreview data={selectedProject} setData={setSelectedProject} />
       </section>
     </>
   );

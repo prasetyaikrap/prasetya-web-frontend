@@ -7,7 +7,7 @@ import {
 } from "utils/adminHandler";
 import Image from "next/image";
 import { useState } from "react";
-import cat from "data/categoryList.json";
+import cat from "data/category.json";
 
 export default function ProjectView({
   viewState,

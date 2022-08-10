@@ -33,7 +33,6 @@ export default function Contact({ language, contactData }) {
     mailSubheadline,
     mailForm,
   } = language;
-  const [socmedList] = contactData;
   return (
     <section id="contact" className={`${st.sectionContact}`}>
       <div className={`flex-column ${st.boxOne}`}>
@@ -45,7 +44,7 @@ export default function Contact({ language, contactData }) {
             <h3>{headline}</h3>
           </div>
           <div className={`flex-column ${st.contactChannelBox}`}>
-            <SocmedList socmedList={socmedList.socmed} />
+            <SocmedList socmedList={contactData} />
           </div>
         </div>
         <Footer />

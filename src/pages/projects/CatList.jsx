@@ -4,9 +4,6 @@ import { useRouter } from "next/router";
 
 export default function CatList({ catList }) {
   const router = useRouter();
-  if (router.query.category !== undefined) {
-    filterCategory(router.query.category);
-  }
   const generateCategory = catList.map((item) => {
     return (
       <button
@@ -18,7 +15,7 @@ export default function CatList({ catList }) {
           router.push(
             {
               pathname: "/[lang]/projects",
-              query: { lang: router.query.lang, category: e.currentTarget.id },
+              query: { lang: router.query.lang, cat: e.currentTarget.id },
             },
             undefined,
             { shallow: true }
@@ -39,7 +36,7 @@ export default function CatList({ catList }) {
           router.push(
             {
               pathname: "/[lang]/projects",
-              query: { lang: router.query.lang, category: e.currentTarget.id },
+              query: { lang: router.query.lang, cat: e.currentTarget.id },
             },
             undefined,
             { shallow: true }
@@ -56,7 +53,7 @@ export default function CatList({ catList }) {
           router.push(
             {
               pathname: "/[lang]/projects",
-              query: { lang: router.query.lang, category: e.currentTarget.id },
+              query: { lang: router.query.lang, cat: e.currentTarget.id },
             },
             undefined,
             { shallow: true }
