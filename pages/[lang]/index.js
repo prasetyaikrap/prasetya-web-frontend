@@ -90,16 +90,16 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Home({ language, projectCat, projects, contactData }) {
+  projects = JSON.parse(projects);
   const [projectData, setProjectData] = useState([]);
   const router = useRouter();
-  console.log(projectData);
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
     if (router.query.cat == undefined || router.query.cat == "featured") {
       setProjectData(
-        JSON.parse(projects)
+        projects
           .filter((project) => {
             return project.isFeatured == true;
           })
@@ -107,7 +107,7 @@ export default function Home({ language, projectCat, projects, contactData }) {
       );
     } else {
       setProjectData(
-        JSON.parse(projects).filter((project) => {
+        projects.filter((project) => {
           return project.categoryId == router.query.cat;
         })
       );

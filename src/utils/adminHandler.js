@@ -116,7 +116,12 @@ export async function projectOnSave(
   //Upload Image Function
   const uploadImg = async () => {
     const uploadTask = await uploadBytes(
-      ref(storage, `images/img_project${generateRandom(6)}`),
+      ref(
+        storage,
+        openState == "CREATE"
+          ? `images/img_project${generateRandom(6)}`
+          : oldThumbnail
+      ),
       blobImg
     );
     const imageUrl = await getDownloadURL(uploadTask.ref);
@@ -163,11 +168,8 @@ export async function projectOnSave(
     }
     if (openState == "EDIT") {
       //Upload Image
-      if (blobImg && oldThumbnail) {
-        await deleteObject(ref(storage, oldThumbnail));
-        data.imageUrl = await uploadImg();
-      }
       data.tags = tagsGenerated;
+      data.imageUrl = await uploadImg();
       data.updatedAt = serverTimestamp();
       await setDoc(doc(firestore, "projects", projectId), data, {
         merge: true,

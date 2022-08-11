@@ -27,7 +27,7 @@ export default function ProjectView({
     isFeatured,
     isPublic,
   } = selectedProject;
-  const options = cat.category.map((item) => {
+  const options = cat.data.map((item) => {
     return (
       <option key={item.id} value={item.id}>
         {item.name}
@@ -37,7 +37,6 @@ export default function ProjectView({
   const [openState, setOpenState] = viewState;
   const [uploadError, setUploadError] = useState("");
   const [saveLoading, setSaveLoading] = useState(false);
-  // const [thumbnail, setThumbnail] = useState(imageUrl);
   const [saveMsg, setSaveMsg] = useState("");
   return (
     <form
@@ -190,12 +189,13 @@ export default function ProjectView({
         <div className={`flex-row ${st.addSettings}`}>
           <span>
             <label htmlFor="setCategory" className={`bodyText`}>
-              {`Category (${categoryName})`}
+              Category
             </label>
             <select
               className={`bodyText`}
               id="setCategory"
               name="setCategory"
+              key={categoryId}
               defaultValue={categoryId}
               required
             >
@@ -204,12 +204,13 @@ export default function ProjectView({
           </span>
           <span>
             <label htmlFor="setFeatured" className={`bodyText`}>
-              {`Featured? (${isFeatured ? "Yes" : "No"})`}
+              Featured?
             </label>
             <select
               className={`bodyText`}
               id="setFeatured"
               name="setFeatured"
+              key={isFeatured}
               defaultValue={isFeatured}
             >
               <option value={false}>No</option>
@@ -218,12 +219,13 @@ export default function ProjectView({
           </span>
           <span>
             <label htmlFor="setVisibility" className={`bodyText`}>
-              {`Visibility (${isPublic ? "Yes" : "No"})`}
+              Visibility?
             </label>
             <select
               className={`bodyText`}
               id="setVisibility"
               name="setVisibility"
+              key={isPublic}
               defaultValue={isPublic}
             >
               <option value={true}>Public</option>
