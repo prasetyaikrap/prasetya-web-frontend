@@ -1,11 +1,11 @@
 export default async function handler(req, res) {
-  if (req.query.secret !== process.env.MY_SECRET_TOKEN) {
+  if (req.query.secret !== process.env.NEXT_REVALIDATE_TOKEN) {
     return res.status(401).json({ message: "Invalid token" });
   }
   const revalidatePath = req.body.revalidatePath;
   try {
     await res.revalidate(revalidatePath);
-    return res.json({
+    return res.status(200).json({
       revalidatePath: revalidatePath,
       revalidated: true,
       message: "Revalidated Successfullty",
