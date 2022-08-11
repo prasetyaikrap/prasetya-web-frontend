@@ -80,17 +80,17 @@
             {
               "id": 1,
               "title": "BLOG",
-              "url": "/id/blog"
+              "url": "/blog?lang=id"
             },
             {
               "id": 2,
               "title": "TOKO",
-              "url": "/id/store"
+              "url": "/store?lang=id"
             },
             {
               "id": 3,
               "title": "KONTAK",
-              "url": "/id#contact"
+              "url": "/#contact"
             }
           ]
         }
@@ -176,17 +176,17 @@
             {
               "id": 1,
               "title": "BLOG",
-              "url": "/en/blog"
+              "url": "/blog?lang=en"
             },
             {
               "id": 2,
               "title": "STORE",
-              "url": "/en/store"
+              "url": "/store?lang=en"
             },
             {
               "id": 3,
               "title": "CONTACT",
-              "url": "/en#contact"
+              "url": "/#contact"
             }
           ]
         }

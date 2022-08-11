@@ -58,7 +58,7 @@ export default function ContactMail({ language, style = "" }) {
             <label className={`bodyText`} htmlFor="contactNumber">
               {mailContact}
             </label>
-            <input id="contactNumber" name="contactNumber" type="text" />
+            <input id="contactNumber" name="contactNumber" type="tel" />
           </div>
         </div>
         <div className={`flex-row ${st.formSection}`}>
