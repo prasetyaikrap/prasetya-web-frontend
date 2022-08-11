@@ -1,4 +1,4 @@
-import CrossBtn from "misc/CrossBtn";
+import CrossBtn from "components/CrossBtn";
 import { useEffect, useRef, useState } from "react";
 import st from "styles/components.module.css";
 import mailSender, { closeConfirmationBox } from "utils/homeHandler";

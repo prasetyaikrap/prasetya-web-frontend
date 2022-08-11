@@ -38,7 +38,6 @@ export default function ProjectPanel() {
     if (!router.isReady) {
       return;
     }
-    console.log("triggered");
     //Get list of project based
     getProjectList(
       router.query.qs,

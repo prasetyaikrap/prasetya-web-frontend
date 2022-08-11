@@ -1,7 +1,3 @@
-import langID from "data/langID";
-import langEN from "data/langEN";
-import pc from "data/category.json";
-
 import Navbar from "components/Navbar";
 import CatHeader from "pages/projects/CatHeader";
 import ContentBody from "pages/projects/ContentBody";
@@ -11,90 +7,71 @@ import st from "styles/projects.module.css";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import { firestore } from "utils/firebaseConfig";
 import { openProject } from "utils/projectDashboard";
 
-export async function getStaticPaths() {
-  const paths = ["id", "en"].map((item) => {
-    return { params: { lang: item } };
-  });
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps({ params }) {
-  let language = "";
-  switch (params.lang) {
-    case "id":
-      language = langID;
-      break;
-    case "en":
-      language = langEN;
-      break;
-    default:
-  }
-
-  //Get Project
-  const projectCat = pc.data;
-  const snapshots = await getDocs(
-    query(collection(firestore, "projects"), orderBy("createdAt", "desc"))
-  );
-  const projects = JSON.stringify([
-    ...snapshots.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
-  ]);
-  return {
-    props: {
-      language,
-      projectCat,
-      projects,
-    },
-  };
-}
-
-export default function Project({ language, projectCat, projects }) {
-  //convert projects to object
-  projects = JSON.parse(projects);
-  const [project, setProject] = useState(projects);
+export default function Projects({ propsData }) {
+  const { language, pCategory, projects } = propsData;
+  const projectsJSON = JSON.parse(projects);
+  const [project, setProject] = useState(projectsJSON);
   const [selectedProject, setSelectedProject] = useState([]);
-  const router = useRouter();
-  useEffect(() => {
-    if (!router.isReady) return;
-    const category = router.query.cat;
-    switch (true) {
-      case category === "all" || category === undefined:
-        setProject(projects);
-        break;
-      case category === "featured":
-        setProject(
-          projects.filter((item) => {
-            return item.isFeatured === true;
-          })
-        );
-        break;
-      case category !== undefined:
-        setProject(
-          projects.filter((item) => {
-            return item.categoryId.toString() === category;
-          })
-        );
-        break;
-      default:
-    }
-  }, [router.isReady, router.query.cat]);
+  const [useLanguage, setUseLanguage] = useState(language[1]);
   //language
   const {
     info,
     project: {
       header: { nav, navBtn },
     },
-  } = language;
+  } = useLanguage;
+  const router = useRouter();
+  useEffect(() => {
+    if (!router.query.lang) {
+      const userLanguage = window.navigator.language;
+      switch (userLanguage.substring(0, 2)) {
+        case "id":
+          router.replace("/projects/?lang=id", undefined, { shallow: true });
+          break;
+        case "en":
+          router.replace("/projects/?lang=en", undefined, { shallow: true });
+          break;
+        default:
+          router.replace("/projects/?lang=id", undefined, { shallow: true });
+      }
+    }
+    if (router.query.lang) {
+      setUseLanguage(
+        language.filter((lang) => {
+          return lang.info.code == router.query.lang;
+        })[0]
+      );
+    }
+  }, [router.query.lang]);
+  useEffect(() => {
+    const category = router.query.cat;
+    switch (true) {
+      case category === "all" || category === undefined:
+        setProject(projectsJSON);
+        break;
+      case category === "featured":
+        setProject(
+          projectsJSON.filter((item) => {
+            return item.isFeatured === true;
+          })
+        );
+        break;
+      case category !== undefined:
+        setProject(
+          projectsJSON.filter((item) => {
+            return item.categoryId.toString() === category;
+          })
+        );
+        break;
+      default:
+    }
+  }, [router.query.cat]);
   useEffect(() => {
     const pid = router.query.pid;
     if (pid) {
-      const project = projects.filter((p) => {
+      const project = projectsJSON.filter((p) => {
         return p.id == pid;
       });
       setTimeout(() => {
@@ -128,7 +105,7 @@ export default function Project({ language, projectCat, projects }) {
       />
       <section className={`${st.sectionProject}`}>
         <Navbar language={[info, nav, navBtn]} page="projectpage" />
-        <CatHeader projectCat={projectCat} />
+        <CatHeader projectCat={pCategory} />
         <ContentBody
           projectData={project}
           setSelectedProject={setSelectedProject}

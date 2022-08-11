@@ -2,13 +2,12 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
 //Components
-import CategoryList from "pages/homepage/CategoryList";
+import CategoryList from "pages/home/CategoryList";
 import ProjectCards from "components/ProjectCards";
 import st from "styles/home.module.css";
 
 export default function Project({ language, projectCat, projectData }) {
   const router = useRouter();
-  const currentPath = router.asPath.substring(0, 3);
   //Get Language Content
   const {
     headline,
@@ -43,7 +42,7 @@ export default function Project({ language, projectCat, projectData }) {
               <ProjectCards projectData={projectData} rowsData={6} />
               <button
                 className={`flex smallText ${st.pSeeMoreBtn}`}
-                onClick={(e) => router.push(currentPath + "/projects")}
+                onClick={(e) => window.open("/projects", "_blank")}
               >
                 {seeMore}
               </button>

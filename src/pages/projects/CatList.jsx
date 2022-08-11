@@ -14,7 +14,7 @@ export default function CatList({ catList }) {
           filterCategory(e.currentTarget.id);
           router.push(
             {
-              pathname: "/[lang]/projects",
+              pathname: router.asPath.split("?")[0],
               query: { lang: router.query.lang, cat: e.currentTarget.id },
             },
             undefined,
@@ -35,7 +35,7 @@ export default function CatList({ catList }) {
           filterCategory(e.currentTarget.id);
           router.push(
             {
-              pathname: "/[lang]/projects",
+              pathname: router.asPath.split("?")[0],
               query: { lang: router.query.lang, cat: e.currentTarget.id },
             },
             undefined,
@@ -52,7 +52,7 @@ export default function CatList({ catList }) {
           filterCategory(e.currentTarget.id);
           router.push(
             {
-              pathname: "/[lang]/projects",
+              pathname: router.asPath.split("?")[0],
               query: { lang: router.query.lang, cat: e.currentTarget.id },
             },
             undefined,

@@ -25,7 +25,7 @@ export default function CategoryList({ projectCat }) {
             categoryClicked(e.currentTarget.id, st.catListBox, st.clbOnFocus);
             router.replace(
               {
-                pathname: "/[lang]",
+                pathname: "/",
                 query: {
                   lang: router.query.lang,
                   cat: e.currentTarget.id,
@@ -65,7 +65,7 @@ export default function CategoryList({ projectCat }) {
           categoryClicked(e.currentTarget.id, st.catListBox, st.clbOnFocus);
           router.replace(
             {
-              pathname: "/[lang]",
+              pathname: "/",
               query: { lang: router.query.lang, cat: e.currentTarget.id },
             },
             undefined,

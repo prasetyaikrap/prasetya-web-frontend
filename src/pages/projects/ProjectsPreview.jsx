@@ -1,5 +1,5 @@
 import st from "styles/projects.module.css";
-import CrossBtn from "misc/CrossBtn";
+import CrossBtn from "components/CrossBtn";
 import Tags from "pages/projects/Tags";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -55,14 +55,16 @@ export default function ProjectPreview({ data, setData }) {
       <div className={`flex-row ${st.pContainer}`}>
         <div className={`flex ${st.pMedia1}`}>
           <div className={`${st.pmImage}`}>
-            <Image
-              layout="fill"
-              src={data.imageUrl || "/assets/imgUnavailable.jpeg"}
-              alt={data.title}
-              objectFit="cover"
-              priority="true"
-              className={st.pmImageNext}
-            />
+            {data.imageUrl && (
+              <Image
+                layout="fill"
+                src={data.imageUrl}
+                alt={data.title}
+                objectFit="cover"
+                priority="true"
+                className={st.pmImageNext}
+              />
+            )}
           </div>
         </div>
         <div className={`${st.pMedia2}`}>

@@ -20,7 +20,7 @@ export default function ProjectCards({ projectData, rowsData }) {
           </div>
         </div>
         <div className={`flex-row ${st.pCardTitle}`}>
-          <Link href={`/${router.query.lang}/projects?pid=${item.id}`}>
+          <Link href={`/projects?lang=${router.query.lang}&pid=${item.id}`}>
             <h4 style={{ cursor: "pointer" }}>{item.title}</h4>
           </Link>
         </div>
