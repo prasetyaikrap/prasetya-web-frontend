@@ -114,16 +114,8 @@ export async function projectOnSave(
       return item != "";
     });
   //Upload Image Function
-  const uploadImg = async () => {
-    const uploadTask = await uploadBytes(
-      ref(
-        storage,
-        openState == "CREATE"
-          ? `images/img_project${generateRandom(6)}`
-          : oldThumbnail
-      ),
-      blobImg
-    );
+  const uploadImg = async (refFile) => {
+    const uploadTask = await uploadBytes(ref(storage, refFile), blobImg);
     const imageUrl = await getDownloadURL(uploadTask.ref);
     return imageUrl;
   };
@@ -157,11 +149,11 @@ export async function projectOnSave(
     //Add to Firestore
     if (openState == "CREATE") {
       //Upload Image
-      if (blobImg == undefined) {
+      if (!blobImg) {
         throw "Thumbnail image is required";
       }
       data.tags = tagsGenerated;
-      data.imageUrl = await uploadImg();
+      data.imageUrl = await uploadImg(`images/img_project${generateRandom(6)}`);
       data.createdAt = serverTimestamp();
       data.updatedAt = serverTimestamp();
       await addDoc(collection(firestore, "projects"), data);
@@ -169,7 +161,9 @@ export async function projectOnSave(
     if (openState == "EDIT") {
       //Upload Image
       data.tags = tagsGenerated;
-      data.imageUrl = await uploadImg();
+      if (blobImg != undefined) {
+        data.imageUrl = await uploadImg(oldThumbnail);
+      }
       data.updatedAt = serverTimestamp();
       await setDoc(doc(firestore, "projects", projectId), data, {
         merge: true,

@@ -48,20 +48,20 @@ export default function Projects({ propsData }) {
   useEffect(() => {
     const category = router.query.cat;
     switch (true) {
-      case category === "all" || category === undefined:
+      case category == "all" || category == undefined:
         setProject(projectsJSON);
         break;
-      case category === "featured":
+      case category == "featured":
         setProject(
           projectsJSON.filter((item) => {
-            return item.isFeatured === true;
+            return item.isFeatured == true;
           })
         );
         break;
-      case category !== undefined:
+      case category != undefined:
         setProject(
           projectsJSON.filter((item) => {
-            return item.categoryId.toString() === category;
+            return item.categoryId == category;
           })
         );
         break;
