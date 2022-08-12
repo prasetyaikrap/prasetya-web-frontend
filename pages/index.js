@@ -6,6 +6,7 @@ import {
   orderBy,
   limit,
   where,
+  onSnapshotsInSync,
 } from "firebase/firestore";
 import ad from "data/assetData.json";
 import Home from "pages/home/Home";
@@ -18,50 +19,28 @@ export async function getStaticProps() {
     }),
     socmed: ad.socmed,
   };
-  let projects = [];
-  try {
-    //Get Projects
-    pCategory
-      .filter((cat) => {
-        cat.isActive == true;
-      })
-      .forEach(async (cat) => {
-        const snapshot = await getDocs(
-          query(
-            collection(firestore, "projects"),
-            where("isPublic", "==", true),
-            where("categoryId", "==", cat.id),
-            orderBy("createdAt", "desc"),
-            limit(6)
-          )
-        );
-        projects.push(
-          ...snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
-      });
-    //Get Featured List
-    const snapshot = await getDocs(
-      query(
-        collection(firestore, "projects"),
-        where("isPublic", "==", true),
-        where("isFeatured", "==", true),
-        orderBy("createdAt", "desc"),
-        limit(6)
-      )
-    );
-    projects.push(
-      ...snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-    );
-    //Conver to JSON
-    projects = JSON.stringify([...new Set(projects)]);
-  } catch (err) {
-    console.log(err);
-  }
+  const projects = async (pCategory) => {
+    let data = [];
+    for await (const cat of pCategory) {
+      const snapshot = await getDocs(
+        query(
+          collection(firestore, "projects"),
+          where("isPublic", "==", true),
+          where("categoryId", "==", cat.id),
+          orderBy("createdAt", "desc"),
+          orderBy("isFeatured", "desc"),
+          limit(6)
+        )
+      );
+      data.push(...snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    }
+    return JSON.stringify(data);
+  };
   return {
     props: {
       language,
       pCategory,
-      projects,
+      projects: await projects(pCategory),
       socmed,
     },
   };

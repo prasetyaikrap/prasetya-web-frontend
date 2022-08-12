@@ -7,7 +7,6 @@ import ProjectCards from "components/ProjectCards";
 import st from "styles/home.module.css";
 
 export default function Project({ language, projectCat, projectData }) {
-  const router = useRouter();
   //Get Language Content
   const {
     headline,
