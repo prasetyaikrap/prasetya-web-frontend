@@ -64,20 +64,21 @@ export default function Home({ propsData }) {
     home: { header, project, contact },
   } = useLanguage;
   const meta = [
-    { name: "robots", property: "", content: "all" },
+    { name: "robots", content: "index, follow" },
+    { name: "googlebot", content: "index, follow" },
     {
       name: "description",
-      property: "",
+      property: "og:description",
       content:
         "Prasetya Ikra Priyadi - Spinnovid - Home for technology enthusiast",
     },
     {
       name: "keywords",
-      property: "",
+      property: "og:keywords",
       content:
         "Technology, Nextjs, Web Development, Full Stack Developer, Javascript, Open To work, Content Creator",
     },
-    { name: "author", property: "", content: "Prasetya Ikra Priyadi" },
+    { name: "author", property: "og:author", content: "Prasetya Ikra Priyadi" },
   ];
   return (
     <>
@@ -89,7 +90,7 @@ export default function Home({ propsData }) {
         projectCat={pCategory}
         projectData={projectData}
       />
-      <Contact language={contact} contactData={socmed} />
+      {/* <Contact language={contact} contactData={socmed} /> */}
     </>
   );
 }

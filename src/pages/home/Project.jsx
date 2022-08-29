@@ -1,12 +1,36 @@
 //Next and React
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Link from "next/link";
 //Components
 import CategoryList from "pages/home/CategoryList";
-import ProjectCards from "components/ProjectCards";
 import st from "styles/home.module.css";
 
+export function Cards({ projectData }) {
+  const router = useRouter();
+  const cards = projectData.map((item) => {
+    return (
+      <div key={item.id} id={item.id} className={`flex-column ${st.projCard}`}>
+        <div className={`${st.pcImg}`}>
+          <Image
+            layout="fill"
+            src={item.imageUrl}
+            alt={item.title}
+            objectFit="cover"
+          />
+        </div>
+        <div className={`flex ${st.pcTitle}`}>
+          <Link href={`/projects?lang=${router.query.lang}&pid=${item.id}`}>
+            <h5 style={{ cursor: "pointer" }}>{item.title}</h5>
+          </Link>
+        </div>
+      </div>
+    );
+  });
+  return cards;
+}
 export default function Project({ language, projectCat, projectData }) {
+  const router = useRouter();
   //Get Language Content
   const {
     headline,
@@ -17,38 +41,30 @@ export default function Project({ language, projectCat, projectData }) {
 
   //Render Page
   return (
-    <>
-      <section id="project" className={`${st.sectionProject} flex`}>
-        <div className={`flex-row ${st.pContainer} `}>
-          <div className={`flex-column ${st.pBoxOne}`}>
-            <div className={`flex-row ${st.pHeadlineBox}`}>
-              <div className={`flex ${st.pImgBox}`}>
-                <div className={`${st.projIcon}`}>
-                  <Image layout="fill" objectFit="cover" src={url} alt={alt} />
-                </div>
-              </div>
-              <div className={`flex-column ${st.pDescBox}`}>
-                <h3>{headline}</h3>
-                <p className={`bodyText ${st.pSummary}`}>{subheadline}</p>
-              </div>
-            </div>
-            <div className={`${st.pCategoryBox} flex-column`}>
-              <CategoryList projectCat={projectCat} />
-            </div>
-          </div>
-          <div className={`${st.pBoxTwo} flex-column`}>
-            <div className={`${st.pItemContainer} flex`}>
-              <ProjectCards projectData={projectData} rowsData={6} />
-              <button
-                className={`flex smallText ${st.pSeeMoreBtn}`}
-                onClick={(e) => window.open("/projects", "_blank")}
-              >
-                {seeMore}
-              </button>
-            </div>
-          </div>
+    <section id="project" className={`${st.projectSection}`}>
+      <div className={`${st.projBox1}`}>
+        <div className={`${st.projHeadline}`}>
+          <span className={`${st.projIcon}`}>
+            <Image layout="fill" objectFit="cover" src={url} alt={alt} />
+          </span>
+          <h3>{headline}</h3>
+          <p className={`smallText`}>{subheadline}</p>
         </div>
-      </section>
-    </>
+        <div className={`${st.projCategory}`}>
+          <CategoryList projectCat={projectCat} />
+        </div>
+      </div>
+      <div className={`${st.projBox2}`}>
+        <div className={`${st.projGrid}`}>
+          <Cards projectData={projectData} />
+        </div>
+        <button
+          className={`${st.projSeeMore}`}
+          onClick={(e) => window.open("/projects", "_blank")}
+        >
+          {seeMore}
+        </button>
+      </div>
+    </section>
   );
 }

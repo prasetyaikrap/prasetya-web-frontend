@@ -72,25 +72,26 @@ section {
 h1 {
   font-weight: var(--poppins-bold);
   font-size: 2.2rem;
-  letter-spacing: 0.1rem;
   line-height: 125%;
 }
 h2 {
   font-weight: var(--poppins-bold);
   font-size: 1.8rem;
-  letter-spacing: 0.1rem;
   line-height: 125%;
 }
 h3 {
   font-weight: var(--poppins-semibold);
   font-size: 1.4rem;
-  letter-spacing: 0.1rem;
   line-height: 125%;
 }
 h4 {
   font-weight: var(--poppins-semibold);
   font-size: 1rem;
-  letter-spacing: 0.1rem;
+  line-height: 125%;
+}
+h5 {
+  font-weight: var(--poppins-medium);
+  font-size: 0.8rem;
   line-height: 125%;
 }
 

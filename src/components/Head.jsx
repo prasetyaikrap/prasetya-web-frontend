@@ -15,14 +15,20 @@ export default function WebHead({ title, meta, link }) {
       <link key="icon" rel="icon" type="image/x-icon" href="/favicon.ico" />
       {meta &&
         meta.map((item) => {
-          return (
-            <meta
-              key={item.name}
-              name={item.name}
-              property={`og:${item.name}`}
-              content={item.content}
-            />
-          );
+          if (item.property) {
+            return (
+              <meta
+                key={item.name}
+                name={item.name}
+                property={item.property}
+                content={item.content}
+              />
+            );
+          } else {
+            return (
+              <meta key={item.name} name={item.name} content={item.content} />
+            );
+          }
         })}
       {link &&
         link.map((item) => {
