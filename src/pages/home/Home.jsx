@@ -80,7 +80,12 @@ export default function Home({ propsData }) {
   ];
   return (
     <>
-      <WebHead title="Welcome to Spinnovid" meta={meta} link={[]} />
+      <WebHead
+        title="Welcome to Spinnovid"
+        meta={meta}
+        link={[]}
+        lang={info.code}
+      />
       <Header language={{ info, header }} />
       <Project
         language={project}

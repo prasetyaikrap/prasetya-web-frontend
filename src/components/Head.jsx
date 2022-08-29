@@ -1,8 +1,9 @@
 import Head from "next/head";
 
-export default function WebHead({ title, meta, link }) {
+export default function WebHead({ title, meta, link, lang }) {
   return (
     <Head>
+      <html lang={lang} />
       <title>{title}</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />

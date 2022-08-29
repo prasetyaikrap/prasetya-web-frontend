@@ -6,7 +6,6 @@ import {
   orderBy,
   limit,
   where,
-  onSnapshotsInSync,
 } from "firebase/firestore";
 import ad from "data/assetData.json";
 import Home from "pages/home/Home";
