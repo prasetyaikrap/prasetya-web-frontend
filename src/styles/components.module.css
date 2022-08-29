@@ -1,3 +1,169 @@
+@media only screen and (max-width: 768px) {
+  /*Navbar Component*/
+  .navContainer {
+    display: flex;
+    position: sticky;
+    top: 0;
+    justify-content: space-between;
+    background-color: hsl(var(--hsl-navy));
+    align-items: center;
+    padding: 0 2.5rem;
+    height: 3.5rem;
+    z-index: 1;
+  }
+  .navBox1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .navBox1 > h1 {
+    font-size: 1.5rem;
+    font-family: var(--font-akaya);
+    color: hsl(var(--hsl-white-alt));
+  }
+  .navBurger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 0.5rem;
+    width: 1.5rem;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+  }
+  .navBurger > span {
+    width: 100%;
+    border-top: solid 0.1rem hsl(var(--hsl-white-alt));
+    transition: var(--trans-03);
+  }
+  .navBurger.nburActive > span#nbur1 {
+    width: 120%;
+    transform: translateY(0.3rem) rotate(45deg);
+    transition: var(--trans-03);
+  }
+  .navBurger.nburActive > span#nbur2 {
+    display: none;
+    transition: var(--trans-03);
+  }
+  .navBurger.nburActive > span#nbur3 {
+    width: 120%;
+    transform: translateY(-0.3rem) rotate(-45deg);
+    transition: var(--trans-03);
+  }
+  .navBox2 {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 100vw;
+    background-color: hsl(var(--hsl-navy));
+    z-index: 1;
+    top: 3rem;
+    right: 0;
+    overflow: hidden;
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: var(--trans-03);
+  }
+  .nb2Active {
+    transform: scaleY(1);
+    transition: var(--trans-03);
+  }
+  .navBox2 > button {
+    padding: 0.7rem 2.5rem;
+    background-color: transparent;
+    color: hsl(var(--hsl-white-alt));
+    border: none;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .navContainer {
+    display: flex;
+    position: sticky;
+    top: 0;
+    justify-content: space-between;
+    background-color: hsl(var(--hsl-navy));
+    align-items: center;
+    padding: 0 3rem;
+    height: 4rem;
+    z-index: 1;
+  }
+  .navBox1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .navBox1 > h1 {
+    font-size: 1.5rem;
+    font-family: var(--font-akaya);
+    color: hsl(var(--hsl-white-alt));
+  }
+  .navBurger {
+    display: none;
+  }
+  .navBox2 {
+    height: 100%;
+  }
+  .navBox2 > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6rem;
+    background-color: transparent;
+    border: none;
+    color: hsl(var(--hsl-white-alt));
+    transition: var(--trans-03);
+  }
+  .navBox2 > button:hover {
+    background-color: hsl(var(--hsl-black-alt), 0.5);
+    transition: var(--trans-03);
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .navContainer {
+    display: flex;
+    position: sticky;
+    top: 0;
+    justify-content: space-between;
+    background-color: hsl(var(--hsl-navy));
+    align-items: center;
+    padding: 0 3rem;
+    height: 4rem;
+    z-index: 1;
+  }
+  .navBox1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .navBox1 > h1 {
+    font-size: 1.5rem;
+    font-family: var(--font-akaya);
+    color: hsl(var(--hsl-white-alt));
+  }
+  .navBurger {
+    display: none;
+  }
+  .navBox2 {
+    height: 100%;
+  }
+  .navBox2 > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6rem;
+    background-color: transparent;
+    border: none;
+    color: hsl(var(--hsl-white-alt));
+    transition: var(--trans-03);
+  }
+  .navBox2 > button:hover {
+    background-color: hsl(var(--hsl-black-alt), 0.5);
+    transition: var(--trans-03);
+  }
+}
 /*ProjectCards Components*/
 .pCardContainer,
 .pCardContainerEmpty {

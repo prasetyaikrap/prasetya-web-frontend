@@ -1,10 +1,11 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-import Header from "pages/home/Header";
 import Project from "pages/home/Project";
 import Contact from "pages/home/Contact";
 import WebHead from "components/Head";
+import Navbar from "components/Navbar";
+import Profile from "./Profile";
 
 export default function Home({ propsData }) {
   const { language, pCategory, projects, socmed } = propsData;
@@ -80,13 +81,9 @@ export default function Home({ propsData }) {
   ];
   return (
     <>
-      <WebHead
-        title="Welcome to Spinnovid"
-        meta={meta}
-        link={[]}
-        lang={info.code}
-      />
-      <Header language={{ info, header }} />
+      <WebHead title="Welcome to Spinnovid" meta={meta} />
+      <Navbar metadata={{ info, header }} />
+      <Profile />
       <Project
         language={project}
         projectCat={pCategory}

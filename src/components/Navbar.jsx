@@ -1,43 +1,57 @@
 //import Component
-import st from "styles/navbar.module.css";
+import st from "styles/components.module.css";
 import Link from "next/link";
 import { SwitchLanguage } from "components/Language";
-import { useEffect } from "react";
 
-export default function Navbar({ language, page }) {
+export default function Navbar({ metadata }) {
   //Get Language Preference
-  const [info, nav, navBtn] = language;
-  useEffect(() => {
-    const navBar = document.getElementById("navbar");
-    switch (page) {
-      case "projectpage":
-        navBar.classList.add(st.navProject);
-        break;
-      default:
-    }
-  });
+  const {
+    info,
+    header: { nav, navBtn },
+  } = metadata;
+
   //Render Component
   return (
     <>
-      <nav id="navbar" className={`${st.navContainer} flex`}>
-        <div className={`${st.navHeader} flex`}>
+      <section id="navbar" className={`${st.navContainer} flex`}>
+        <div className={`${st.navBox1} flex`}>
           <Link href={nav.url}>
             <h1>{nav.title}</h1>
           </Link>
         </div>
-        <div className={`${st.navBtnContainer} flex`}>
-          {navBtn.map((x) => {
+        <button
+          className={`${st.navBurger}`}
+          onClick={(e) => {
+            const target = document.querySelector(`.${st.navBurger}`);
+            const menuBox = document.querySelector(`.${st.navBox2}`);
+            if (target.classList.contains(st.nburActive)) {
+              target.classList.remove(st.nburActive);
+              menuBox.classList.remove(st.nb2Active);
+            } else {
+              target.classList.add(st.nburActive);
+              menuBox.classList.add(st.nb2Active);
+            }
+          }}
+        >
+          <span id={st.nbur1}></span>
+          <span id={st.nbur2}></span>
+          <span id={st.nbur3}></span>
+        </button>
+        <nav className={`${st.navBox2} flex`}>
+          {navBtn.map((item) => {
             return (
-              <Link key={x.id} href={x.url}>
-                <button className={`flex ${st.navBtn} ${st.navBtnText}`}>
-                  {x.title}
+              <Link key={item.id} href={item.url}>
+                <button
+                  className={`flex bodyText ${st.navBtn} ${st.navBtnText}`}
+                >
+                  {item.title}
                 </button>
               </Link>
             );
           })}
-          <SwitchLanguage language={info} />
-        </div>
-      </nav>
+          {/* <SwitchLanguage language={info} /> */}
+        </nav>
+      </section>
     </>
   );
 }
