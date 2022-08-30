@@ -6,7 +6,7 @@ import Link from "next/link";
 import CategoryList from "pages/home/CategoryList";
 import st from "styles/home.module.css";
 
-export function Cards({ projectData }) {
+function Cards({ projectData }) {
   const router = useRouter();
   const cards = projectData.map((item) => {
     return (

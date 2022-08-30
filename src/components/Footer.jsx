@@ -1,7 +1,10 @@
+import st from "styles/components.module.css";
 
-export function Footer() {
+export default function Footer({ customClass = "" }) {
   const year = new Date().getFullYear();
   return (
-    <footer className={`flex smallText`}>Copyright {year} | Prasetya Ikra Priyadi</footer>
-  )
+    <footer className={`${st.footer} ${customClass}`}>
+      <p>{`Copyright ${year} | Prasetya Ikra Priyadi`}</p>
+    </footer>
+  );
 }

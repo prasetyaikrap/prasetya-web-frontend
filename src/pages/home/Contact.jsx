@@ -1,26 +1,24 @@
 import Image from "next/image";
-import { Footer } from "components/Footer";
 import st from "styles/home.module.css";
 import ContactMail from "components/ContactMail";
 
-export function SocmedList({ socmedList }) {
+function SocmedList({ socmedList }) {
   return socmedList.map((item) => {
     return (
-      <div key={item.id} className={`flex-row ${st.smCardContainer}`}>
-        <span>
-          <Image
-            layout="fill"
-            objectFit="cover"
-            src={item.icon}
-            alt={item.name + " - " + item.description}
-          />
-        </span>
-        <h4>
-          <a href={item.url} target="_blank" rel="noreferrer">
-            {item.description}
-          </a>
-        </h4>
-      </div>
+      <a
+        key={item.id}
+        href={item.url}
+        target="_blank"
+        rel="noreferrer"
+        className={`${st.socmedIcon}`}
+      >
+        <Image
+          layout="fill"
+          objectFit="cover"
+          src={item.icon}
+          alt={item.name + " - " + item.description}
+        />
+      </a>
     );
   });
 }
@@ -34,27 +32,19 @@ export default function Contact({ language, contactData }) {
     mailForm,
   } = language;
   return (
-    <section id="contact" className={`${st.sectionContact}`}>
-      <div className={`flex-column ${st.boxOne}`}>
-        <div className={`flex-column ${st.socmedBox}`}>
-          <div className={`flex-row ${st.headlineBox}`}>
-            <span>
-              <Image layout="fill" objectFit="cover" src={url} alt={alt} />
-            </span>
-            <h3>{headline}</h3>
-          </div>
-          <div className={`flex-column ${st.contactChannelBox}`}>
-            <SocmedList socmedList={contactData} />
-          </div>
+    <section id="contact" className={`flex-column ${st.contactSection}`}>
+      <div className={`flex-column ${st.cBox1}`}>
+        <h3>{mailHeadline}</h3>
+        <p className={`smallText`}>{mailSubheadline}</p>
+        <div className={`${st.mailContainer}`}>
+          <ContactMail metadata={mailForm} style={st.customMailForm} />
         </div>
-        <Footer />
       </div>
-      <div className={`${st.boxTwo}`}>
-        <div className={`flex-column ${st.mailHeadlineBox}`}>
-          <h3>{mailHeadline}</h3>
-          <p className={`bodyText`}>{mailSubheadline}</p>
+      <div className={`flex-column ${st.cBox2}`}>
+        <h3>{headline}</h3>
+        <div className={`flex-row ${st.socmedBox}`}>
+          <SocmedList socmedList={contactData} />
         </div>
-        <ContactMail language={mailForm} style={st.mailForm} />
       </div>
     </section>
   );

@@ -1,6 +1,9 @@
 import axios from "axios";
 export default async function hanlder(req, res) {
   if (req.method === "POST") {
+    if (req.query.appkey != process.env.SPINNOVID_APPKEY) {
+      throw "Wrong appkey, authorization failed";
+    }
     try {
       const apiToken = process.env.MAILSENDER_SCRIPT_TOKEN;
       const apiId = process.env.GS_API_DEPLOYMENT_ID;

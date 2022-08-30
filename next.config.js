@@ -13,6 +13,7 @@ const nextConfig = {
     FMESSAGINGSENDERID: process.env.FMESSAGINGSENDERID,
     FAPPID: process.env.FAPPID,
     FMEASUREMENTID: process.env.FMEASUREMENTID,
+    SPINNOVID_APPKEY: process.env.SPINNOVID_APPKEY,
   },
   images: {
     domains: ["drive.google.com", "firebasestorage.googleapis.com"],

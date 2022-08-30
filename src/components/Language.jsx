@@ -1,4 +1,4 @@
-import st from "styles/misc.module.css";
+import st from "styles/components.module.css";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/router";

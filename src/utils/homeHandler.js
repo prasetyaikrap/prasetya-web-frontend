@@ -1,75 +1,65 @@
 import axios from "axios";
+import st from "styles/home.module.css";
 
-export function categoryClicked(targetId, btnClassCard, focusClass) {
-  const categoryCard = document.querySelectorAll("." + btnClassCard);
+export function categoryClicked(targetId) {
+  const categoryCard = document.querySelectorAll(`.${st.catListBox}`);
   const currentCard = document.getElementById(targetId);
 
   //Reset all Card status
   categoryCard.forEach((btn) => {
-    btn.classList.remove(focusClass);
+    btn.classList.remove(st.clbOnFocus);
     btn.querySelector("span#black-icon").removeAttribute("style");
     btn.querySelector("span#white-icon").style.display = "none";
   });
 
   //Set selected card status
-  currentCard.classList.add(focusClass);
+  currentCard.classList.add(st.clbOnFocus);
   currentCard.querySelector("span#black-icon").style.display = "none";
   currentCard.querySelector("span#white-icon").removeAttribute("style");
 }
 
-export default async function mailSender(
-  confirmClass,
-  mailSendingClass,
-  confirmMessage,
-  setBtnDisabled,
-  setMessageLen
-) {
-  const form = document.getElementById("contactMail");
-  const confirmationBox = form.querySelector("#confirmationBox");
-  form.querySelector("#mailSending").classList.add(mailSendingClass);
+export async function mailSender(formData, confirmMessage, stateControl) {
+  const {
+    setBtnDisabled,
+    setIsSending,
+    setSendConfirm,
+    setMessageLen,
+    setConfirmationMessage,
+  } = stateControl;
   setBtnDisabled(true);
-  const postData = {
-    name: form.querySelector("#name").value,
-    email: form.querySelector("#email").value,
-    contact: form.querySelector("#contactNumber").value,
-    category: form.querySelector("#category").value,
-    subject: form.querySelector("#subject").value,
-    message: form.querySelector("#mailMessage").value,
-  };
-  //POST Request
+  setIsSending(true);
+
   try {
-    const res = await axios.post("/api/contact", postData, {
+    const appkey = process.env.SPINNOVID_APPKEY;
+    const res = await axios.post(`/api/contact?appkey=${appkey}`, formData, {
       headers: {
         "Content-Type": "application/json",
       },
     });
     const data = res.data;
-    if (data.status === "success") {
-      form.querySelector("#confirmMessage").innerHTML =
-        confirmMessage.success.replace("[SENDER]", postData.name);
-      confirmationBox.classList.add(confirmClass);
-      form.querySelector("#mailSending").classList.remove(mailSendingClass);
-      setMessageLen(0);
-      form.reset();
-    } else {
-      form.querySelector("#confirmMessage").innerHTML =
-        confirmMessage.failed.replace("[SENDER]", postData.name);
-      confirmationBox.classList.add(confirmClass);
-      form.querySelector("#mailSending").classList.remove(mailSendingClass);
+    if (data.status == "success") {
+      setConfirmationMessage(
+        confirmMessage.success.replace("[SENDER]", formData.name)
+      );
+      setSendConfirm(true);
       setBtnDisabled(false);
+      setIsSending(false);
+      setMessageLen(0);
+      document.getElementById("contactMail").reset();
+    } else {
+      setConfirmationMessage(
+        confirmMessage.failed.replace("[SENDER]", formData.name)
+      );
+      setSendConfirm(true);
+      setBtnDisabled(false);
+      setIsSending(false);
     }
   } catch (err) {
-    form.querySelector("#confirmMessage").innerHTML =
-      confirmMessage.error.replace("[SENDER]", postData.name);
-    confirmationBox.classList.add(confirmClass);
-    form.querySelector("#mailSending").classList.remove(mailSendingClass);
+    setConfirmationMessage(
+      confirmMessage.error.replace("[SENDER]", formData.name)
+    );
+    setSendConfirm(true);
     setBtnDisabled(false);
+    setIsSending(false);
   }
 }
-
-export function closeConfirmationBox(confirmClass) {
-  const confirmBox = document.getElementById("confirmationBox");
-  confirmBox.classList.remove(confirmClass);
-}
-
-export function getAllProjects() {}

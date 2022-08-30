@@ -9,7 +9,7 @@ export default function CategoryList({ projectCat }) {
   const router = useRouter();
   useEffect(() => {
     if (router.query.cat !== undefined) {
-      categoryClicked(router.query.cat, st.catListBox, st.clbOnFocus);
+      categoryClicked(router.query.cat);
     }
   }, [router.query.cat]);
   //Get Category List
@@ -20,7 +20,7 @@ export default function CategoryList({ projectCat }) {
         id={item.id}
         className={`flex-row ${st.catListBox}`}
         onClick={(e) => {
-          categoryClicked(e.currentTarget.id, st.catListBox, st.clbOnFocus);
+          categoryClicked(e.currentTarget.id);
           router.replace(
             {
               pathname: "/",
@@ -60,7 +60,7 @@ export default function CategoryList({ projectCat }) {
         id="featured"
         className={`flex-row ${st.catListBox} ${st.clbOnFocus}`}
         onClick={(e) => {
-          categoryClicked(e.currentTarget.id, st.catListBox, st.clbOnFocus);
+          categoryClicked(e.currentTarget.id);
           router.replace(
             {
               pathname: "/",

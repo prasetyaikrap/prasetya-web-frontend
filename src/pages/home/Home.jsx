@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 
 import Project from "pages/home/Project";
 import Contact from "pages/home/Contact";
+import Profile from "pages/home/Profile";
 import WebHead from "components/Head";
 import Navbar from "components/Navbar";
-import Profile from "./Profile";
+import Footer from "components/Footer";
 
 export default function Home({ propsData }) {
   const { language, pCategory, projects, socmed } = propsData;
@@ -38,6 +39,7 @@ export default function Home({ propsData }) {
       );
     }
   }, [router.query.lang]);
+
   useEffect(() => {
     if (!router.isReady) {
       return;
@@ -82,7 +84,10 @@ export default function Home({ propsData }) {
   ];
   return (
     <>
-      <WebHead title="Welcome to Spinnovid" meta={meta} />
+      <WebHead
+        title="Welcome to Spinnovid - Prasetya Ikra Priyadi Website"
+        meta={meta}
+      />
       <Navbar metadata={{ info, header }} />
       <Profile />
       <Project
@@ -90,7 +95,8 @@ export default function Home({ propsData }) {
         projectCat={pCategory}
         projectData={projectData}
       />
-      {/* <Contact language={contact} contactData={socmed} /> */}
+      <Contact language={contact} contactData={socmed} />
+      <Footer />
     </>
   );
 }

@@ -47,6 +47,7 @@
         },
         "contact": {
           "headline": "Mari berteman. It's a good idea right?",
+          "subheadline": "Ikuti dan dukung saya",
           "icon": {
             "url": "/assets/friends-wh.png",
             "alt": "Follow and Subscribe"
@@ -65,7 +66,7 @@
             "confirmMessage": {
               "success": "Hi [SENDER], pesan mu sudah saya terima. Terima ksih telah berkunjung, senang bertemu dengan mu",
               "failed": "Hi [SENDER], Maaf, pesan mu gagal terkirim untuk saat ini. Coba lagi beberapa saat",
-              "error": "Hi [SENDER], Maaf, untuk sementara saya tidak menerima pesan apapun disini. Coba kirim pesan langsung melalui email yang tertera di panel sebelah kiri. Terima kasih"
+              "error": "Hi [SENDER], Maaf, untuk sementara saya tidak menerima pesan apapun disini. Coba kirim pesan langsung melalui email. Terima kasih"
             }
           }
         }
@@ -143,6 +144,7 @@
         },
         "contact": {
           "headline": "Let's become Friends, shall we?",
+          "subheadline": "Follow and support me",
           "icon": {
             "url": "/assets/friends-wh.png",
             "alt": "Follow and Subscribe"
@@ -161,7 +163,7 @@
             "confirmMessage": {
               "success": "Hi [SENDER], I have recevied your message. Thank you for visiting and nice to meet you",
               "failed": "Hi [SENDER], Sorry, I can't receive your message. Please try again later",
-              "error": "Hi [SENDER], Sorry, I can't receive any message recently. Please send me direct message to my email on the left panel. Thanks"
+              "error": "Hi [SENDER], Sorry, I can't receive any message recently. Please send me direct message to my email instead. Thanks"
             }
           }
         }

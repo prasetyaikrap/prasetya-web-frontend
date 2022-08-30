@@ -1,7 +1,6 @@
 //import Component
 import st from "styles/components.module.css";
 import Link from "next/link";
-import { SwitchLanguage } from "components/Language";
 
 export default function Navbar({ metadata }) {
   //Get Language Preference
@@ -53,17 +52,5 @@ export default function Navbar({ metadata }) {
         </nav>
       </section>
     </>
-  );
-}
-
-export function NavbarAdmin() {
-  return (
-    <nav id="navbar" className={`flex ${st.navContainer} ${st.navAdmin}`}>
-      <div className={`${st.navHeader} flex`}>
-        <Link href="/" target="_blank">
-          <h1>SPINNOVID</h1>
-        </Link>
-      </div>
-    </nav>
   );
 }

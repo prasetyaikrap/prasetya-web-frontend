@@ -3,7 +3,7 @@
   display: grid;
   width: 100%;
   background-color: hsl(var(--hsl-navy));
-  height: 40vw;
+  min-height: 35rem;
 }
 .profileBox1 {
   display: flex;
@@ -12,7 +12,6 @@
   justify-content: center;
   background-color: hsla(var(--hsl-black-primary), 0.3);
 }
-
 .pCard {
   display: flex;
   flex-direction: column;
@@ -78,7 +77,7 @@
   position: relative;
   grid-template-columns: 3fr 7fr;
   width: 100%;
-  height: 40vw;
+  min-height: 35rem;
   background-color: white;
 }
 .projBox1 {
@@ -113,7 +112,7 @@
 .catListBox {
   column-gap: 1rem;
   align-items: center;
-  width: 80%;
+  width: 90%;
   padding: 0.3rem 0.5rem;
   border: 0.1rem solid hsl(var(--hsl-navy));
   border-radius: 0.5rem;
@@ -199,11 +198,55 @@
   transform: scale(1.02, 1.05);
   transition: var(--trans-03);
 }
+
+/*Contact Section*/
+.contactSection {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto;
+  min-height: 35rem;
+  background-color: white;
+  padding: 4rem 0 0 0;
+}
+.cBox1 {
+  align-items: center;
+  padding: 0 4rem 2rem 4rem;
+}
+.mailContainer {
+  width: 75%;
+  height: auto;
+  margin: 1rem 0;
+}
+.customMailForm {
+  border-radius: 0.5rem;
+  background-color: hsl(var(--hsl-white-primary));
+  box-shadow: 0 0 0.5rem hsla(var(--hsla-shadow));
+}
+.cBox2 {
+  align-items: center;
+  background-color: hsl(var(--hsl-navy));
+  padding: 2rem 4rem;
+}
+.cBox2 > h3 {
+  color: hsl(var(--hsl-white-alt));
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.socmedBox {
+  justify-content: center;
+  column-gap: 1.5rem;
+  width: 100%;
+}
+.socmedIcon {
+  position: relative;
+  height: 3rem;
+  width: 3rem;
+}
 @media only screen and (max-width: 768px) {
   /*profile section*/
   .profileSection {
     grid-template-rows: 70% 30%;
-    height: 50rem;
+    height: 40rem;
   }
   .profileBox1 {
     grid-row-start: 2;
@@ -223,6 +266,7 @@
   }
   .pImg {
     width: 75%;
+    max-width: 25rem;
     height: 85%;
   }
 
@@ -270,12 +314,23 @@
   .pcImg {
     height: 11rem;
   }
+
+  /*Contact Section*/
+  .mailContainer {
+    width: 100%;
+  }
+  .socmedBox {
+    column-gap: 1rem;
+  }
+  .socmedIcon {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
   /*profile section*/
   .profileSection {
     grid-template-columns: 60% 40%;
-    height: 30rem;
   }
   .pCard {
     width: 70%;
@@ -307,6 +362,7 @@
   }
   .projCategory {
     flex-direction: row;
+    width: 90%;
     column-gap: 0.5rem;
     overflow-x: scroll;
     height: 4.5rem;
@@ -339,12 +395,16 @@
   .pcImg {
     height: 11rem;
   }
+
+  /*Contact Section*/
+  .socmedBox {
+    column-gap: 1rem;
+  }
 }
 @media only screen and (min-width: 1024px) {
   /*profile section*/
   .profileSection {
     grid-template-columns: 65% 35%;
-    height: 40vw;
   }
   .pCard {
     width: 60%;
@@ -360,99 +420,4 @@
     width: 80%;
     height: 85%;
   }
-}
-
-/*Contact Section*/
-.sectionContact {
-  display: flex;
-  width: 100%;
-  height: 40vw;
-}
-
-.boxOne,
-.boxTwo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-}
-.boxOne {
-  row-gap: 2vw;
-  width: 35%;
-  background-color: var(--col-navy-vdark);
-}
-.boxTwo {
-  row-gap: 2vw;
-  width: 65%;
-  padding: 3vw 4vw;
-}
-.socmedBox {
-  row-gap: 2vw;
-  padding: 3vw 4vw 0 4vw;
-  width: 100%;
-  height: 85%;
-}
-.boxOne footer {
-  justify-content: center;
-  align-items: center;
-  color: var(--col-white-02);
-  width: 100%;
-  height: 15%;
-}
-.headlineBox {
-  column-gap: 1vw;
-  padding: 0.5vw;
-}
-.headlineBox span {
-  position: relative;
-  height: 6vw;
-  width: 7.5vw;
-}
-.headlineBox h3 {
-  color: var(--col-white-02);
-}
-.contactChannelBox {
-  padding: 0.5vw;
-  justify-content: flex-start;
-  align-items: flex-end;
-  width: 100%;
-  height: 85%;
-  row-gap: 0.5vw;
-}
-.smCardContainer {
-  position: relative;
-  column-gap: 1vw;
-  width: 90%;
-  padding: 0 0.5vw;
-  /* border: .1vw solid var(--col-white-02); */
-  border-radius: 0.5vw;
-  cursor: pointer;
-  align-items: center;
-}
-.smCardContainer span {
-  position: relative;
-  width: 2.5vw;
-  height: 2.5vw;
-}
-.smCardContainer h4 a {
-  font-size: 1.05vw;
-  color: var(--col-white-02);
-  text-decoration: none;
-}
-.mailHeadlineBox {
-  width: 100%;
-  height: 15%;
-}
-.mailHeadlineBox {
-  row-gap: 0.5vw;
-  padding: 0 2vw;
-}
-.mailHeadlineBox h3 {
-  text-align: center;
-}
-.mailHeadlineBox p {
-  text-align: justify;
-}
-.mailForm {
-  width: 90%;
 }
