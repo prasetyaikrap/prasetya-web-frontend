@@ -15,7 +15,7 @@ export default function CatList({ catList }) {
           router.push(
             {
               pathname: router.asPath.split("?")[0],
-              query: { lang: router.query.lang, cat: e.currentTarget.id },
+              query: { cat: e.currentTarget.id },
             },
             undefined,
             { shallow: true }
@@ -36,7 +36,7 @@ export default function CatList({ catList }) {
           router.push(
             {
               pathname: router.asPath.split("?")[0],
-              query: { lang: router.query.lang, cat: e.currentTarget.id },
+              query: { cat: e.currentTarget.id },
             },
             undefined,
             { shallow: true }
@@ -53,7 +53,7 @@ export default function CatList({ catList }) {
           router.push(
             {
               pathname: router.asPath.split("?")[0],
-              query: { lang: router.query.lang, cat: e.currentTarget.id },
+              query: { cat: e.currentTarget.id },
             },
             undefined,
             { shallow: true }

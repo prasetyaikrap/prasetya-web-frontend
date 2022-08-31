@@ -24,10 +24,7 @@ export default function CategoryList({ projectCat }) {
           router.replace(
             {
               pathname: "/",
-              query: {
-                lang: router.query.lang,
-                cat: e.currentTarget.id,
-              },
+              query: { cat: e.currentTarget.id },
             },
             undefined,
             { shallow: true }
@@ -64,7 +61,7 @@ export default function CategoryList({ projectCat }) {
           router.replace(
             {
               pathname: "/",
-              query: { lang: router.query.lang, cat: e.currentTarget.id },
+              query: { cat: e.currentTarget.id },
             },
             undefined,
             { shallow: true }

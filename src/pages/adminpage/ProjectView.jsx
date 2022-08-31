@@ -1,4 +1,4 @@
-import CrossBtn from "components/CrossBtn";
+import { CrossBtn } from "components/Asset";
 import st from "styles/admin.module.css";
 import {
   projectOnCancel,
@@ -258,7 +258,7 @@ export default function ProjectView({
           setSelectedProjectId(null);
           projectOnCancel(setOpenState, setUploadError);
         }}
-        addClass={st.pvCloseBtn}
+        customClass={st.pvCloseBtn}
       />
     </form>
   );

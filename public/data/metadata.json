@@ -71,7 +71,7 @@
         },
         "footer": {}
       },
-      "projects": {
+      "project": {
         "navbar": {
           "headline": "SPINNOV.ID",
           "subheadline": "",
@@ -106,7 +106,7 @@
         "navbar": {
           "headline": "SPINNOV.ID",
           "subheadline": "",
-          "url": "/?lang=en",
+          "url": "/",
           "navigation": [
             {
               "id": 1,
@@ -167,21 +167,21 @@
         },
         "footer": {}
       },
-      "projects": {
+      "project": {
         "navbar": {
           "headline": "SPINNOV.ID",
           "subheadline": "",
-          "url": "/?lang=en",
+          "url": "/",
           "navigation": [
             {
               "id": 1,
               "title": "BLOG",
-              "url": "/blog?lang=en"
+              "url": "/blog"
             },
             {
               "id": 2,
               "title": "STORE",
-              "url": "/store?lang=en"
+              "url": "/store"
             },
             {
               "id": 3,

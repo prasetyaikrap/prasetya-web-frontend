@@ -3,12 +3,14 @@ import { CrossBtn } from "components/Asset";
 import Tags from "pages/projects/Tags";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-export default function ProjectPreview({ data, setData }) {
+export default function ProjectPreview({ data }) {
   const [createdDate, setCreatedDate] = useState("");
   const [updatedDate, setUpdatedDate] = useState("");
   const [descParagraph, setDescParagraph] = useState("");
   const [actionLink, setActionLink] = useState("");
+  const router = useRouter();
   const dateOptions = {
     year: "numeric",
     month: "long",
@@ -68,7 +70,6 @@ export default function ProjectPreview({ data, setData }) {
                 src={data.imageUrl}
                 alt={data.title}
                 objectFit="cover"
-                priority="true"
                 className={st.pmImageNext}
               />
             )}
@@ -93,7 +94,7 @@ export default function ProjectPreview({ data, setData }) {
           document
             .getElementById("projectPreview")
             .classList.remove(st.cbContent2ndOpen);
-          setData([]);
+          router.replace("/projects", undefined, { shallow: true });
         }}
         customClass={st.crossBtn}
       />

@@ -7,20 +7,17 @@ import {
   limit,
   where,
 } from "firebase/firestore";
-import ad from "data/assetData.json";
+import metadata from "data/metadata.json";
 import Home from "pages/home/Home";
 
 export async function getStaticProps() {
-  const { language, pCategory, socmed } = {
-    language: ad.language,
-    pCategory: ad.pCategory.filter((item) => {
-      return item.isActive == true;
-    }),
-    socmed: ad.socmed,
-  };
-  const projects = async (pCategory) => {
+  const { languages, projects, contacts } = metadata;
+  const projectCat = projects.cat.filter((item) => {
+    return item.isActive == true;
+  });
+  const projectData = async (projectCat) => {
     let data = [];
-    for await (const cat of pCategory) {
+    for await (const cat of projectCat) {
       const snapshot = await getDocs(
         query(
           collection(firestore, "projects"),
@@ -37,10 +34,10 @@ export async function getStaticProps() {
   };
   return {
     props: {
-      language,
-      pCategory,
-      projects: await projects(pCategory),
-      socmed,
+      lang: languages,
+      projectCat: projectCat,
+      projects: await projectData(projectCat),
+      contacts,
     },
   };
 }

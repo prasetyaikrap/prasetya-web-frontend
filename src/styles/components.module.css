@@ -120,7 +120,30 @@
   transition: var(--trans-03);
 }
 
-/*Footer*/
+/*ProjectCard Component*/
+.projCard {
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem hsla(var(--hsla-shadow));
+  animation: var(--scaleIn) 0.5s;
+}
+.pcImg {
+  position: relative;
+  height: 9rem;
+  width: 100%;
+}
+.pcImg > span {
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+.pcTitle {
+  height: 3rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem 1.5rem 0.2rem 1.5rem;
+}
+
+/*Footer Component*/
 .footer {
   display: flex;
   justify-content: center;
@@ -210,7 +233,7 @@
     border: none;
   }
 
-  /*Contact Section*/
+  /*Contact Component*/
   .mailFormContainer {
     grid-template-columns: 100%;
   }
@@ -218,6 +241,14 @@
   .formMessage,
   .actionBox {
     grid-column: 1/1;
+  }
+
+  /*ProjectCards Component*/
+  .projCard {
+    height: 14rem;
+  }
+  .pcImg {
+    height: 11rem;
   }
 }
 
@@ -262,6 +293,14 @@
   .navBox2 > button:hover {
     background-color: hsl(var(--hsl-black-alt), 0.5);
     transition: var(--trans-03);
+  }
+
+  /*ProjectCards Component*/
+  .projCard {
+    height: 14rem;
+  }
+  .pcImg {
+    height: 11rem;
   }
 
   /*Contact Section*/

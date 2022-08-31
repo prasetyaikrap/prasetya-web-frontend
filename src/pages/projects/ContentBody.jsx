@@ -1,13 +1,15 @@
+import ProjectCards from "components/ProjectCard";
 import st from "styles/projects.module.css";
-import Cards from "./Cards";
 
-export default function ContentBody({ projectData, setSelectedProject }) {
+export default function ContentBody({ projectData }) {
   return (
     <div className={`${st.cbContainer}`}>
       <div className={`${st.cbcInner}`}>
-        <Cards
+        <ProjectCards
           projectData={projectData}
-          setSelectedProject={setSelectedProject}
+          href={`/projects?pid=[PID]`}
+          shallow={true}
+          replace={true}
         />
       </div>
     </div>

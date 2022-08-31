@@ -2,7 +2,7 @@ import Auth from "pages/adminpage/Auth";
 import st from "styles/admin.module.css";
 import WebHead from "components/Head";
 
-export default function LoginPage() {
+export default function AdminLogin() {
   return (
     <>
       <WebHead

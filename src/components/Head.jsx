@@ -1,6 +1,7 @@
 import Head from "next/head";
 
-export default function WebHead({ title, meta, link }) {
+export default function WebHead({ headProps }) {
+  const { title, meta, link } = headProps;
   return (
     <Head>
       <title>{title}</title>

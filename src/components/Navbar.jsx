@@ -2,20 +2,20 @@
 import st from "styles/components.module.css";
 import Link from "next/link";
 
-export default function Navbar({ metadata }) {
+export default function Navbar({ navbarProps }) {
   //Get Language Preference
   const {
     info,
-    header: { nav, navBtn },
-  } = metadata;
+    navbar: { headline, subheadline, url, navigation },
+  } = navbarProps;
 
   //Render Component
   return (
     <>
       <section id="navbar" className={`${st.navContainer} flex`}>
         <div className={`${st.navBox1} flex`}>
-          <Link href={nav.url}>
-            <h1>{nav.title}</h1>
+          <Link href={url}>
+            <h1 style={{ cursor: "pointer" }}>{headline}</h1>
           </Link>
         </div>
         <button
@@ -37,14 +37,10 @@ export default function Navbar({ metadata }) {
           <span id={st.nbur3}></span>
         </button>
         <nav className={`${st.navBox2} flex`}>
-          {navBtn.map((item) => {
+          {navigation.map((item) => {
             return (
               <Link key={item.id} href={item.url}>
-                <button
-                  className={`flex bodyText ${st.navBtn} ${st.navBtnText}`}
-                >
-                  {item.title}
-                </button>
+                <button className={`flex bodyText`}>{item.title}</button>
               </Link>
             );
           })}

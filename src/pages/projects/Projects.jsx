@@ -9,109 +9,90 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { openProject } from "utils/projectDashboard";
 import Footer from "components/Footer";
+import { PublicLayout } from "components/Layout";
 
 export default function Projects({ propsData }) {
-  const { language, pCategory, projects } = propsData;
+  const { lang, projectCat, projects } = propsData;
   const projectsJSON = JSON.parse(projects);
   const [project, setProject] = useState(projectsJSON);
   const [selectedProject, setSelectedProject] = useState([]);
-  const [useLanguage, setUseLanguage] = useState(language[1]);
+  const [useLanguage, setUseLanguage] = useState(lang.en);
   //language
   const {
     info,
-    project: { header },
+    project: { navbar },
   } = useLanguage;
   const router = useRouter();
   useEffect(() => {
-    if (!router.query.lang) {
-      const userLanguage = window.navigator.language;
-      switch (userLanguage.substring(0, 2)) {
-        case "id":
-          router.replace("/projects/?lang=id", undefined, { shallow: true });
-          break;
-        case "en":
-          router.replace("/projects/?lang=en", undefined, { shallow: true });
-          break;
-        default:
-          router.replace("/projects/?lang=id", undefined, { shallow: true });
-      }
-    }
-    if (router.query.lang) {
-      setUseLanguage(
-        language.filter((lang) => {
-          return lang.info.code == router.query.lang;
-        })[0]
-      );
-    }
-  }, [router.query.lang]);
-  useEffect(() => {
-    const category = router.query.cat;
-    switch (true) {
-      case category == "all" || category == undefined:
+    if (!router.isReady) return;
+    switch (router.query.cat) {
+      case undefined:
+        break;
+      case "all":
         setProject(projectsJSON);
         break;
-      case category == "featured":
+      case "featured":
         setProject(
           projectsJSON.filter((item) => {
             return item.isFeatured == true;
           })
         );
         break;
-      case category != undefined:
+      default:
         setProject(
           projectsJSON.filter((item) => {
-            return item.categoryId == category;
+            return item.categoryId == router.query.cat;
           })
         );
-        break;
-      default:
     }
   }, [router.query.cat]);
   useEffect(() => {
-    const pid = router.query.pid;
-    if (pid) {
+    if (router.query.pid) {
       const project = projectsJSON.filter((p) => {
-        return p.id == pid;
+        return p.id == router.query.pid;
       });
-      setTimeout(() => {
-        openProject(pid, project[0], setSelectedProject);
-      }, 500);
+      if (router.query.ext) {
+        setTimeout(() => {
+          openProject(router.query.pid, project[0], setSelectedProject);
+        }, 500);
+      } else {
+        openProject(router.query.pid, project[0], setSelectedProject);
+      }
+    } else {
+      setSelectedProject([]);
     }
   }, [router.query.pid]);
-  //selected project data for Project Preview
-  const meta = [
-    { name: "robots", property: "", content: "all" },
-    {
-      name: "description",
-      property: "",
-      content:
-        "Prasetya Ikra Priyadi - Spinnovid - Home for technology enthusiast",
-    },
-    {
-      name: "keywords",
-      property: "",
-      content:
-        "Technology, Nextjs, Web Development, Full Stack Developer, Data, Google Apps, Javascript, Open To work, Content Creator",
-    },
-    { name: "author", property: "", content: "Prasetya Ikra Priyadi" },
-  ];
+  const headProps = {
+    title: "Project Collection - Prasetya Ikra Priyadi",
+    meta: [
+      { name: "robots", property: "", content: "all" },
+      {
+        name: "description",
+        property: "",
+        content:
+          "Prasetya Ikra Priyadi - Spinnovid - Home for technology enthusiast",
+      },
+      {
+        name: "keywords",
+        property: "",
+        content:
+          "Technology, Nextjs, Web Development, Full Stack Developer, Data, Google Apps, Javascript, Open To work, Content Creator",
+      },
+      { name: "author", property: "", content: "Prasetya Ikra Priyadi" },
+    ],
+  };
   return (
     <>
-      <WebHead
-        title="Project Collection - Prasetya Ikra Priyadi"
-        meta={meta}
-        link={[]}
-      />
-      <section className={`${st.sectionProject}`}>
-        <Navbar metadata={{ info, header }} />
-        <CatHeader projectCat={pCategory} />
-        <ContentBody
-          projectData={project}
-          setSelectedProject={setSelectedProject}
-        />
-        <ProjectPreview data={selectedProject} setData={setSelectedProject} />
-        <Footer />
-      </section>
+      <PublicLayout headProps={headProps} navbarProps={{ info, navbar }}>
+        <section className={`${st.sectionProject}`}>
+          <CatHeader projectCat={projectCat} />
+          <ContentBody
+            projectData={project}
+            setSelectedProject={setSelectedProject}
+          />
+          <ProjectPreview data={selectedProject} />
+        </section>
+      </PublicLayout>
     </>
   );
 }

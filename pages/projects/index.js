@@ -1,17 +1,14 @@
-import ad from "data/assetData.json";
+import ad from "data/metadata.json";
 
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { firestore } from "utils/firebaseConfig";
 import Projects from "pages/projects/Projects";
 
 export async function getStaticProps({}) {
-  const { language, pCategory } = {
-    language: ad.language,
-    pCategory: ad.pCategory.filter((item) => {
-      return item.isActive == true;
-    }),
-  };
-
+  const { languages, projects } = ad;
+  const projectCat = projects.cat.filter((item) => {
+    return item.isActive == true;
+  });
   //Get Project
   const snapshots = await getDocs(
     query(
@@ -20,15 +17,15 @@ export async function getStaticProps({}) {
       orderBy("createdAt", "desc")
     )
   );
-  const projects = JSON.stringify([
+  const projectData = JSON.stringify([
     ...snapshots.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
   ]);
   //Get Category
   return {
     props: {
-      language,
-      pCategory,
-      projects,
+      lang: languages,
+      projectCat: projectCat,
+      projects: projectData,
     },
   };
 }

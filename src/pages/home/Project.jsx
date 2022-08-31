@@ -5,9 +5,9 @@ import Link from "next/link";
 //Components
 import CategoryList from "pages/home/CategoryList";
 import st from "styles/home.module.css";
+import ProjectCards from "components/ProjectCard";
 
 function Cards({ projectData }) {
-  const router = useRouter();
   const cards = projectData.map((item) => {
     return (
       <div key={item.id} id={item.id} className={`flex-column ${st.projCard}`}>
@@ -20,7 +20,7 @@ function Cards({ projectData }) {
           />
         </div>
         <div className={`flex ${st.pcTitle}`}>
-          <Link href={`/projects?lang=${router.query.lang}&pid=${item.id}`}>
+          <Link href={`/projects?pid=${item.id}`}>
             <h5 style={{ cursor: "pointer" }}>{item.title}</h5>
           </Link>
         </div>
@@ -56,7 +56,10 @@ export default function Project({ language, projectCat, projectData }) {
       </div>
       <div className={`${st.projBox2}`}>
         <div className={`${st.projGrid}`}>
-          <Cards projectData={projectData} />
+          <ProjectCards
+            projectData={projectData}
+            href={`/projects?pid=[PID]&ext=true`}
+          />
         </div>
         <button
           className={`${st.projSeeMore}`}

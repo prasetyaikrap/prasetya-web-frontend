@@ -2,7 +2,7 @@ import WebHead from "components/Head";
 import DashboardAdmin from "pages/adminpage/Dashboard";
 import st from "styles/admin.module.css";
 
-export default function Dashboard() {
+export default function AdminDashboard() {
   const meta = [{ name: "robots", property: "", content: "noindex, nofollow" }];
   return (
     <>
