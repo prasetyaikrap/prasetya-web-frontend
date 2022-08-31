@@ -4,7 +4,7 @@ import CatList from "pages/projects/CatList";
 
 export default function CatHeader({ projectCat }) {
   return (
-    <div className={`flex-row ${st.headerContainer}`}>
+    <div className={`flex ${st.headerContainer}`}>
       <div>
         <CatList catList={projectCat} />
       </div>

@@ -48,7 +48,6 @@ export default function Navbar({ metadata }) {
               </Link>
             );
           })}
-          {/* <SwitchLanguage language={info} /> */}
         </nav>
       </section>
     </>

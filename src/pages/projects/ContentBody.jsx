@@ -3,11 +3,10 @@ import Cards from "./Cards";
 
 export default function ContentBody({ projectData, setSelectedProject }) {
   return (
-    <div className={`flex-column ${st.cbContainer}`}>
-      <div className={`flex-row ${st.cbContent1st}`}>
+    <div className={`${st.cbContainer}`}>
+      <div className={`${st.cbcInner}`}>
         <Cards
           projectData={projectData}
-          rows={4}
           setSelectedProject={setSelectedProject}
         />
       </div>

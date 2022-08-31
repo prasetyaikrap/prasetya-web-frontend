@@ -1,7 +1,7 @@
 import st from "styles/projects.module.css";
 import { openProject } from "utils/projectDashboard";
 
-export default function Cards({ projectData, rows, setSelectedProject }) {
+export default function Cards({ projectData, setSelectedProject }) {
   try {
     const cards = projectData.map((project) => {
       return (
@@ -25,17 +25,6 @@ export default function Cards({ projectData, rows, setSelectedProject }) {
         </button>
       );
     });
-    if (projectData.length % rows !== 0) {
-      for (let i = 1; i <= rows - (projectData.length % rows); i++) {
-        cards.push(
-          <button
-            key={`empty${i}`}
-            id="emptyCard"
-            className={`${st.cardsProjectEmpty}`}
-          ></button>
-        );
-      }
-    }
     return cards;
   } catch (err) {
     return <h2>No project on selected category. Find another...</h2>;

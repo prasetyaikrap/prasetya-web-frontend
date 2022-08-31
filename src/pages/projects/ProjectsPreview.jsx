@@ -1,5 +1,5 @@
 import st from "styles/projects.module.css";
-import CrossBtn from "components/CrossBtn";
+import { CrossBtn } from "components/Asset";
 import Tags from "pages/projects/Tags";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -27,13 +27,20 @@ export default function ProjectPreview({ data, setData }) {
         ).toLocaleString("en-US", dateOptions)
       );
       setDescParagraph(
-        data.description.split("\n").map((par, index) => {
-          return (
-            <p key={index} className={`bodyText`}>
-              {par}
-            </p>
-          );
-        })
+        data.description
+          .split("\n")
+          .filter((item) => item != "")
+          .map((par, index) => {
+            return (
+              <p
+                key={index}
+                style={{ fontSize: ".9rem" }}
+                className={`bodyText`}
+              >
+                {par}
+              </p>
+            );
+          })
       );
       setActionLink(
         data.btnLink
@@ -88,7 +95,7 @@ export default function ProjectPreview({ data, setData }) {
             .classList.remove(st.cbContent2ndOpen);
           setData([]);
         }}
-        addClass={st.crossBtn}
+        customClass={st.crossBtn}
       />
     </div>
   );

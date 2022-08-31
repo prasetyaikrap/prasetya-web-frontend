@@ -8,6 +8,7 @@ import st from "styles/projects.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { openProject } from "utils/projectDashboard";
+import Footer from "components/Footer";
 
 export default function Projects({ propsData }) {
   const { language, pCategory, projects } = propsData;
@@ -18,9 +19,7 @@ export default function Projects({ propsData }) {
   //language
   const {
     info,
-    project: {
-      header: { nav, navBtn },
-    },
+    project: { header },
   } = useLanguage;
   const router = useRouter();
   useEffect(() => {
@@ -104,13 +103,14 @@ export default function Projects({ propsData }) {
         link={[]}
       />
       <section className={`${st.sectionProject}`}>
-        <Navbar language={[info, nav, navBtn]} page="projectpage" />
+        <Navbar metadata={{ info, header }} />
         <CatHeader projectCat={pCategory} />
         <ContentBody
           projectData={project}
           setSelectedProject={setSelectedProject}
         />
         <ProjectPreview data={selectedProject} setData={setSelectedProject} />
+        <Footer />
       </section>
     </>
   );
