@@ -6,6 +6,7 @@ import Link from "next/link";
 import CategoryList from "pages/home/CategoryList";
 import st from "styles/home.module.css";
 import ProjectCards from "components/ProjectCard";
+import { AnchorTag } from "components/Asset";
 
 function Cards({ projectData }) {
   const cards = projectData.map((item) => {
@@ -41,7 +42,8 @@ export default function Project({ language, projectCat, projectData }) {
 
   //Render Page
   return (
-    <section id="project" className={`${st.projectSection}`}>
+    <section className={`${st.projectSection}`}>
+      <AnchorTag sectionId="project" offset={{ top: "-4rem" }} />
       <div className={`${st.projBox1}`}>
         <div className={`${st.projHeadline}`}>
           <span className={`${st.projIcon}`}>

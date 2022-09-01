@@ -1,58 +1,16 @@
 import st from "styles/admin.module.css";
-import { useAuth } from "context/AuthContext";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
-export default function SidePanel() {
-  const { logout } = useAuth();
-  const router = useRouter();
+export default function SidePanel({ sideMenu }) {
   return (
     <div className={`flex-column ${st.sidePanelContainer}`}>
-      <button
-        id="overview"
-        type="button"
-        className={`bodyText ${st.menuBox}`}
-        onClick={(e) => {
-          router.replace(
-            {
-              pathname: "/admin/dashboard",
-              query: {
-                m: e.currentTarget.id,
-              },
-            },
-            undefined,
-            { shallow: true }
-          );
-        }}
-      >
-        Overview
-      </button>
-      <button
-        id="projects"
-        type="button"
-        className={`bodyText ${st.menuBox}`}
-        onClick={(e) => {
-          router.replace(
-            {
-              pathname: "/admin/dashboard",
-              query: {
-                m: e.currentTarget.id,
-              },
-            },
-            undefined,
-            { shallow: true }
-          );
-        }}
-      >
-        Projects
-      </button>
-      <button
-        id="logout"
-        type="button"
-        className={`bodyText ${st.menuBox}`}
-        onClick={(e) => logout()}
-      >
-        Logout
-      </button>
+      {sideMenu.map((menu) => {
+        return (
+          <Link key={menu.id} href={menu.url} replace={true} shallow={true}>
+            <h3 className={`bodyText ${st.menuBox}`}>{menu.name}</h3>
+          </Link>
+        );
+      })}
     </div>
   );
 }

@@ -202,6 +202,7 @@
 /*Contact Section*/
 .contactSection {
   display: grid;
+  position: relative;
   grid-template-columns: 100%;
   grid-template-rows: auto auto;
   min-height: 35rem;

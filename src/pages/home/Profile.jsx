@@ -51,6 +51,7 @@ export default function Profile() {
             objectFit="cover"
             objectPosition="top"
             layout="fill"
+            priority={true}
           />
         </div>
       </div>

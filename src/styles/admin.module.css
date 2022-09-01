@@ -1,94 +1,83 @@
+/*Login Component*/
 .sectionLogin {
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100vh;
 }
-
 .loginBox,
-.loginBox form {
-  padding: 3vw;
-  border-radius: 0.5vw;
-  box-shadow: 0 0 1vw var(--col-shadow);
-  width: 25vw;
+.loginBox > form {
+  padding: 2.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem hsla(var(--hsla-shadow));
+  width: 25rem;
   justify-content: center;
   align-items: center;
 }
-.loginBox form {
+.loginBox > form {
   display: inherit;
   flex-direction: inherit;
   padding: 0;
   width: 100%;
   box-shadow: none;
 }
-
-.loginBox p#alert {
+.loginBox > p#alert {
   background-color: rgb(255, 157, 157);
-  padding: 0.2vw 0;
+  padding: 0.3rem 0;
   text-align: center;
   width: 80%;
-  border-radius: 0.2vw;
-  margin: 0.5vw 0 1vw 0;
+  border-radius: 0.3rem;
+  margin: 0.5rem 0 1rem 0;
 }
-
-.loginBox div {
+.loginBox > form > div {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1vw;
+  margin-bottom: 1rem;
   width: 100%;
 }
-
-.loginBox div input {
-  padding: 0.2vw 0.5vw;
-  border-radius: 0.3vw;
+.loginBox > form > div > input {
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.3rem;
 }
-.loginBox button {
-  padding: 0.3vw 3vw;
-  background-color: var(--col-navy-vdark);
-  color: var(--col-white-02);
-  font-size: 1.1vw;
+.loginBox > form > button {
+  padding: 0.3rem 3rem;
+  background-color: hsl(var(--hsl-navy));
+  color: hsl(var(--hsl-white-alt));
+  font-size: 1.1rem;
   font-weight: 800;
-  border-radius: 0.3vw;
+  border-radius: 0.3rem;
   border: none;
   width: 50%;
 }
-.loginBox button:hover {
+.loginBox > form > button:hover {
   opacity: 0.9;
   transform: scale(1.02, 1.02);
   transition: var(--trans-03);
 }
 
 /*Dashboard*/
-.dummyNavbar {
-  width: 100%;
-  height: 4.5vw;
-  background-color: blue;
-}
-#adminDashboard {
-  width: 100%;
-  min-height: 100vh;
-}
 .dashboardContainer {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
   width: 100%;
-  height: calc(100vh - 4.5vw);
+  min-height: calc(100vh - 9.2rem);
 }
 .sidePanelContainer {
   align-items: flex-end;
-  box-shadow: 0.4vw 0 1vw var(--col-shadow);
-  padding: 2.5vw 0;
-  width: 22vw;
-  height: calc(100vh - 4.5vw);
-  background-color: var(--col-white-primary);
+  box-shadow: 0.4rem 0 1rem hsla(var(--hsla-shadow));
+  padding: 2.5rem 0;
+  background-color: hsl(var(--hsl-white-primary));
 }
 .menuBox {
-  padding: 1vw 0 1vw 3vw;
+  cursor: pointer;
+  padding: 1rem 0 1rem 3rem;
   width: 100%;
   background-color: transparent;
   border: none;
   text-align: left;
 }
 .menuBox:hover {
-  background-color: var(--col-white-02);
+  background-color: hsl(var(--hsl-white-alt));
   transition: var(--trans-03);
 }
 
@@ -97,63 +86,63 @@
 .overviewPanel {
   position: relative;
   width: 100%;
-  padding: 3vw;
+  padding: 3rem;
   height: 100%;
   overflow: auto;
 }
 .projectPanel > h2 {
-  margin-bottom: 2vw;
+  margin-bottom: 2rem;
 }
 .ppcHeader,
 .ppcContent {
   width: 100%;
-  border-bottom: 0.1vw solid var(--col-white-01);
-  padding: 1vw 0 2vw 0;
+  border-bottom: 0.1rem solid hsl(var(--hsl-white-alt));
+  padding: 1rem 0 2rem 0;
 }
 .ppcHeader {
   padding: 0;
   justify-content: space-between;
   align-items: flex-end;
-  min-height: 3vw;
+  min-height: 3rem;
 }
 .ppcHeader > div {
   display: flex;
   position: relative;
   flex-direction: row;
   height: 100%;
-  column-gap: 0.5vw;
+  column-gap: 0.5rem;
 }
 .ppcHeader > div:nth-child(1) > input {
-  width: 25vw;
-  padding: 0.1vw 1vw;
+  width: 25rem;
+  padding: 0.1rem 1rem;
   border: none;
   outline: none;
-  background-color: var(--col-white-02);
-  border-radius: 0.2vw;
+  background-color: hsl(var(--hsl-white-alt));
+  border-radius: 0.2rem;
 }
 .ppcHeader > div:nth-child(1) > button.clearSearch {
   align-self: center;
   height: 70%;
-  padding: 0vw 0.7vw;
+  padding: 0 0.7rem;
   background-color: rgb(192, 0, 0);
-  color: var(--col-white-primary);
+  color: hsl(var(--hsl-white-primary));
   border: none;
-  border-radius: 0.2vw;
+  border-radius: 0.2rem;
 }
 .ppcHeader > div:nth-child(2) {
   align-items: center;
 }
 .ppcHeader > div:nth-child(2) > button {
-  padding: 0.2vw 1vw;
-  background-color: var(--col-navy-vdark);
-  color: var(--col-white-02);
+  padding: 0.2rem 1rem;
+  background-color: hsl(var(--hsl-navy));
+  color: hsl(var(--hsl-white-alt));
   border: none;
-  border-radius: 0.2vw;
+  border-radius: 0.2rem;
   height: 80%;
 }
 .ppcHeader > div:nth-child(2) > button:nth-child(1) {
-  background-color: gray;
-  padding: 0.2vw 0.5vw;
+  background-color: hsl(var(--hsl-grey));
+  padding: 0.2rem 0.5rem;
   height: 50%;
   text-align: center;
   align-content: center;
@@ -165,40 +154,40 @@
 .ppcProject {
   position: relative;
   width: 100%;
-  padding: 0.75vw 1vw;
-  border-bottom: 0.1vw solid var(--col-white-01);
-  height: 9.5vw;
+  padding: 0.75rem 1rem;
+  border-bottom: 0.1rem solid hsl(var(--hsl-white-alt));
+  height: 9.5rem;
   animation: var(--fadeIn) 0.4s;
   overflow: hidden;
 }
 .ppcProject:nth-child(1) {
-  border-top: 0.1vw solid var(--col-white-01);
+  border-top: 0.1rem solid hsl(var(--hsl-white-alt));
 }
 .ppcProject > span {
-  padding: 0 0.5vw;
+  padding: 0 0.5rem;
 }
 .ppcProject > span#pPreview {
   display: flex;
   flex-direction: row;
   align-items: center;
-  column-gap: 1vw;
+  column-gap: 1rem;
   width: 45%;
 }
 .ppcProject > span#pPreview > div:nth-child(1) {
   position: relative;
   width: 35%;
   height: 100%;
-  background-color: var(--col-white-01);
-  border-radius: 0.2vw;
+  background-color: hsl(var(--hsl-white-alt));
+  border-radius: 0.2rem;
 }
 .ppcProject > span#pPreview > div:nth-child(2) {
   display: flex;
   flex-direction: column;
-  row-gap: 0.5vw;
+  row-gap: 0.5rem;
   width: 65%;
 }
 .ppcProject > span#pPreview > div:nth-child(2) > p {
-  font-size: 0.85vw;
+  font-size: 0.85rem;
   text-overflow: ellipsis;
   overflow: hidden;
 }
@@ -206,21 +195,21 @@
   white-space: nowrap;
 }
 .ppcProject > span#pPreview > div:nth-child(2) > p:nth-child(2) {
-  height: calc(1.25 * 0.85vw * 4);
+  height: calc(1.25 * 0.85rem * 4);
   text-align: justify;
 }
 .ppcProject > span#pPreview > div:nth-child(2) > div:nth-child(3) {
   display: flex;
   flex-direction: row;
-  column-gap: 0.4vw;
+  column-gap: 0.4rem;
   overflow: hidden;
   flex-wrap: nowrap;
 }
 .ppcProject > span#pPreview > div:nth-child(2) > div:nth-child(3) > span {
-  padding: 0.15vw 0.3vw;
-  border: 0.1vw solid var(--col-navy-vdark);
-  border-radius: 0.2vw;
-  width: 4.7vw;
+  padding: 0.15rem 0.3rem;
+  border: 0.1rem solid hsl(var(--hsl-navy));
+  border-radius: 0.2rem;
+  width: 4.7rem;
   text-overflow: ellipsis;
   overflow: hidden;
   text-align: center;
@@ -230,54 +219,54 @@
 .ppcProject > span#pPublicPrivate {
   display: flex;
   flex-direction: column;
-  row-gap: 0.5vw;
+  row-gap: 0.5rem;
   width: 17.5%;
 }
 .ppcProject > span#pEngage {
   display: flex;
   flex-direction: column;
-  row-gap: 0.5vw;
+  row-gap: 0.5rem;
   justify-content: flex-start;
   align-items: center;
   width: 10%;
 }
 .ppcProject > span#pEngage > a {
-  background-color: white;
-  border: 0.1vw solid var(--col-navy-vdark);
+  background-color: hsl(var(--hsl-white-primary));
+  border: 0.1rem solid hsl(var(--hsl-navy));
   width: 80%;
-  border-radius: 0.2vw;
-  padding: 0.2vw 0;
+  border-radius: 0.2rem;
+  padding: 0.2rem 0;
   text-align: center;
   color: var(--col-black-primary);
-  font-size: 0.85vw;
+  font-size: 0.85rem;
   text-decoration: none;
 }
 .ppcProject > span#pEngage > a:hover {
-  background-color: var(--col-navy-vdark);
-  color: var(--col-white-primary);
+  background-color: hsl(var(--hsl-navy));
+  color: hsl(var(--hsl-white-primary));
   transition: var(--trans-03);
 }
 .ppcProject > span#pAction {
   display: flex;
   flex-direction: column;
-  row-gap: 0.5vw;
+  row-gap: 0.5rem;
   align-items: center;
   justify-content: center;
   width: 10%;
 }
 .ppcProject > span#pAction > button {
   width: 80%;
-  color: var(--col-white-primary);
+  color: hsl(var(--hsl-white-primary));
   border: none;
-  border-radius: 0.2vw;
-  padding: 0.2vw 0;
+  border-radius: 0.2rem;
+  padding: 0.2rem 0;
 }
 .ppcProject > span#pAction > button:hover {
   opacity: 0.8;
   transition: var(--trans-03);
 }
 .ppcProject > span#pAction > button#actionEdit {
-  background-color: var(--col-navy-vdark);
+  background-color: hsl(var(--hsl-navy));
 }
 .ppcProject > span#pAction > button#actionDelete {
   background-color: rgb(192, 0, 0);
@@ -288,11 +277,11 @@
 .pActionDelete {
   display: flex;
   flex-direction: column;
-  row-gap: 0.5vw;
+  row-gap: 0.5rem;
   align-items: center;
   justify-content: center;
   width: 15%;
-  background-color: var(--col-white-primary);
+  background-color: hsl(var(--hsl-white-primary));
   height: 100%;
   top: 0;
   right: -15%;
@@ -301,23 +290,23 @@
 .pActionDelete > button {
   width: 60%;
   border: none;
-  border-radius: 0.3vw;
-  padding: 0.2vw 0;
+  border-radius: 0.3rem;
+  padding: 0.2rem 0;
 }
 .pActionDelete > button:hover {
   opacity: 0.8;
   transition: var(--trans-03);
 }
 .pActionDelete > button:nth-child(2) {
-  background-color: var(--col-navy-vdark);
-  color: var(--col-white-primary);
+  background-color: hsl(var(--hsl-navy));
+  color: hsl(var(--hsl-white-primary));
 }
 .pActionDelete > button:nth-child(3) {
   background-color: rgb(192, 0, 0);
-  color: var(--col-white-primary);
+  color: hsl(var(--hsl-white-primary));
 }
 .pACDelete {
-  box-shadow: 0.1vw 0 1vw 0.1vw var(--col-shadow);
+  box-shadow: 0.1rem 0 1rem 0.1rem hsla(var(--hsla-shadow));
   right: 0;
   transition: var(--trans-03);
 }
@@ -329,21 +318,21 @@
   opacity: 0.7;
   top: 0;
   left: 0;
-  margin: 0.3vw 0;
+  margin: 0.3rem 0;
 }
 .detailItem > p {
-  font-size: 0.85vw;
+  font-size: 0.85rem;
 }
 .pvContainer {
   position: fixed;
-  padding: 2vw 5vw;
-  width: 50vw;
-  height: 37vw;
+  padding: 2rem 5rem;
+  width: 50rem;
+  height: 37rem;
   background-color: white;
-  transform: translate(14vw, 0.5vw) scale(0.7, 0.7);
-  box-shadow: 0 0 1vw var(--col-shadow);
-  border-radius: 1vw;
-  row-gap: 1vw;
+  transform: translate(14rem, 0.5rem) scale(0.7, 0.7);
+  box-shadow: 0 0 1rem hsla(var(--hsla-shadow));
+  border-radius: 1rem;
+  row-gap: 1rem;
   transition: var(--trans-04);
   opacity: 0;
   overflow: auto;
@@ -351,27 +340,27 @@
 }
 .pvContainerOpen {
   z-index: 1;
-  transform: translate(14vw, 0.5vw) scale(1, 1);
+  transform: translate(14rem, 0.5rem) scale(1, 1);
   opacity: 1;
   transition: var(--trans-04);
 }
 .pvSection input,
 .pvSection > .description {
   outline: none;
-  padding: 0.2vw 0.5vw;
+  padding: 0.2rem 0.5rem;
   resize: none;
-  border-radius: 0.2vw;
-  border: 0.1vw solid var(--col-navy-vdark);
-  font-size: 1vw;
+  border-radius: 0.2rem;
+  border: 0.1rem solid hsl(var(--hsl-navy));
+  font-size: 1rem;
 }
 .pvSection > .description {
-  height: 12vw;
+  height: 12rem;
 }
 .pvCol2 {
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  column-gap: 1vw;
+  column-gap: 1rem;
 }
 .pvCol2 > span {
   position: relative;
@@ -386,11 +375,11 @@
   align-self: flex-start;
 }
 .pvUploadImage > button {
-  padding: 0.3vw 1vw;
-  background-color: var(--col-navy-vdark);
+  padding: 0.3rem 1rem;
+  background-color: hsl(var(--hsl-navy));
   border: none;
-  border-radius: 0.2vw;
-  color: var(--col-white-02);
+  border-radius: 0.2rem;
+  color: hsl(var(--hsl-white-alt));
   width: 100%;
 }
 .pvUploadImage > button:hover {
@@ -398,12 +387,12 @@
   transition: var(--trans-03);
 }
 .thumbnailClosed {
-  --thumbnail-width: 38.5vw;
+  --thumbnail-width: 38.5rem;
   position: relative;
   width: var(--thumbnail-width);
-  border-radius: 0.5vw;
-  background-color: var(--col-black-01);
-  margin-bottom: 0.3vw;
+  border-radius: 0.5rem;
+  background-color: hsl(var(--hsl-black-primary));
+  margin-bottom: 0.3rem;
   opacity: 0;
 }
 .thumbnailUploaded {
@@ -416,27 +405,27 @@
   color: red;
 }
 .pvsLinkBtn {
-  column-gap: 1vw;
-  margin-bottom: 0.3vw;
+  column-gap: 1rem;
+  margin-bottom: 0.3rem;
 }
 .pvsLinkBtn > span {
   display: flex;
   flex-direction: column;
 }
 .pvsLinkBtn > span:nth-child(1) {
-  width: calc(30% - 0.5vw);
+  width: calc(30% - 0.5rem);
 }
 .pvsLinkBtn > span:nth-child(2) {
-  width: calc(70% - 0.5vw);
+  width: calc(70% - 0.5rem);
 }
 .addSettings {
-  margin-top: 0.5vw;
-  column-gap: 1vw;
+  margin-top: 0.5rem;
+  column-gap: 1rem;
 }
 .addSettings > span {
   display: flex;
   flex-direction: column;
-  width: 12vw;
+  width: 12rem;
 }
 .addSettings > span > label {
   text-overflow: ellipsis;
@@ -446,24 +435,24 @@
 .pvAction {
   justify-content: flex-end;
   align-items: center;
-  column-gap: 1vw;
+  column-gap: 1rem;
 }
 .pvAction > button {
-  width: 6vw;
-  padding: 0.3vw 0;
+  width: 6rem;
+  padding: 0.3rem 0;
   border: none;
-  border-radius: 0.2vw;
+  border-radius: 0.2rem;
 }
 .pvAction > button:hover {
   opacity: 0.9;
   transition: var(--trans-03);
 }
 .pvAction > button:nth-child(2) {
-  color: var(--col-white-02);
-  background-color: var(--col-navy-vdark);
+  color: hsl(var(--hsl-white-alt));
+  background-color: hsl(var(--hsl-navy));
 }
 .pvAction > button:nth-child(3) {
-  color: var(--col-white-02);
+  color: hsl(var(--hsl-white-alt));
   background-color: rgb(192, 0, 0);
 }
 .pvCloseBtn {
@@ -472,12 +461,12 @@
   align-items: center;
   position: absolute;
   background-color: transparent;
-  border-radius: 0.5vw;
+  border-radius: 0.5rem;
   border: none;
-  top: 1vw;
-  right: 1vw;
-  height: 2vw;
-  width: 2vw;
+  top: 1rem;
+  right: 1rem;
+  height: 2rem;
+  width: 2rem;
 }
 .loadingMsg,
 .loadingProcess {

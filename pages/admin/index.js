@@ -6,9 +6,12 @@ export default function AdminLogin() {
   return (
     <>
       <WebHead
-        title="Login Page"
-        meta={[{ name: "robots", property: "", content: "noindex, nofollow" }]}
-        link={[]}
+        headProps={{
+          title: "Login Page",
+          meta: [
+            { name: "robots", property: "", content: "noindex, nofollow" },
+          ],
+        }}
       />
       <section className={`flex ${st.sectionLogin}`}>
         <Auth />

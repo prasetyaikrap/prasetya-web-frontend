@@ -1,6 +1,7 @@
 import Image from "next/image";
 import st from "styles/home.module.css";
 import ContactMail from "components/ContactMail";
+import { AnchorTag } from "components/Asset";
 
 function SocmedList({ socmedList }) {
   return socmedList.map((item) => {
@@ -32,7 +33,8 @@ export default function Contact({ language, contactData }) {
     mailForm,
   } = language;
   return (
-    <section id="contact" className={`flex-column ${st.contactSection}`}>
+    <section className={`flex-column ${st.contactSection}`}>
+      <AnchorTag sectionId="contact" offset={{ top: "-4rem" }} />
       <div className={`flex-column ${st.cBox1}`}>
         <h3>{mailHeadline}</h3>
         <p className={`smallText`}>{mailSubheadline}</p>

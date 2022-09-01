@@ -11,8 +11,10 @@ export function openProject(targetId, projectData, setSelectedProject) {
     }
   });
   //Open selected project preview
-  const projectPreview = document.getElementById("projectPreview");
-  projectPreview.classList.add(`${st.cbContent2ndOpen}`);
+  document
+    .getElementById("projectPreview")
+    .classList.add(`${st.cbContent2ndOpen}`);
+  document.getElementById("projectContainer").scrollTop = 0;
 
   //set selected prject data
   setSelectedProject(projectData);

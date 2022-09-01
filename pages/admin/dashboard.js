@@ -1,15 +1,15 @@
-import WebHead from "components/Head";
 import DashboardAdmin from "pages/adminpage/Dashboard";
-import st from "styles/admin.module.css";
+import ad from "data/metadata.json";
 
-export default function AdminDashboard() {
-  const meta = [{ name: "robots", property: "", content: "noindex, nofollow" }];
-  return (
-    <>
-      <WebHead title="Spinnov Dashboard" meta={meta} link={[]} />
-      <section id={`${st.adminDashboard}`}>
-        <DashboardAdmin />
-      </section>
-    </>
-  );
+export async function getStaticProps() {
+  const { info, adminpage } = ad.languages.en;
+  return {
+    props: {
+      adminMetadata: { info, adminpage },
+    },
+  };
+}
+
+export default function AdminDashboard({ adminMetadata }) {
+  return <DashboardAdmin adminMetadata={adminMetadata} />;
 }

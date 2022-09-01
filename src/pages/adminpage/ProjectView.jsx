@@ -7,7 +7,7 @@ import {
 } from "utils/adminHandler";
 import Image from "next/image";
 import { useState } from "react";
-import ad from "data/assetData.json";
+import ad from "data/metadata.json";
 
 export default function ProjectView({
   viewState,
@@ -27,7 +27,7 @@ export default function ProjectView({
     isFeatured,
     isPublic,
   } = selectedProject;
-  const options = ad.pCategory.map((item) => {
+  const options = ad.projects.cat.map((item) => {
     return (
       <option key={item.id} value={item.id}>
         {item.name}

@@ -1,15 +1,12 @@
-import Navbar from "components/Navbar";
 import CatHeader from "pages/projects/CatHeader";
 import ContentBody from "pages/projects/ContentBody";
 import ProjectPreview from "pages/projects/ProjectsPreview";
-import WebHead from "components/Head";
 import st from "styles/projects.module.css";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { openProject } from "utils/projectDashboard";
-import Footer from "components/Footer";
-import { PublicLayout } from "components/Layout";
+import { MainLayout } from "components/Layout";
 
 export default function Projects({ propsData }) {
   const { lang, projectCat, projects } = propsData;
@@ -83,7 +80,7 @@ export default function Projects({ propsData }) {
   };
   return (
     <>
-      <PublicLayout headProps={headProps} navbarProps={{ info, navbar }}>
+      <MainLayout headProps={headProps} navbarProps={{ info, navbar }}>
         <section className={`${st.sectionProject}`}>
           <CatHeader projectCat={projectCat} />
           <ContentBody
@@ -92,7 +89,7 @@ export default function Projects({ propsData }) {
           />
           <ProjectPreview data={selectedProject} />
         </section>
-      </PublicLayout>
+      </MainLayout>
     </>
   );
 }

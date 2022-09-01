@@ -190,6 +190,31 @@
             }
           ]
         }
+      },
+      "adminpage": {
+        "navbar": {
+          "headline": "SPINNOV.ID",
+          "subheadline": "",
+          "url": "/",
+          "navigation": []
+        },
+        "sideMenu": [
+          {
+            "id": "dashboard",
+            "name": "DASHBOARD",
+            "url": "/admin/dashboard?m=dashboard"
+          },
+          {
+            "id": "projects",
+            "name": "PROJECTS",
+            "url": "/admin/dashboard?m=projects"
+          },
+          {
+            "id": "logout",
+            "name": "LOGOUT",
+            "url": "/admin/dashboard?m=logout"
+          }
+        ]
       }
     }
   },

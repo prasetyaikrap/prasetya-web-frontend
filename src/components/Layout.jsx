@@ -2,12 +2,7 @@ import Footer from "./Footer";
 import WebHead from "./Head";
 import Navbar from "./Navbar";
 
-export function PublicLayout({
-  children,
-  headProps,
-  navbarProps,
-  footerProps,
-}) {
+export function MainLayout({ children, headProps, navbarProps, footerProps }) {
   return (
     <>
       <WebHead headProps={headProps} />
@@ -18,4 +13,9 @@ export function PublicLayout({
   );
 }
 
-export function AdminLayout() {}
+export function AdminLayout({
+  children,
+  headProps,
+  navbarProps,
+  footerProps,
+}) {}

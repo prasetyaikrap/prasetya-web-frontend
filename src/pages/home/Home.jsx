@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Project from "pages/home/Project";
 import Contact from "pages/home/Contact";
 import Profile from "pages/home/Profile";
-import { PublicLayout } from "components/Layout";
+import { MainLayout } from "components/Layout";
 
 export default function Home({ propsData }) {
   const { lang, projectCat, projects, contacts } = propsData;
@@ -73,7 +73,7 @@ export default function Home({ propsData }) {
   };
   return (
     <>
-      <PublicLayout headProps={headProps} navbarProps={{ info, navbar }}>
+      <MainLayout headProps={headProps} navbarProps={{ info, navbar }}>
         <Profile />
         <Project
           language={project}
@@ -81,7 +81,7 @@ export default function Home({ propsData }) {
           projectData={projectData}
         />
         <Contact language={contact} contactData={contacts} />
-      </PublicLayout>
+      </MainLayout>
     </>
   );
 }
