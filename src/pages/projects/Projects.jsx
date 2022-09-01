@@ -65,17 +65,35 @@ export default function Projects({ propsData }) {
       { name: "robots", property: "", content: "all" },
       {
         name: "description",
-        property: "",
-        content:
-          "Prasetya Ikra Priyadi - Spinnovid - Home for technology enthusiast",
+        content: "Prasetya Ikra Priyadi - Project Catalog",
       },
       {
         name: "keywords",
-        property: "",
         content:
           "Technology, Nextjs, Web Development, Full Stack Developer, Data, Google Apps, Javascript, Open To work, Content Creator",
       },
-      { name: "author", property: "", content: "Prasetya Ikra Priyadi" },
+      { name: "author", content: "Prasetya Ikra Priyadi" },
+      {
+        property: "og:title",
+        content: "Prasetya Ikra Priyadi - Project Catalog ",
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        property: "og:description",
+        content:
+          "Watch on my previous project and work. See if it will helps you out",
+      },
+      {
+        property: "og:image",
+        content: "/assets/spinnovid.png",
+      },
+      {
+        property: "og:url",
+        content: "https://spinnovid.vercel.app/",
+      },
     ],
   };
   return (

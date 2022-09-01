@@ -16,19 +16,20 @@ export default function WebHead({ headProps }) {
       <link key="icon" rel="icon" type="image/x-icon" href="/favicon.ico" />
       {meta &&
         meta.map((item) => {
-          if (item.property) {
-            return (
-              <meta
-                key={item.name}
-                name={item.name}
-                property={item.property}
-                content={item.content}
-              />
-            );
-          } else {
-            return (
-              <meta key={item.name} name={item.name} content={item.content} />
-            );
+          switch (true) {
+            case item.property != undefined:
+              return (
+                <meta
+                  key={item.name}
+                  property={item.property}
+                  content={item.content}
+                />
+              );
+            case item.name != undefined:
+              return (
+                <meta key={item.name} name={item.name} content={item.content} />
+              );
+            default:
           }
         })}
       {link &&

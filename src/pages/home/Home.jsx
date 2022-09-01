@@ -54,20 +54,38 @@ export default function Home({ propsData }) {
       { name: "googlebot", content: "index, follow" },
       {
         name: "description",
-        property: "og:description",
         content:
-          "Prasetya Ikra Priyadi - Spinnovid - Home for technology enthusiast",
+          "Prasetya Ikra Priyadi - Spinnovid - Home for technology enthusiast. Spinnovid is a simple Web app to present my works and projects as an online portfolio. Build with Next.js Framework, Plain CSS 3 as front end development, Firebase as a Backend development, and RestAPI with Google Script.",
       },
       {
         name: "keywords",
-        property: "og:keywords",
         content:
           "Technology, Nextjs, Web Development, Full Stack Developer, Javascript, Open To work, Content Creator",
       },
       {
         name: "author",
-        property: "og:author",
         content: "Prasetya Ikra Priyadi",
+      },
+      {
+        property: "og:title",
+        content: "Welcome to Spinnovid - Prasetya Ikra Priyadi Website",
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        property: "og:description",
+        content:
+          "Prasetya Ikra Priyadi - Spinnovid - Home for technology enthusiast. Spinnovid is a simple Web app to present my works and projects as an online portfolio. Build with Next.js Framework, Plain CSS 3 as front end development, Firebase as a Backend development, and RestAPI with Google Script.",
+      },
+      {
+        property: "og:image",
+        content: "/assets/spinnovid.png",
+      },
+      {
+        property: "og:url",
+        content: "https://spinnovid.vercel.app/",
       },
     ],
   };
