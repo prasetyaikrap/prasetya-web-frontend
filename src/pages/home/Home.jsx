@@ -67,12 +67,16 @@ export default function Home({ propsData }) {
         content: "Prasetya Ikra Priyadi",
       },
       {
-        property: "og:title",
-        content: "Welcome to Spinnovid - Prasetya Ikra Priyadi Website",
+        property: "og:url",
+        content: "https://spinnovid.vercel.app/",
       },
       {
         property: "og:type",
         content: "website",
+      },
+      {
+        property: "og:title",
+        content: "Welcome to Spinnovid - Prasetya Ikra Priyadi Website",
       },
       {
         property: "og:description",
@@ -81,11 +85,7 @@ export default function Home({ propsData }) {
       },
       {
         property: "og:image",
-        content: "/assets/spinnovid.png",
-      },
-      {
-        property: "og:url",
-        content: "https://spinnovid.vercel.app/",
+        content: "https://spinnovid.vercel.app/assets/spinnovid.png",
       },
     ],
   };

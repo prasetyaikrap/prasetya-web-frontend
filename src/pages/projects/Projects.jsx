@@ -74,12 +74,16 @@ export default function Projects({ propsData }) {
       },
       { name: "author", content: "Prasetya Ikra Priyadi" },
       {
-        property: "og:title",
-        content: "Prasetya Ikra Priyadi - Project Catalog ",
+        property: "og:url",
+        content: "https://spinnovid.vercel.app/projects",
       },
       {
         property: "og:type",
         content: "website",
+      },
+      {
+        property: "og:title",
+        content: "Project Collection - Prasetya Ikra Priyadi",
       },
       {
         property: "og:description",
@@ -88,11 +92,7 @@ export default function Projects({ propsData }) {
       },
       {
         property: "og:image",
-        content: "/assets/spinnovid.png",
-      },
-      {
-        property: "og:url",
-        content: "https://spinnovid.vercel.app/",
+        content: "https://spinnovid.vercel.app/assets/spinnovid.png",
       },
     ],
   };
