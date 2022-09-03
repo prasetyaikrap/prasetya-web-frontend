@@ -13,3 +13,5 @@ export async function getStaticProps() {
 export default function AdminDashboard({ adminMetadata }) {
   return <DashboardAdmin adminMetadata={adminMetadata} />;
 }
+
+AdminDashboard.displayName = "AdminDashboard";
