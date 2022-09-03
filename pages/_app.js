@@ -6,11 +6,9 @@ function MyApp({ Component, pageProps }) {
   const authPages = ["AdminLogin", "AdminDashboard"];
   if (authPages.includes(Component.name)) {
     return (
-      <>
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
-      </>
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     );
   }
 
