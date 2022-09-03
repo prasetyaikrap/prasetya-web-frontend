@@ -62,7 +62,7 @@ export default function Projects({ propsData }) {
   const headProps = {
     title: "Project Collection - Prasetya Ikra Priyadi",
     meta: [
-      { name: "robots", property: "", content: "all" },
+      { name: "robots", content: "index, follow" },
       {
         name: "description",
         content: "Prasetya Ikra Priyadi - Project Catalog",
