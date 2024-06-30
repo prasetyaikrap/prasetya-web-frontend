@@ -1,10 +1,12 @@
 "use client";
-import { ChakraProvider, Flex } from "@chakra-ui/react";
-import { RootContainerLayoutProps, RootContainerWrapperProps } from "./type";
-import { ErrorBoundary, Header } from "@/components";
-import { AppProvider } from "@/contexts";
+import { ChakraProvider } from "@chakra-ui/react";
+
+import { ErrorBoundary } from "@/components";
 import { HeaderTemplate } from "@/components/Header/type";
+import { AppProvider } from "@/contexts";
+
 import Layout from "./Layout";
+import { RootContainerWrapperProps } from "./type";
 
 export default function Wrapper({ children }: RootContainerWrapperProps) {
   return (

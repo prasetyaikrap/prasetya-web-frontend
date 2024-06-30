@@ -1,6 +1,7 @@
 import { useAppContext } from "@/hooks";
-import { HeaderTemplate } from "./type";
+
 import PrimaryHeader from "./Primary";
+import { HeaderTemplate } from "./type";
 
 export default function Header() {
   const { header } = useAppContext();

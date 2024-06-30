@@ -1,22 +1,11 @@
+import { HStack } from "@chakra-ui/react";
+
 import { colorScheme } from "@/configs";
-import {
-  Box,
-  HStack,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuGroup,
-  MenuItem,
-  MenuList,
-  Text,
-} from "@chakra-ui/react";
+
 import ChakraLink from "../Link";
-import NavbarButton from "./NavButton";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import { isExternal } from "util/types";
-import { NavigationOption } from "./type";
 import NavbarBox from "./NavbarBox";
 import NavbarDrawer from "./NavbarDrawer";
+import { NavigationOption } from "./type";
 
 export default function PrimaryHeader() {
   const navigationOption: NavigationOption[] = [

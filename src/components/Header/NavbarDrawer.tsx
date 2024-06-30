@@ -1,22 +1,22 @@
-import { ENV, colorScheme } from "@/configs";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   CloseButton,
   Divider,
   Drawer,
-  DrawerCloseButton,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   HStack,
   IconButton,
-  VStack,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import { useRef } from "react";
+
+import { colorScheme } from "@/configs";
+
 import ChakraLink from "../Link";
-import { NavbarDrawerProps } from "./type";
 import NavbarButton from "./NavButton";
+import { NavbarDrawerProps } from "./type";
 
 export default function NavbarDrawer({ navOption }: NavbarDrawerProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();

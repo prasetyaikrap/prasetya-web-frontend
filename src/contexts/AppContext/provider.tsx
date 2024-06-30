@@ -1,7 +1,9 @@
-import { AppContextProps, AppProviderProps, TemplateType } from "./type";
-import AppContext from "./context";
 import { useState } from "react";
+
 import { HeaderTemplate } from "@/components/Header/type";
+
+import AppContext from "./context";
+import { AppContextProps, AppProviderProps, TemplateType } from "./type";
 
 export default function AppProvider({
   children,

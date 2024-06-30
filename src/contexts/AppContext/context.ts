@@ -1,4 +1,5 @@
 import { createContext } from "react";
+
 import { AppContextProps } from "./type";
 
 const AppContext = createContext<AppContextProps>({

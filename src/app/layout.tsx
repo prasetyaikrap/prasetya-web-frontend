@@ -1,8 +1,10 @@
+import "./globals.css";
+
 import type { Metadata } from "next";
+import { ReactNode } from "react";
+
 import { ENV } from "@/configs";
 import { RootContainer } from "@/containers";
-import { ReactNode } from "react";
-import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(ENV.APP_HOST),

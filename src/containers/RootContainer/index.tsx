@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+
 import { RootContainerProps } from "./type";
 import Wrapper from "./Wrapper";
 
