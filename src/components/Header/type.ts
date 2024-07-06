@@ -5,8 +5,6 @@ export enum HeaderTemplate {
   Profile = "PROFILE",
 }
 
-export interface HeaderProps {}
-
 export interface NavigationOption {
   name: string;
   label: string;

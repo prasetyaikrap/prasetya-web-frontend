@@ -1,4 +1,6 @@
-import { HStack } from "@chakra-ui/react";
+import { Button, HStack } from "@chakra-ui/react";
+
+import { colorScheme } from "@/configs";
 
 import NavbarButton from "./NavButton";
 import { NavbarBoxProps } from "./type";
@@ -10,7 +12,7 @@ export default function NavbarBox({ navOption }: NavbarBoxProps) {
       data-testid="component_navbar-box"
       as="nav"
       spacing="20px"
-      display={{ base: "none", sm: "flex" }}
+      display={{ base: "none", md: "flex" }}
     >
       {navOption.map((nav) => (
         <NavbarButton
@@ -23,6 +25,9 @@ export default function NavbarBox({ navOption }: NavbarBoxProps) {
           {nav.label}
         </NavbarButton>
       ))}
+      <Button bg={colorScheme.blue[3]} color={colorScheme.monochrome[1]}>
+        Subscribe
+      </Button>
     </HStack>
   );
 }

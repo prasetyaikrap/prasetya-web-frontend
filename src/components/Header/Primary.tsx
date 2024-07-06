@@ -3,24 +3,11 @@ import { HStack } from "@chakra-ui/react";
 import { colorScheme } from "@/configs";
 
 import ChakraLink from "../Link";
+import { navigationOption } from "./constants/navOptions";
 import NavbarBox from "./NavbarBox";
 import NavbarDrawer from "./NavbarDrawer";
-import { NavigationOption } from "./type";
 
 export default function PrimaryHeader() {
-  const navigationOption: NavigationOption[] = [
-    {
-      name: "profiles",
-      label: "Profile",
-      path: "/profiles",
-    },
-    {
-      name: "article",
-      label: "Articles",
-      path: "/articles",
-    },
-  ];
-
   return (
     <HStack
       id="component_navbar-container"

@@ -1,5 +1,6 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
 import {
+  Button,
   CloseButton,
   Divider,
   Drawer,
@@ -23,7 +24,7 @@ export default function NavbarDrawer({ navOption }: NavbarDrawerProps) {
   const btnRef = useRef<any>();
 
   return (
-    <HStack as="nav" display={{ base: "flex", sm: "none" }}>
+    <HStack as="nav" display={{ base: "flex", md: "none" }}>
       <IconButton
         aria-label="Drawer Navbar"
         ref={btnRef}
@@ -37,7 +38,7 @@ export default function NavbarDrawer({ navOption }: NavbarDrawerProps) {
         isOpen={isOpen}
         placement="right"
         onClose={onClose}
-        size="full"
+        size={{ base: "full", sm: "xs" }}
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
@@ -85,6 +86,15 @@ export default function NavbarDrawer({ navOption }: NavbarDrawerProps) {
                   <Divider />
                 </VStack>
               ))}
+            </VStack>
+            <VStack width="full">
+              <Button
+                bg={colorScheme.navy[5]}
+                color={colorScheme.monochrome[2]}
+                width="90%"
+              >
+                Subscribe
+              </Button>
             </VStack>
           </VStack>
         </DrawerContent>

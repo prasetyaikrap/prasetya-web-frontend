@@ -8,9 +8,10 @@ import { RootContainer } from "@/containers";
 
 export const metadata: Metadata = {
   metadataBase: new URL(ENV.APP_HOST),
-  title: "Prasetya Ikra Priyadi - Build your App Tools with quality",
+  title:
+    "Prasetya Ikra Priyadi - Build your Digital Apps with exceptional User Experiences",
   description:
-    "Hi, my name Prasetya Ikra Priyadi. I am building Digital App with quality. Let's work together",
+    "Hi, my name Prasetya Ikra Priyadi. I am building Digital App with exceptional User Experiences. Let's work together",
   applicationName: "Prasetya Priyadi Personal Web App",
   creator: "Prasetya Ikra Priyadi",
   publisher: "Prasetya Ikra Priyadi",
@@ -21,9 +22,10 @@ export const metadata: Metadata = {
     },
   ],
   openGraph: {
-    title: "Prasetya Ikra Priyadi - Build your App Tools with quality",
+    title:
+      "Prasetya Ikra Priyadi - Build your Digital Apps with exceptional User Experiences",
     description:
-      "Hi, my name Prasetya Ikra Priyadi. I am building Digital App with quality. Let's work together",
+      "Hi, my name Prasetya Ikra Priyadi. I am building Digital App with exceptional User Experiences. Let's work together",
     url: ENV.APP_HOST,
     siteName: "Prasetya Priyadi Personal Web App",
     emails: [
@@ -38,9 +40,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Prasetya Ikra Priyadi - Build your App Tools with quality",
+    title:
+      "Prasetya Ikra Priyadi - Build your Digital Apps with exceptional User Experiences",
     description:
-      "Hi, my name Prasetya Ikra Priyadi. I am building Digital App with quality. Let's work together",
+      "Hi, my name Prasetya Ikra Priyadi. I am building Digital App with exceptional User Experiences. Let's work together",
   },
   category: "technology",
   robots: {
