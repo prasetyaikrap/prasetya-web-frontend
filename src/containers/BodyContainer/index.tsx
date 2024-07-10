@@ -12,6 +12,7 @@ export default function BodyContainer({
       data-testid="component_body-container"
       flex="1"
       width="full"
+      spacing="0"
       {...chakra}
     >
       {children}

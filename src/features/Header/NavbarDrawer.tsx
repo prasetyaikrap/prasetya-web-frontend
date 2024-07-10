@@ -1,3 +1,4 @@
+"use client";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Button,
@@ -15,7 +16,7 @@ import { useRef } from "react";
 
 import { colorScheme } from "@/configs";
 
-import ChakraLink from "../Link";
+import ChakraLink from "../../components/Link";
 import NavbarButton from "./NavButton";
 import { NavbarDrawerProps } from "./type";
 

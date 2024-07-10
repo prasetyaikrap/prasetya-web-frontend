@@ -2,7 +2,7 @@ import { LinkProps } from "@chakra-ui/react";
 
 import { colorScheme } from "@/configs";
 
-import ChakraLink from "../Link";
+import ChakraLink from "../../components/Link";
 
 export default function NavbarButton({ children, ...props }: LinkProps) {
   return (

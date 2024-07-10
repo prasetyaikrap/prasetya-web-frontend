@@ -7,52 +7,15 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import {
-  FaGithub,
-  FaInstagram,
-  FaLinkedin,
-  FaMapLocationDot,
-  FaWhatsapp,
-} from "react-icons/fa6";
-import { MdArticle } from "react-icons/md";
+import { FaMapLocationDot } from "react-icons/fa6";
 
 import { Section } from "@/components";
 import { colorScheme } from "@/configs";
 
 import { SocialMediaStack } from "./components";
-import { SocialMediaData } from "./components/type";
+import { socialMediaData } from "./constants";
 
 export default function HeroSection() {
-  const socialMediaData: SocialMediaData[] = [
-    {
-      name: "Prasetya-Priyadi-Linkedin",
-      icon: FaLinkedin,
-      url: "https://www.linkedin.com/in/prasetya-ikrapriyadi/",
-      isExternal: true,
-    },
-    {
-      name: "Prasetya-Priyadi-Github",
-      icon: FaGithub,
-      url: "https://github.com/prasetyaikrap",
-      isExternal: true,
-    },
-    {
-      name: "Prasetya-Priyadi-Instagram",
-      icon: FaInstagram,
-      url: "https://www.instagram.com/prasetyaip/",
-      isExternal: true,
-    },
-    {
-      name: "Prasetya-Priyadi-Articles",
-      icon: MdArticle,
-      url: "/articles",
-    },
-    {
-      name: "Prasetya-Priyadi-Whatsapp",
-      icon: FaWhatsapp,
-    },
-  ];
-
   return (
     <Section
       chakra={{
@@ -60,6 +23,7 @@ export default function HeroSection() {
         padding: { base: "20px", sm: "40px", md: "80px" },
         paddingTop: { base: "20px", sm: "40px" },
         height: { base: "calc(100vh - 80px)", md: "calc(100vh - 100px)" },
+        maxHeight: "800px",
       }}
     >
       <Stack

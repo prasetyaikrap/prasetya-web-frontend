@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { HeaderTemplate } from "@/components/Header/type";
+import { HeaderTemplate } from "@/features/Header/type";
 
 export enum TemplateType {
   Header = "HEADER",

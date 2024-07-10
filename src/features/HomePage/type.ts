@@ -13,3 +13,20 @@ export interface SocialMediaData {
   chakra?: Omit<IconButtonProps, "aria-label">;
   onClick?: () => void;
 }
+
+export interface ExperienceCardProps {
+  data: ExperienceData;
+}
+
+export interface ExperienceData {
+  id: string;
+  title: string;
+  period: string;
+  description: string;
+  stacks: string[];
+  img: string;
+  link?: {
+    url: string;
+    isExternal?: boolean;
+  };
+}

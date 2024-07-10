@@ -2,7 +2,7 @@ import { HStack } from "@chakra-ui/react";
 
 import { colorScheme } from "@/configs";
 
-import ChakraLink from "../Link";
+import ChakraLink from "../../components/Link";
 import { navigationOption } from "./constants/navOptions";
 import NavbarBox from "./NavbarBox";
 import NavbarDrawer from "./NavbarDrawer";

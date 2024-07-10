@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 
-import { Header } from "@/components";
+import { Footer, Header } from "@/features";
 
 import { RootContainerLayoutProps } from "./type";
 
@@ -17,6 +17,7 @@ export default function Layout({ children }: RootContainerLayoutProps) {
       >
         <Header />
         {children}
+        <Footer />
       </Flex>
     </Flex>
   );

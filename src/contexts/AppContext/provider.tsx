@@ -1,6 +1,7 @@
+"use client";
 import { useState } from "react";
 
-import { HeaderTemplate } from "@/components/Header/type";
+import { HeaderTemplate } from "@/features/Header/type";
 
 import AppContext from "./context";
 import { AppContextProps, AppProviderProps, TemplateType } from "./type";

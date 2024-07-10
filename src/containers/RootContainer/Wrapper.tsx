@@ -2,8 +2,8 @@
 import { ChakraProvider } from "@chakra-ui/react";
 
 import { ErrorBoundary } from "@/components";
-import { HeaderTemplate } from "@/components/Header/type";
 import { AppProvider } from "@/contexts";
+import { HeaderTemplate } from "@/features/Header/type";
 
 import Layout from "./Layout";
 import { RootContainerWrapperProps } from "./type";
