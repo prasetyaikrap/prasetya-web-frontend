@@ -1,34 +1,56 @@
 "use client";
-import { useState } from "react";
 
-import { HeaderTemplate } from "@/features/Header/type";
+import { useEffect, useMemo, useState } from "react";
+
+import { adminResources, dataProviders } from "@/libs";
 
 import AppContext from "./context";
-import { AppContextProps, AppProviderProps, TemplateType } from "./type";
+import { AppContextProps, AppProviderProps, ResourceType } from "./type";
 
-export default function AppProvider({
-  children,
-  defaultHeader,
-  defaultFooter,
-}: AppProviderProps) {
-  const [headerTemplate, setHeaderTemplate] = useState(defaultHeader);
-  const [footerTemplate, setFooterTemplate] = useState(defaultFooter);
+export default function AppProvider({ children }: AppProviderProps) {
+  const [resourceType, setResourceType] = useState<ResourceType>(
+    ResourceType.None
+  );
 
-  const setTemplate = (
-    type: TemplateType,
-    template: HeaderTemplate | string
-  ) => {
-    if (type === TemplateType.Header)
-      return setHeaderTemplate(template as HeaderTemplate);
-    if (type === TemplateType.Footer) return setFooterTemplate(template);
+  const [refineProps, setRefineProps] = useState<
+    AppContextProps["refineProps"]
+  >({
+    dataProvider: dataProviders,
+    authProvider: undefined,
+    accessControlProvider: undefined,
+    resources: [],
+  });
+
+  const handleRefineProps = (type: ResourceType) => {
+    switch (type) {
+      case ResourceType.Admin:
+        return setRefineProps((prev) => ({
+          ...prev,
+          resources: adminResources,
+          authProvider: undefined,
+          accessControlProvider: undefined,
+        }));
+      default:
+        return setRefineProps((prev) => ({
+          ...prev,
+          resources: [],
+          authProvider: undefined,
+          accessControlProvider: undefined,
+        }));
+    }
   };
 
-  const value: AppContextProps = {
-    header: headerTemplate,
-    footer: footerTemplate,
-    setHeaderTemplate: (template) => setTemplate(TemplateType.Header, template),
-    setFooterTemplate: (template) => setTemplate(TemplateType.Footer, template),
-  };
+  const value: AppContextProps = useMemo(
+    () => ({
+      refineProps,
+      setResourceType,
+    }),
+    [refineProps]
+  );
+
+  useEffect(() => {
+    handleRefineProps(resourceType);
+  }, [resourceType]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

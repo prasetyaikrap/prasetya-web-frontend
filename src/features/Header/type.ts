@@ -3,6 +3,7 @@ export enum HeaderTemplate {
   Primary = "PRIMARY",
   Dashboard = "DASHBOARD",
   Profile = "PROFILE",
+  None = "NONE",
 }
 
 export interface NavigationOption {
@@ -18,4 +19,8 @@ export interface NavbarBoxProps {
 
 export interface NavbarDrawerProps {
   navOption: NavigationOption[];
+}
+
+export interface HeaderProps {
+  header?: HeaderTemplate;
 }

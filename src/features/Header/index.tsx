@@ -1,11 +1,8 @@
-import { useAppContext } from "@/hooks";
-
+"use client";
 import PrimaryHeader from "./Primary";
-import { HeaderTemplate } from "./type";
+import { HeaderProps, HeaderTemplate } from "./type";
 
-export default function Header() {
-  const { header } = useAppContext();
-
+export default function Header({ header }: HeaderProps) {
   switch (header) {
     case HeaderTemplate.Primary:
       return <PrimaryHeader />;

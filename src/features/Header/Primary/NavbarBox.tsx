@@ -2,8 +2,8 @@ import { Button, HStack } from "@chakra-ui/react";
 
 import { colorScheme } from "@/configs";
 
+import { NavbarBoxProps } from "../type";
 import NavbarButton from "./NavButton";
-import { NavbarBoxProps } from "./type";
 
 export default function NavbarBox({ navOption }: NavbarBoxProps) {
   return (

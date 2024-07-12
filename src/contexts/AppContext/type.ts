@@ -1,6 +1,11 @@
-import { ReactNode } from "react";
-
-import { HeaderTemplate } from "@/features/Header/type";
+import {
+  AccessControlProvider,
+  AuthProvider,
+  DataProvider,
+  DataProviders,
+  ResourceProps,
+} from "@refinedev/core";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export enum TemplateType {
   Header = "HEADER",
@@ -8,14 +13,21 @@ export enum TemplateType {
 }
 
 export interface AppContextProps {
-  header?: HeaderTemplate;
-  setHeaderTemplate: (template: HeaderTemplate) => void;
-  footer?: string;
-  setFooterTemplate: (template: string) => void;
+  refineProps: AppRefineProps;
+  setResourceType: Dispatch<SetStateAction<ResourceType>>;
 }
 
+export interface AppRefineProps {
+  dataProvider?: DataProvider | DataProviders;
+  resources?: ResourceProps[];
+  authProvider?: AuthProvider;
+  accessControlProvider?: AccessControlProvider;
+}
+
+export enum ResourceType {
+  Admin = "ADMIN",
+  None = "NONE",
+}
 export interface AppProviderProps {
   children: ReactNode;
-  defaultHeader?: HeaderTemplate;
-  defaultFooter?: string;
 }

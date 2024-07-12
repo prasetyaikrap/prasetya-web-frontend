@@ -1,10 +1,16 @@
+"use client";
 import { Flex } from "@chakra-ui/react";
 
 import { Footer, Header } from "@/features";
 
+import BodyContainer from "./BodyContainer";
 import { RootContainerLayoutProps } from "./type";
 
-export default function Layout({ children }: RootContainerLayoutProps) {
+export default function GeneralLayout({
+  children,
+  header,
+  footer,
+}: RootContainerLayoutProps) {
   return (
     <Flex direction="column" alignItems="center" bg="black">
       <Flex
@@ -15,9 +21,9 @@ export default function Layout({ children }: RootContainerLayoutProps) {
         width="full"
         maxWidth="2560px"
       >
-        <Header />
-        {children}
-        <Footer />
+        <Header header={header} />
+        <BodyContainer>{children}</BodyContainer>
+        <Footer footer={footer} />
       </Flex>
     </Flex>
   );

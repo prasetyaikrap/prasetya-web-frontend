@@ -4,10 +4,10 @@ export interface RootContainerProps {
   children: ReactNode;
 }
 
-export interface RootContainerLayoutProps {
+export interface ProvidersProps {
   children: ReactNode;
 }
 
-export interface RootContainerWrapperProps {
+export interface RefineProvidersProps {
   children: ReactNode;
 }

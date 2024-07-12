@@ -1,4 +1,3 @@
-"use client";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Button,
@@ -14,18 +13,23 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 
+import { ChakraLink } from "@/components";
 import { colorScheme } from "@/configs";
 
-import ChakraLink from "../../components/Link";
+import { NavbarDrawerProps } from "../type";
 import NavbarButton from "./NavButton";
-import { NavbarDrawerProps } from "./type";
 
 export default function NavbarDrawer({ navOption }: NavbarDrawerProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef<any>();
 
   return (
-    <HStack as="nav" display={{ base: "flex", md: "none" }}>
+    <HStack
+      id="component_navbar-drawer"
+      data-testid="component_navbar-drawer"
+      as="nav"
+      display={{ base: "flex", md: "none" }}
+    >
       <IconButton
         aria-label="Drawer Navbar"
         ref={btnRef}

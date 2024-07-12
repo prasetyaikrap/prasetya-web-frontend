@@ -48,16 +48,9 @@ export default function AboutSection() {
           <Text as="span" fontWeight={700}>
             Managing several Customer-facing Apps and Company Internall Apps
           </Text>{" "}
-          for better and efficient stackholder workflow
-        </Text>
-        <Text
-          color={colorScheme.monochrome[2]}
-          fontSize="16px"
-          textAlign="justify"
-        >
-          I find great satisfaction in creating software that colaborate of
-          design and engineering. My passion lies in developing solutions that
-          are not only{" "}
+          for better and efficient stackholder workflow. I find great
+          satisfaction in creating software that colaborate of design and
+          engineering. My passion lies in developing solutions that are not only{" "}
           <Text as="span" color={colorScheme.monochrome[2]} fontWeight={700}>
             visually appealing but also meticulously crafted for optimal
             performance

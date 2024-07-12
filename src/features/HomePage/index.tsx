@@ -1,16 +1,22 @@
 "use client";
-import BodyContainer from "@/containers/BodyContainer";
 
+import { GeneralLayout } from "@/containers";
+
+import { FooterTemplate } from "../Footer/type";
+import { HeaderTemplate } from "../Header/type";
 import AboutSection from "./AboutSection";
 import ExperienceSection from "./ExperienceSection";
 import HeroSection from "./HeroSection";
 
 export default function HomeContainer() {
   return (
-    <BodyContainer>
+    <GeneralLayout
+      header={HeaderTemplate.Primary}
+      footer={FooterTemplate.Primary}
+    >
       <HeroSection />
       <AboutSection />
       <ExperienceSection />
-    </BodyContainer>
+    </GeneralLayout>
   );
 }
