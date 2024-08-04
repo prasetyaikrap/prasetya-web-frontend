@@ -1,7 +1,6 @@
 import { LinkProps } from "@chakra-ui/react";
 
 import { ChakraLink } from "@/components";
-import { colorScheme } from "@/configs";
 
 export default function NavbarButton({ children, ...props }: LinkProps) {
   return (
@@ -11,11 +10,11 @@ export default function NavbarButton({ children, ...props }: LinkProps) {
       paddingX="10px"
       height="full"
       href="/profile"
-      color={colorScheme.monochrome[4]}
+      color="monochrome.400"
       {...props}
       _hover={{
         textDecoration: "none",
-        color: colorScheme.monochrome[6],
+        color: "monochrome.600",
         ...props._hover,
       }}
     >

@@ -19,7 +19,15 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": [
+      "node",
+      "bun-types",
+      "@testing-library/react",
+      "@testing-library/jest-dom",
+      "@testing-library/dom",
+      "bun"
+    ]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

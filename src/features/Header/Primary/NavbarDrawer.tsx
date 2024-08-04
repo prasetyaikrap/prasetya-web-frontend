@@ -14,7 +14,6 @@ import {
 import { useRef } from "react";
 
 import { ChakraLink } from "@/components";
-import { colorScheme } from "@/configs";
 
 import { NavbarDrawerProps } from "../type";
 import NavbarButton from "./NavButton";
@@ -33,9 +32,7 @@ export default function NavbarDrawer({ navOption }: NavbarDrawerProps) {
       <IconButton
         aria-label="Drawer Navbar"
         ref={btnRef}
-        icon={
-          <HamburgerIcon boxSize="20px" color={colorScheme.monochrome[4]} />
-        }
+        icon={<HamburgerIcon boxSize="20px" color="monochrome.400" />}
         variant="link"
         onClick={onOpen}
       />
@@ -61,7 +58,7 @@ export default function NavbarDrawer({ navOption }: NavbarDrawerProps) {
                 href="/"
                 fontSize="24px"
                 fontFamily="var(--font-akaya)"
-                color={colorScheme.navy[6]}
+                color="brand.600"
                 _hover={{
                   textDecoration: "none",
                 }}
@@ -80,9 +77,9 @@ export default function NavbarDrawer({ navOption }: NavbarDrawerProps) {
                       data-testid={`btn_nav-${nav.name}`}
                       href={nav.path}
                       isExternal={nav.isExternal}
-                      color={colorScheme.monochrome[9]}
+                      color="monochrome.900"
                       _hover={{
-                        color: colorScheme.monochrome[8],
+                        color: "monochrome.800",
                       }}
                     >
                       {nav.label}
@@ -93,11 +90,7 @@ export default function NavbarDrawer({ navOption }: NavbarDrawerProps) {
               ))}
             </VStack>
             <VStack width="full">
-              <Button
-                bg={colorScheme.navy[5]}
-                color={colorScheme.monochrome[2]}
-                width="90%"
-              >
+              <Button bg="brand.500" color="monochrome.200" width="90%">
                 Subscribe
               </Button>
             </VStack>

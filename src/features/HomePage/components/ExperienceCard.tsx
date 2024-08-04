@@ -10,8 +10,6 @@ import {
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { colorScheme } from "@/configs";
-
 import { ExperienceCardProps } from "../type";
 
 export default function ExperienceCard({ data }: ExperienceCardProps) {
@@ -39,10 +37,10 @@ export default function ExperienceCard({ data }: ExperienceCardProps) {
           <Image src={data.img} alt={data.title} fill priority />
         </AspectRatio>
         <VStack flex={1} alignItems="flex-start" spacing="5px">
-          <Heading as="h4" fontSize="16px" color={colorScheme.monochrome[2]}>
+          <Heading as="h4" fontSize="16px" color="monochrome.200">
             {data.title}
           </Heading>
-          <Text fontSize="14px" color={colorScheme.monochrome[6]}>
+          <Text fontSize="14px" color="monochrome.600">
             {data.period}
           </Text>
         </VStack>
@@ -51,7 +49,7 @@ export default function ExperienceCard({ data }: ExperienceCardProps) {
       <Text
         width="full"
         fontSize="14px"
-        color={colorScheme.monochrome[6]}
+        color="monochrome.400"
         textAlign="justify"
       >
         {data.description}
@@ -61,8 +59,8 @@ export default function ExperienceCard({ data }: ExperienceCardProps) {
           <Tag
             key={`${stack}-${i}`}
             variant="outline"
-            color={colorScheme.blue[4]}
-            boxShadow={`inset 0 0 0px 1px ${colorScheme.blue[4]};`}
+            color="blue.400"
+            boxShadow={`inset 0 0 0px 1px var(--chakra-colors-blue-400);`}
           >
             {stack}
           </Tag>

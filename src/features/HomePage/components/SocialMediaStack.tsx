@@ -1,8 +1,6 @@
 import { HStack, IconButton, Tooltip } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 
-import { colorScheme } from "@/configs";
-
 import { SocialMediaStackProps } from "../type";
 
 export default function SocialMediaStack({ data }: SocialMediaStackProps) {
@@ -24,7 +22,7 @@ export default function SocialMediaStack({ data }: SocialMediaStackProps) {
             id={`btn_${sm.name}`}
             data-testid={`btn_${sm.name}`}
             aria-label={sm.name}
-            icon={<sm.icon color={colorScheme.monochrome[2]} />}
+            icon={<sm.icon color="var(--chakra-colors-monochrome-200)" />}
             bg="transparent"
             fontSize={{ base: "32px", "2xl": "40px" }}
             onClick={() => {

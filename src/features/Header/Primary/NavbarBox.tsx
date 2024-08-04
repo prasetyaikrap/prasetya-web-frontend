@@ -1,7 +1,5 @@
 import { Button, HStack } from "@chakra-ui/react";
 
-import { colorScheme } from "@/configs";
-
 import { NavbarBoxProps } from "../type";
 import NavbarButton from "./NavButton";
 
@@ -25,7 +23,7 @@ export default function NavbarBox({ navOption }: NavbarBoxProps) {
           {nav.label}
         </NavbarButton>
       ))}
-      <Button bg={colorScheme.blue[3]} color={colorScheme.monochrome[1]}>
+      <Button bg="blue.300" color="monochrome.100">
         Subscribe
       </Button>
     </HStack>

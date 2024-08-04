@@ -2,8 +2,6 @@ import { Heading, HStack, Image, Link } from "@chakra-ui/react";
 import { TitleProps } from "@refinedev/core";
 import NextLink from "next/link";
 
-import { colorScheme } from "@/configs";
-
 export default function Title({ collapsed }: TitleProps) {
   return (
     <Link
@@ -20,7 +18,7 @@ export default function Title({ collapsed }: TitleProps) {
           src="/fox-prasetya.png"
           alt="Prasetya Priyadi"
           boxSize="40px"
-          bg={colorScheme.navy[7]}
+          bg="brand.700"
           borderRadius="full"
         />
         {!collapsed && (

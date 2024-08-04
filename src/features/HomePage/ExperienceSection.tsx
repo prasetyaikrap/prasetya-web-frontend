@@ -2,7 +2,6 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Circle, Heading, Stack, Text, VStack } from "@chakra-ui/react";
 
 import { ChakraLink, Section } from "@/components";
-import { colorScheme } from "@/configs";
 
 import { ExperienceCard } from "./components";
 import { ExperiencesData } from "./constants";
@@ -11,14 +10,14 @@ export default function ExperienceSection() {
   return (
     <Section
       chakra={{
-        bg: colorScheme.navy[6],
+        bg: "brand.600",
         padding: { base: "20px", sm: "40px", md: "80px" },
       }}
     >
       <VStack width={{ base: "full", lg: "90%", xl: "80%" }}>
         <Heading
           as="h3"
-          color={colorScheme.monochrome[2]}
+          color="monochrome.200"
           fontSize="32px"
           textAlign="center"
           width="full"
@@ -57,19 +56,19 @@ export default function ExperienceSection() {
               borderRadius="12px"
               transition="all ease .5s"
               width="full"
-              color={colorScheme.monochrome[6]}
+              color="monochrome.600"
               maxWidth={{ base: "400px", lg: "200px" }}
-              outlineColor={colorScheme.monochrome[6]}
+              outlineColor="monochrome.600"
               target="_blank"
               _hover={{
-                outlineColor: colorScheme.monochrome[2],
-                color: colorScheme.monochrome[2],
+                outlineColor: "monochrome.200",
+                color: "monochrome.200",
               }}
             >
               <Circle
                 borderRadius="50%"
                 borderWidth="1px"
-                borderColor={colorScheme.monochrome[2]}
+                borderColor="monochrome.200"
                 display={{ base: "none", lg: "initial" }}
               >
                 <ChevronRightIcon boxSize="50px" />

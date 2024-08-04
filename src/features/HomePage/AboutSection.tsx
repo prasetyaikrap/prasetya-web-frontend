@@ -1,31 +1,26 @@
 import { Heading, Text, VStack } from "@chakra-ui/react";
 
 import { ChakraLink, Section } from "@/components";
-import { colorScheme } from "@/configs";
 
 export default function AboutSection() {
   return (
     <Section
       chakra={{
-        bg: colorScheme.navy[6],
+        bg: "brand.600",
         padding: { base: "20px", sm: "40px", md: "80px" },
       }}
     >
       <VStack width={{ base: "full", lg: "90%", xl: "80%" }}>
         <Heading
           as="h3"
-          color={colorScheme.monochrome[2]}
+          color="monochrome.200"
           fontSize="32px"
           textAlign="center"
           marginBottom="40px"
         >
           Become a Dedicated Full Stack Software Developer
         </Heading>
-        <Text
-          color={colorScheme.monochrome[2]}
-          fontSize="16px"
-          textAlign="justify"
-        >
+        <Text color="monochrome.200" fontSize="16px" textAlign="justify">
           Back in 2020, Covid-19 Pandemic really changing all of us, including
           me. Graduated from Geological Engineering, Padjadjaran University,
           Jatinangor, West Jave, Indonesia in 2019, but decided to pivot my
@@ -34,11 +29,7 @@ export default function AboutSection() {
           into these point to pursue my career as a full-fledged Software
           Developer
         </Text>
-        <Text
-          color={colorScheme.monochrome[2]}
-          fontSize="16px"
-          textAlign="justify"
-        >
+        <Text color="monochrome.200" fontSize="16px" textAlign="justify">
           Currently, I am focusing to building accessible and exceptional user
           interface for our customer at{" "}
           <ChakraLink fontWeight={700} href="https://efishery.com" isExternal>
@@ -51,16 +42,12 @@ export default function AboutSection() {
           for better and efficient stackholder workflow. I find great
           satisfaction in creating software that colaborate of design and
           engineering. My passion lies in developing solutions that are not only{" "}
-          <Text as="span" color={colorScheme.monochrome[2]} fontWeight={700}>
+          <Text as="span" color="monochrome.200" fontWeight={700}>
             visually appealing but also meticulously crafted for optimal
             performance
           </Text>
         </Text>
-        <Text
-          color={colorScheme.monochrome[2]}
-          fontSize="16px"
-          textAlign="justify"
-        >
+        <Text color="monochrome.200" fontSize="16px" textAlign="justify">
           At my free time, I try to share my knowledge back to the community.
           Actively as contributor at some Developer Community on Discord,
           publishing my{" "}

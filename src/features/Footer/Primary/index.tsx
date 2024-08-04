@@ -1,14 +1,12 @@
 import { HStack, Stack, Text, VStack } from "@chakra-ui/react";
 
-import { colorScheme } from "@/configs";
-
 export default function PrimaryFooter() {
   return (
     <VStack
       width="full"
       paddingX={{ base: "20px", sm: "40px", md: "80px" }}
       paddingY="40px"
-      bg={colorScheme.navy[6]}
+      bg="brand.600"
     >
       <Stack
         justifyContent="space-between"
@@ -24,7 +22,7 @@ export default function PrimaryFooter() {
           <Text
             textAlign={{ base: "center", md: "right" }}
             fontSize="14px"
-            color={colorScheme.monochrome[6]}
+            color="monochrome.600"
           >
             Built with Next.js and Chakra UI, deployed with Vercel. All text is
             set in the Inter typeface.
@@ -32,7 +30,7 @@ export default function PrimaryFooter() {
           <Text
             textAlign={{ base: "center", md: "right" }}
             fontSize="14px"
-            color={colorScheme.monochrome[6]}
+            color="monochrome.600"
           >
             {`Copyright ${new Date().getFullYear()} | Prasetya Ikra Priyadi`}
           </Text>

@@ -1,7 +1,6 @@
 import { HStack } from "@chakra-ui/react";
 
 import { ChakraLink } from "@/components";
-import { colorScheme } from "@/configs";
 
 import { navigationOption } from "../constants/navOptions";
 import NavbarBox from "./NavbarBox";
@@ -14,7 +13,7 @@ export default function PrimaryHeader() {
       data-testid="component_navbar-container"
       height={{ base: "80px", md: "100px" }}
       paddingX={{ base: "20px", sm: "40px", md: "80px" }}
-      bg={colorScheme.navy[6]}
+      bg="brand.600"
       justifyContent="space-between"
     >
       <ChakraLink
@@ -23,7 +22,7 @@ export default function PrimaryHeader() {
         href="/"
         fontSize={{ base: "18px", md: "24px" }}
         fontFamily="var(--font-akaya)"
-        color={colorScheme.monochrome[4]}
+        color="monochrome.400"
         _hover={{
           textDecoration: "none",
         }}
