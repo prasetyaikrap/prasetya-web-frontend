@@ -1,56 +1,51 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import { match } from "ts-pattern";
 
-import { adminResources, dataProviders } from "@/libs";
+import { accessControlProvider, adminResources } from "@/libs";
+import { UserProfileData } from "@/types";
 
-import AppContext from "./context";
+import AppContext, { defaultRefineProps } from "./context";
 import { AppContextProps, AppProviderProps, ResourceType } from "./type";
 
 export default function AppProvider({ children }: AppProviderProps) {
   const [resourceType, setResourceType] = useState<ResourceType>(
     ResourceType.None
   );
-
-  const [refineProps, setRefineProps] = useState<
-    AppContextProps["refineProps"]
-  >({
-    dataProvider: dataProviders,
-    authProvider: undefined,
-    accessControlProvider: undefined,
-    resources: [],
-  });
-
-  const handleRefineProps = (type: ResourceType) => {
-    switch (type) {
-      case ResourceType.Admin:
-        return setRefineProps((prev) => ({
-          ...prev,
-          resources: adminResources,
-          authProvider: undefined,
-          accessControlProvider: undefined,
-        }));
-      default:
-        return setRefineProps((prev) => ({
-          ...prev,
-          resources: [],
-          authProvider: undefined,
-          accessControlProvider: undefined,
-        }));
-    }
-  };
-
-  const value: AppContextProps = useMemo(
-    () => ({
-      refineProps,
-      setResourceType,
-    }),
-    [refineProps]
+  const [userProfile, setUserProfile] = useState<UserProfileData | undefined>(
+    undefined
   );
 
-  useEffect(() => {
-    handleRefineProps(resourceType);
-  }, [resourceType]);
+  const generateRefineProps = (
+    type: ResourceType,
+    profiles?: UserProfileData
+  ) => {
+    const accessControlProviders = accessControlProvider({
+      userProfiles: profiles,
+      opts: {
+        bypass: true,
+      },
+    });
+
+    return match(type)
+      .with(ResourceType.Admin, () => ({
+        ...defaultRefineProps,
+        accessControlProvider: accessControlProviders,
+        resources: adminResources,
+      }))
+      .otherwise(() => defaultRefineProps);
+  };
+
+  const value: AppContextProps = useMemo(() => {
+    const refineProps = generateRefineProps(resourceType, userProfile);
+    return {
+      refineProps,
+      setResourceType,
+      setUserProfile,
+      userProfile,
+    };
+  }, [resourceType, userProfile]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

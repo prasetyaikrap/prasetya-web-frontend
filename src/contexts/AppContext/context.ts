@@ -1,18 +1,22 @@
 "use client";
 import { createContext } from "react";
 
-import { dataProviders } from "@/libs";
+import { accessControlProvider, authProvider, dataProviders } from "@/libs";
 
 import { AppContextProps } from "./type";
 
+export const defaultRefineProps: AppContextProps["refineProps"] = {
+  dataProvider: dataProviders,
+  authProvider,
+  accessControlProvider: accessControlProvider({ userProfiles: undefined }),
+  resources: [],
+};
+
 const AppContext = createContext<AppContextProps>({
-  refineProps: {
-    dataProvider: dataProviders,
-    authProvider: undefined,
-    accessControlProvider: undefined,
-    resources: [],
-  },
+  refineProps: defaultRefineProps,
   setResourceType: () => {},
+  setUserProfile: () => {},
+  userProfile: undefined,
 });
 
 export default AppContext;
