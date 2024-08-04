@@ -8,17 +8,12 @@ import { useApp } from "@/hooks";
 import { RefineProvidersProps } from "./type";
 
 export default function RefineProviders({ children }: RefineProvidersProps) {
-  const {
-    refineProps: {
-      dataProvider,
-      authProvider,
-      accessControlProvider,
-      resources,
-    },
-  } = useApp();
+  const { refineProps } = useApp();
 
-  const RefineRenders = useCallback(
-    () => (
+  const RefineRenders = useCallback(() => {
+    const { dataProvider, authProvider, accessControlProvider, resources } =
+      refineProps;
+    return (
       <Refine
         dataProvider={dataProvider}
         routerProvider={routerProvider}
@@ -32,9 +27,8 @@ export default function RefineProviders({ children }: RefineProvidersProps) {
       >
         {children}
       </Refine>
-    ),
-    [accessControlProvider, authProvider, children, dataProvider, resources]
-  );
+    );
+  }, [children, refineProps]);
 
   return <RefineRenders />;
 }

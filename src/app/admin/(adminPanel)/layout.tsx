@@ -1,7 +1,7 @@
 "use client";
-import { ThemedLayoutV2 } from "@refinedev/chakra-ui";
 import { ReactNode, useEffect } from "react";
 
+import { AdminLayout as CustomAdminLayout } from "@/containers";
 import { ResourceType } from "@/contexts/AppContext/type";
 import { useApp } from "@/hooks";
 
@@ -16,5 +16,5 @@ export default function AdminLayout({
     setResourceType(ResourceType.Admin);
   }, [setResourceType]);
 
-  return <ThemedLayoutV2>{children}</ThemedLayoutV2>;
+  return <CustomAdminLayout>{children}</CustomAdminLayout>;
 }
