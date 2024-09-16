@@ -1,3 +1,4 @@
+"use client";
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import { Component, ErrorInfo, ReactNode } from "react";
 

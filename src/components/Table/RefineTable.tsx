@@ -76,7 +76,7 @@ export default function RefineTable<T extends BaseRecord = BaseRecord>({
 
   return (
     <VStack width="full" data-testid="component-table">
-      <TableContainer whiteSpace="pre-line" width="full">
+      <TableContainer width="full">
         <ChakraTable variant="simple" {...chakra?.tableProps}>
           <Thead border="1px" borderColor="gray.100" roundedTop="md">
             {headerGroups.map((headerGroup) => (

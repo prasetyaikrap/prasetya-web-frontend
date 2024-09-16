@@ -1,5 +1,5 @@
-import { Box } from "@chakra-ui/react";
+import { ArticleList } from "@/features/Admin/Articles";
 
 export default function Page() {
-  return <Box>Articles Admin</Box>;
+  return <ArticleList />;
 }

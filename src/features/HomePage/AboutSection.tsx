@@ -23,7 +23,7 @@ export default function AboutSection() {
         <Text color="monochrome.200" fontSize="16px" textAlign="justify">
           Back in 2020, Covid-19 Pandemic really changing all of us, including
           me. Graduated from Geological Engineering, Padjadjaran University,
-          Jatinangor, West Jave, Indonesia in 2019, but decided to pivot my
+          Jatinangor, West Java, Indonesia in 2019, but decided to pivot my
           career into Technology Industry. After that challenging season, for
           over 2 years of learning something new about Web Development, lead me
           into these point to pursue my career as a full-fledged Software
@@ -49,12 +49,8 @@ export default function AboutSection() {
         </Text>
         <Text color="monochrome.200" fontSize="16px" textAlign="justify">
           At my free time, I try to share my knowledge back to the community.
-          Actively as contributor at some Developer Community on Discord,
-          publishing my{" "}
-          <ChakraLink href="/articles" fontWeight={700}>
-            Articles
-          </ChakraLink>{" "}
-          and also release some stress by enjoying play Online Video Games,
+          Actively as contributor at some Developer Community on Discord and
+          also release some stress by enjoying play Online Video Games,
           it&apos;s obvious right?!?
         </Text>
       </VStack>

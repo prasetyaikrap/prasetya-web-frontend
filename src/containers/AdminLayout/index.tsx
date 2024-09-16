@@ -1,8 +1,8 @@
-import { ThemedLayoutV2 } from "@refinedev/chakra-ui";
+"use client";
 
-import Title from "./Title";
+import ThemedLayout from "./ThemedLayout";
 import { AdminLayoutProps } from "./type";
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
-  return <ThemedLayoutV2 Title={Title}>{children}</ThemedLayoutV2>;
+  return <ThemedLayout>{children}</ThemedLayout>;
 }
