@@ -39,7 +39,7 @@ module.exports = {
     "spaced-comment": ["error", "always", { markers: ["/"] }],
 
     // Typescript
-    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     "@typescript-eslint/no-explicit-any": "off",
 
     // Simple Import
