@@ -12,8 +12,10 @@ export enum DomainError {
   "LOGOUT_ADMIN.NOT_MEET_DATA_TYPE_SPECIFICATION" = "LOGOUT_ADMIN.NOT_MEET_DATA_TYPE_SPECIFICATION",
   "VERIFY_ADMIN.NOT_CONTAIN_NEEDED_PROPERTY" = "VERIFY_ADMIN.NOT_CONTAIN_NEEDED_PROPERTY",
   "VERIFY_ADMIN.NOT_MEET_DATA_TYPE_SPECIFICATION" = "VERIFY_ADMIN.NOT_MEET_DATA_TYPE_SPECIFICATION",
-  "USER_AUTH.NOT_CONTAIN_NEEDED_PROPERTY" = "USER_AUTH.NOT_CONTAIN_NEEDED_PROPERTY",
-  "USER_AUTH.NOT_MEET_DATA_TYPE_SPECIFICATION" = "USER_AUTH.NOT_MEET_DATA_TYPE_SPECIFICATION",
+  "ADMIN_AUTH.NOT_CONTAIN_NEEDED_PROPERTY" = "ADMIN_AUTH.NOT_CONTAIN_NEEDED_PROPERTY",
+  "ADMIN_AUTH.NOT_MEET_DATA_TYPE_SPECIFICATION" = "ADMIN_AUTH.NOT_MEET_DATA_TYPE_SPECIFICATION",
+  "CLIENT_IDENTITY.CLIENT_ID_REQUIRED" = "CLIENT_IDENTITY.CLIENT_ID_REQUIRED",
+  "CLIENT_IDENTITY.INVALID_CLIENT_ID" = "CLIENT_IDENTITY.INVALID_CLIENT_ID",
 }
 
 const DomainErrorTranslator: DomainErrorTranslatorProps = {
@@ -41,11 +43,17 @@ const DomainErrorTranslator: DomainErrorTranslatorProps = {
       new InvariantError(
         "Cannot verify admin due to invalid payload property data type"
       ),
-    [DomainError["USER_AUTH.NOT_CONTAIN_NEEDED_PROPERTY"]]: new InvariantError(
+    [DomainError["ADMIN_AUTH.NOT_CONTAIN_NEEDED_PROPERTY"]]: new InvariantError(
       "Invalid payload (accessToken and refreshToken"
     ),
-    [DomainError["USER_AUTH.NOT_MEET_DATA_TYPE_SPECIFICATION"]]:
+    [DomainError["ADMIN_AUTH.NOT_MEET_DATA_TYPE_SPECIFICATION"]]:
       new InvariantError("Invalid payload data type"),
+    [DomainError["CLIENT_IDENTITY.CLIENT_ID_REQUIRED"]]: new InvariantError(
+      "Client ID Header is required"
+    ),
+    [DomainError["CLIENT_IDENTITY.INVALID_CLIENT_ID"]]: new InvariantError(
+      "You cannot access this resource. Invalid Client ID"
+    ),
   },
 };
 

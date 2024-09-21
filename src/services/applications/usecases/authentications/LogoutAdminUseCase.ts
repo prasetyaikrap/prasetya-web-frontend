@@ -1,8 +1,10 @@
-import { AuthTokenPayload } from "@/services/commons/types/general";
-import LogoutAdmin, {
-  AdminLogoutPayload,
-} from "@/services/infrastructure/repository/admins/entities/LogoutAdmin";
+import {
+  AuthTokenPayload,
+  BaseUseCasePayload,
+} from "@/services/commons/types/general";
+import LogoutAdmin from "@/services/infrastructure/repository/admins/entities/LogoutAdmin";
 import AuthenticationRepository from "@/services/infrastructure/repository/authentications/AuthenticationRepository";
+import ClientIdentityAuth from "@/services/infrastructure/repository/authentications/entities/ClientIdentityAuth";
 import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
 
 export type LogoutAdminUseCaseProps = {
@@ -10,7 +12,9 @@ export type LogoutAdminUseCaseProps = {
   authTokenManager: AuthTokenManager;
 };
 
-export default class LoginAdminUseCase {
+export type LogoutAdminUseCasePayload = {} & BaseUseCasePayload;
+
+export default class LogoutAdminUseCase {
   public _authenticationRepository: AuthenticationRepository;
   public _authTokenManager: AuthTokenManager;
 
@@ -22,8 +26,14 @@ export default class LoginAdminUseCase {
     this._authTokenManager = authTokenManager;
   }
 
-  async execute(useCasePayload: AdminLogoutPayload) {
-    const { refreshToken } = new LogoutAdmin(useCasePayload);
+  async execute({ auth }: LogoutAdminUseCasePayload) {
+    new ClientIdentityAuth({ clientId: auth?.clientId || "" });
+
+    const { refreshToken } = new LogoutAdmin({
+      accessToken: auth?.accessToken || "",
+      refreshToken: auth?.refreshtoken || "",
+    });
+
     const {
       payload: {
         profile: { id: userId },

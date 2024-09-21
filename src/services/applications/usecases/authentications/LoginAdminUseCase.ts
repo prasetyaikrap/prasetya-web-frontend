@@ -1,10 +1,12 @@
-import { AuthTokenPayload } from "@/services/commons/types/general";
+import {
+  AuthTokenPayload,
+  BaseUseCasePayload,
+} from "@/services/commons/types/general";
 import AdminRepository from "@/services/infrastructure/repository/admins/AdminRepository";
-import LoginAdmin, {
-  AdminPayload,
-} from "@/services/infrastructure/repository/admins/entities/LoginAdmin";
+import LoginAdmin from "@/services/infrastructure/repository/admins/entities/LoginAdmin";
 import AuthenticationRepository from "@/services/infrastructure/repository/authentications/AuthenticationRepository";
 import AdminAuth from "@/services/infrastructure/repository/authentications/entities/AdminAuth";
+import ClientIdentityAuth from "@/services/infrastructure/repository/authentications/entities/ClientIdentityAuth";
 import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
 import PasswordHash from "@/services/infrastructure/security/PasswordHash";
 
@@ -14,6 +16,13 @@ export type LoginAdminUseCaseProps = {
   authTokenManager: AuthTokenManager;
   passwordHash: PasswordHash;
 };
+
+export type LoginAdminUseCasePayload = {
+  payload: {
+    username: string;
+    password: string;
+  };
+} & BaseUseCasePayload;
 
 export default class LoginAdminUseCase {
   public _adminRepository: AdminRepository;
@@ -33,12 +42,18 @@ export default class LoginAdminUseCase {
     this._passwordHash = passwordHash;
   }
 
-  async execute(useCasePayload: AdminPayload) {
+  async execute({ payload, auth }: LoginAdminUseCasePayload) {
+    new ClientIdentityAuth({ clientId: auth?.clientId || "" });
+
     const {
       username: pUsername,
       password: pPassword,
       userAgent,
-    } = new LoginAdmin(useCasePayload);
+    } = new LoginAdmin({
+      username: payload.username,
+      password: payload.password,
+      userAgent: auth?.userAgent || "",
+    });
 
     const { id, username, hashPassword } =
       await this._adminRepository.getAdminByUsername(pUsername);

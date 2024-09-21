@@ -1,14 +1,18 @@
-import { AuthTokenPayload } from "@/services/commons/types/general";
-import VerifyAdmin, {
-  VerifyAdminPayload,
-} from "@/services/infrastructure/repository/admins/entities/VerifyAdmin";
+import {
+  AuthTokenPayload,
+  BaseUseCasePayload,
+} from "@/services/commons/types/general";
+import VerifyAdmin from "@/services/infrastructure/repository/admins/entities/VerifyAdmin";
 import AuthenticationRepository from "@/services/infrastructure/repository/authentications/AuthenticationRepository";
+import ClientIdentityAuth from "@/services/infrastructure/repository/authentications/entities/ClientIdentityAuth";
 import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
 
 export type RefreshAdminUseCaseProps = {
   authTokenManager: AuthTokenManager;
   authenticationRepository: AuthenticationRepository;
 };
+
+export type RefreshAdminUseCasePayload = {} & BaseUseCasePayload;
 
 export default class RefreshAdminUseCase {
   public _authTokenManager: AuthTokenManager;
@@ -22,8 +26,14 @@ export default class RefreshAdminUseCase {
     this._authenticationRepository = authenticationRepository;
   }
 
-  async execute(useCasePayload: VerifyAdminPayload) {
-    const { refreshToken } = new VerifyAdmin(useCasePayload);
+  async execute({ auth }: RefreshAdminUseCasePayload) {
+    new ClientIdentityAuth({ clientId: auth?.clientId || "" });
+
+    const { refreshToken } = new VerifyAdmin({
+      accessToken: auth?.accessToken || "",
+      refreshToken: auth?.refreshtoken || "",
+    });
+
     const { payload } =
       await this._authTokenManager.verifyRefreshToken<AuthTokenPayload>(
         refreshToken,

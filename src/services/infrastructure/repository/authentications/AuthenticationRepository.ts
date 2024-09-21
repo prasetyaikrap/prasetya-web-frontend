@@ -1,7 +1,7 @@
 import { FieldValue, Firestore } from "firebase-admin/firestore";
 
-import InvariantError from "@/services/commons/exceptions/InvariantError";
 import { AuthenticationDocProps } from "@/services/commons/types/firestoreDoc";
+import AuthorizationError from "@/services/commons/exceptions/AuthorizationError";
 
 export type AuthenticationRepositoryProps = {
   firestore: Firestore;
@@ -36,7 +36,7 @@ export default class AuthenticationRepository {
     const isTokenAvailable = data?.refreshTokens?.includes(token);
 
     if (!isTokenAvailable) {
-      throw new InvariantError("Token not found");
+      throw new AuthorizationError("Token not found");
     }
 
     return {

@@ -1,6 +1,6 @@
 import { DomainError } from "@/services/commons/exceptions/DomainErrorTranslator";
 
-export type AdminPayload = {
+export type LoginAdminPayload = {
   username: string;
   password: string;
   userAgent: string;
@@ -11,7 +11,7 @@ export default class LoginAdmin {
   public password: string;
   public userAgent: string;
 
-  constructor(payload: AdminPayload) {
+  constructor(payload: LoginAdminPayload) {
     this._verifyPayload(payload);
     const { username, password, userAgent } = payload;
     this.username = username;
@@ -19,7 +19,7 @@ export default class LoginAdmin {
     this.userAgent = userAgent;
   }
 
-  _verifyPayload(payload: AdminPayload) {
+  _verifyPayload(payload: LoginAdminPayload) {
     const { username, password } = payload;
     // Check required fields
     if (!username || !password) {
