@@ -22,7 +22,7 @@ export default class VerifyAdminUseCase {
     new ClientIdentityAuth({ clientId: auth?.clientId || "" });
     const { accessToken, refreshToken } = new VerifyAdmin({
       accessToken: auth?.accessToken || "",
-      refreshToken: auth?.refreshtoken || "",
+      refreshToken: auth?.refreshToken || "",
     });
     await this._authTokenManager.verifyAccessToken<AuthTokenPayload>(
       accessToken

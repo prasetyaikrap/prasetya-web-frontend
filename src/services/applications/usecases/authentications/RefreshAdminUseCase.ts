@@ -31,7 +31,7 @@ export default class RefreshAdminUseCase {
 
     const { refreshToken } = new VerifyAdmin({
       accessToken: auth?.accessToken || "",
-      refreshToken: auth?.refreshtoken || "",
+      refreshToken: auth?.refreshToken || "",
     });
 
     const { payload } =

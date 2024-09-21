@@ -31,7 +31,7 @@ export default class LogoutAdminUseCase {
 
     const { refreshToken } = new LogoutAdmin({
       accessToken: auth?.accessToken || "",
-      refreshToken: auth?.refreshtoken || "",
+      refreshToken: auth?.refreshToken || "",
     });
 
     const {

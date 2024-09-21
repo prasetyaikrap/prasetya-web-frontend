@@ -39,13 +39,15 @@ export type BaseUseCasePayload<TPayload extends BaseKeyObject = BaseKeyObject> =
   {
     auth?: {
       accessToken?: string;
-      refreshtoken?: string;
+      refreshToken?: string;
       clientId?: string;
       userAgent?: string;
     };
   };
 
 export type RoutesHandler = {
+  name: string;
+  description?: string;
   method: NextRequest["method"];
   path: string;
   handler: (props: HTTPHandlerProps) => Promise<NextResponse>;
