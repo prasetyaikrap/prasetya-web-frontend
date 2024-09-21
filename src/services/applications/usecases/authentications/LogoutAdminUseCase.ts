@@ -12,7 +12,7 @@ export type LogoutAdminUseCaseProps = {
   authTokenManager: AuthTokenManager;
 };
 
-export type LogoutAdminUseCasePayload = {} & BaseUseCasePayload;
+export type LogoutAdminUseCasePayload = BaseUseCasePayload;
 
 export default class LogoutAdminUseCase {
   public _authenticationRepository: AuthenticationRepository;

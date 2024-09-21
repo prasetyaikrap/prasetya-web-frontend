@@ -1,4 +1,5 @@
-import { NextRequest } from "next/server";
+import { NextRequest, userAgent } from "next/server";
+
 import {
   AUTH_TOKENS,
   CLIENT_ID_KEY,
@@ -27,9 +28,12 @@ export function getCredentials({ request }: GetCredentialProps) {
     AUTH_TOKENS[clientId as CLIENT_IDS_ENUM]?.refreshTokenKey || ""
   )?.value;
 
+  const userAgents = userAgent(request);
+
   return {
     accessToken: isBearerAuth ? accessToken : "",
     refreshToken,
     clientId,
+    userAgents,
   };
 }

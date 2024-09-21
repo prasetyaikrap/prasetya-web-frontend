@@ -1,7 +1,7 @@
 import { FieldValue, Firestore } from "firebase-admin/firestore";
 
-import { AuthenticationDocProps } from "@/services/commons/types/firestoreDoc";
 import AuthorizationError from "@/services/commons/exceptions/AuthorizationError";
+import { AuthenticationDocProps } from "@/services/commons/types/firestoreDoc";
 
 export type AuthenticationRepositoryProps = {
   firestore: Firestore;

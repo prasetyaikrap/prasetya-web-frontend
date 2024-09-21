@@ -1,5 +1,5 @@
 import { JWTPayload } from "jose";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, userAgent } from "next/server";
 
 export type BaseKeyObject = {
   [key: string]: string | number | string[] | number[];
@@ -23,7 +23,7 @@ export type AuthTokenPayload = {
     id: string;
     username: string;
   };
-  userAgent: string;
+  userAgent: ReturnType<typeof userAgent> | null;
 } & JWTPayload;
 
 export type HTTPHandlerProps = {
@@ -35,15 +35,14 @@ export type BaseResponseBody = {
   [key: string]: any;
 };
 
-export type BaseUseCasePayload<TPayload extends BaseKeyObject = BaseKeyObject> =
-  {
-    auth?: {
-      accessToken?: string;
-      refreshToken?: string;
-      clientId?: string;
-      userAgent?: string;
-    };
+export type BaseUseCasePayload = {
+  auth?: {
+    accessToken?: string;
+    refreshToken?: string;
+    clientId?: string;
+    userAgent?: ReturnType<typeof userAgent>;
   };
+};
 
 export type RoutesHandler = {
   name: string;

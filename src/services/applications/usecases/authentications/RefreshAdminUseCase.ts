@@ -12,7 +12,7 @@ export type RefreshAdminUseCaseProps = {
   authenticationRepository: AuthenticationRepository;
 };
 
-export type RefreshAdminUseCasePayload = {} & BaseUseCasePayload;
+export type RefreshAdminUseCasePayload = BaseUseCasePayload;
 
 export default class RefreshAdminUseCase {
   public _authTokenManager: AuthTokenManager;

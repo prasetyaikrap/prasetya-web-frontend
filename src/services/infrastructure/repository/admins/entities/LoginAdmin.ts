@@ -3,20 +3,17 @@ import { DomainError } from "@/services/commons/exceptions/DomainErrorTranslator
 export type LoginAdminPayload = {
   username: string;
   password: string;
-  userAgent: string;
 };
 
 export default class LoginAdmin {
   public username: string;
   public password: string;
-  public userAgent: string;
 
   constructor(payload: LoginAdminPayload) {
     this._verifyPayload(payload);
-    const { username, password, userAgent } = payload;
+    const { username, password } = payload;
     this.username = username;
     this.password = password;
-    this.userAgent = userAgent;
   }
 
   _verifyPayload(payload: LoginAdminPayload) {

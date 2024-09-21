@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+
 import { BaseResponseBody } from "../types/general";
 
 export type ResponseProps<TBody extends BaseResponseBody = BaseResponseBody> = {

@@ -45,14 +45,9 @@ export default class LoginAdminUseCase {
   async execute({ payload, auth }: LoginAdminUseCasePayload) {
     new ClientIdentityAuth({ clientId: auth?.clientId || "" });
 
-    const {
-      username: pUsername,
-      password: pPassword,
-      userAgent,
-    } = new LoginAdmin({
+    const { username: pUsername, password: pPassword } = new LoginAdmin({
       username: payload.username,
       password: payload.password,
-      userAgent: auth?.userAgent || "",
     });
 
     const { id, username, hashPassword } =
@@ -64,7 +59,7 @@ export default class LoginAdminUseCase {
         id,
         username,
       },
-      userAgent,
+      userAgent: auth?.userAgent || null,
     };
 
     const accessToken = await this._authTokenManager.createAccessToken(

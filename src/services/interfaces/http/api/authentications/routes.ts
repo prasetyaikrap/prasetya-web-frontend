@@ -1,4 +1,5 @@
 import { RoutesHandler } from "@/services/commons/types/general";
+
 import AuthenticationsHandler from "./handler";
 
 const routes = (handler: AuthenticationsHandler): RoutesHandler[] => [

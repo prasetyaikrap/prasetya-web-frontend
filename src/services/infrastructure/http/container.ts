@@ -1,15 +1,18 @@
-import authentications from "@/services/interfaces/http/api/authentications";
-import AuthenticationRepository from "../repository/authentications/AuthenticationRepository";
-import firebaseInitialize from "@/libs/firebase/initialize";
-import AdminRepository from "../repository/admins/AdminRepository";
-import AuthTokenManager from "../security/AuthTokenManager";
-import * as Jose from "jose";
 import * as bcrypts from "bcrypt-ts";
-import PasswordHash from "../security/PasswordHash";
+import * as Jose from "jose";
+
+import firebaseInitialize from "@/libs/firebase/initialize";
+import RegisterAdminUseCase from "@/services/applications/usecases/admins/RegisterAdminUseCase";
 import LoginAdminUseCase from "@/services/applications/usecases/authentications/LoginAdminUseCase";
-import VerifyAdminUseCase from "@/services/applications/usecases/authentications/VerifyAdminUseCase";
-import RefreshAdminUseCase from "@/services/applications/usecases/authentications/RefreshAdminUseCase";
 import LogoutAdminUseCase from "@/services/applications/usecases/authentications/LogoutAdminUseCase";
+import RefreshAdminUseCase from "@/services/applications/usecases/authentications/RefreshAdminUseCase";
+import VerifyAdminUseCase from "@/services/applications/usecases/authentications/VerifyAdminUseCase";
+import AdminRepository from "@/services/infrastructure/repository/admins/AdminRepository";
+import AuthenticationRepository from "@/services/infrastructure/repository/authentications/AuthenticationRepository";
+import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
+import PasswordHash from "@/services/infrastructure/security/PasswordHash";
+import admins from "@/services/interfaces/http/api/admins";
+import authentications from "@/services/interfaces/http/api/authentications";
 
 export default async function serviceContainer() {
   const { firestoreDB } = await firebaseInitialize();
@@ -39,6 +42,13 @@ export default async function serviceContainer() {
     authenticationRepository,
     authTokenManager,
   });
+
+  const registerAdminUseCase = new RegisterAdminUseCase({
+    adminRepository,
+    authTokenManager,
+    passwordHash,
+  });
+
   // Routes
   const authenticationRoutes = await authentications.register({
     loginAdminUseCase,
@@ -46,6 +56,10 @@ export default async function serviceContainer() {
     refreshAdminUseCase,
     logoutAdminUseCase,
   });
+  const adminRoutes = await admins.register({
+    registerAdminUseCase,
+    verifyAdminUseCase,
+  });
 
-  return [...authenticationRoutes];
+  return [...authenticationRoutes, ...adminRoutes];
 }

@@ -10,7 +10,7 @@ export type VerifyAdminUseCaseProps = {
   authTokenManager: AuthTokenManager;
 };
 
-export type VerifyAdminUseCasePayload = {} & BaseUseCasePayload;
+export type VerifyAdminUseCasePayload = BaseUseCasePayload;
 export default class VerifyAdminUseCase {
   public _authTokenManager: AuthTokenManager;
 
