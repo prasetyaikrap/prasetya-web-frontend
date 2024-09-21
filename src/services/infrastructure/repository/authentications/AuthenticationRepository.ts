@@ -1,13 +1,57 @@
+import { FieldValue, Firestore } from "firebase-admin/firestore";
+
+import InvariantError from "@/services/commons/exceptions/InvariantError";
+import { AuthenticationDocProps } from "@/services/commons/types/firestoreDoc";
+
+export type AuthenticationRepositoryProps = {
+  firestore: Firestore;
+};
 export default class AuthenticationRepository {
-  async addToken(_token: string) {
-    throw new Error("AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED");
+  public _firestore: Firestore;
+
+  constructor({ firestore }: AuthenticationRepositoryProps) {
+    this._firestore = firestore;
   }
 
-  async checkAvailabilityToken(_token: string) {
-    throw new Error("AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED");
+  async addToken(userId: string, token: string) {
+    const docId = `rt_${userId}`;
+    const docRef = this._firestore.collection("authentications").doc(docId);
+    const snapshot = await docRef.get();
+
+    if (snapshot.exists) {
+      await docRef.set({ userId, refreshTokens: FieldValue.arrayUnion(token) });
+    } else {
+      await docRef.update({ refreshTokens: FieldValue.arrayUnion(token) });
+    }
+
+    return { id: docId };
   }
 
-  async deleteToken(_token: string) {
-    throw new Error("AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED");
+  async checkAvailabilityToken(userId: string, token: string) {
+    const docId = `rt_${userId}`;
+    const docRef = this._firestore.collection("authentications").doc(docId);
+    const snapshot = await docRef.get();
+    const data = snapshot.data() as AuthenticationDocProps | undefined;
+
+    const isTokenAvailable = data?.refreshTokens?.includes(token);
+
+    if (!isTokenAvailable) {
+      throw new InvariantError("Token not found");
+    }
+
+    return {
+      ...snapshot.data(),
+      id: docId,
+    };
+  }
+
+  async deleteToken(userId: string, token: string) {
+    const docId = `rt_${userId}`;
+    const docRef = this._firestore.collection("authentications").doc(docId);
+    await docRef.update({ refreshTokens: FieldValue.arrayRemove(token) });
+
+    return {
+      id: docId,
+    };
   }
 }

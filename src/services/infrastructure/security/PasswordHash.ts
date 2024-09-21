@@ -2,7 +2,7 @@ import * as bcrypts from "bcrypt-ts";
 
 import AuthenticationError from "@/services/commons/exceptions/AuthenticationError";
 
-export default class BcryptPasswordHash {
+export default class PasswordHash {
   public _bcrypt: typeof bcrypts;
   public _saltRound: number;
 

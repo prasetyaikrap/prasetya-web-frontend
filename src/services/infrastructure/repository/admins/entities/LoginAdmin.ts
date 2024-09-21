@@ -1,32 +1,35 @@
 import { DomainError } from "@/services/commons/exceptions/DomainErrorTranslator";
 
-type UserPayload = {
+export type AdminPayload = {
   username: string;
   password: string;
+  userAgent: string;
 };
 
-export default class LoginUser {
+export default class LoginAdmin {
   public username: string;
   public password: string;
+  public userAgent: string;
 
-  constructor(payload: UserPayload) {
+  constructor(payload: AdminPayload) {
     this._verifyPayload(payload);
-    const { username, password } = payload;
+    const { username, password, userAgent } = payload;
     this.username = username;
     this.password = password;
+    this.userAgent = userAgent;
   }
 
-  _verifyPayload(payload: UserPayload) {
+  _verifyPayload(payload: AdminPayload) {
     const { username, password } = payload;
     // Check required fields
     if (!username || !password) {
-      throw new Error(DomainError["LOGIN_USER.NOT_CONTAIN_NEEDED_PROPERTY"]);
+      throw new Error(DomainError["LOGIN_ADMIN.NOT_CONTAIN_NEEDED_PROPERTY"]);
     }
 
     // Check fields data type
     if (typeof username !== "string" || typeof password !== "string") {
       throw new Error(
-        DomainError["LOGIN_USER.NOT_MEET_DATA_TYPE_SPECIFICATION"]
+        DomainError["LOGIN_ADMIN.NOT_MEET_DATA_TYPE_SPECIFICATION"]
       );
     }
   }
