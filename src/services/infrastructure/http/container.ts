@@ -28,50 +28,58 @@ export default async function serviceContainer() {
   const passwordHash = new PasswordHash(bcrypts);
 
   // UseCases
-  const loginAdminUseCase = new LoginAdminUseCase({
-    adminRepository,
-    authenticationRepository,
-    authTokenManager,
-    passwordHash,
-  });
-  const verifyAdminUseCase = new VerifyAdminUseCase({
-    authTokenManager,
-  });
-  const refreshAdminUseCase = new RefreshAdminUseCase({
-    authenticationRepository,
-    authTokenManager,
-  });
-  const logoutAdminUseCase = new LogoutAdminUseCase({
-    authenticationRepository,
-    authTokenManager,
-  });
-  const registerAdminUseCase = new RegisterAdminUseCase({
-    adminRepository,
-    passwordHash,
-  });
-  const getAdminsUseCase = new GetAdminsUseCase({ adminRepository });
-  const getAdminByIdUseCase = new GetAdminByIdUseCase({
-    adminRepository,
-    authTokenManager,
-  });
-  const updateAdminByIdUseCase = new UpdateAdminByIdUseCase({
-    adminRepository,
-    authTokenManager,
-  });
+  const useCases = {
+    // Authentications
+    loginAdminUseCase: new LoginAdminUseCase({
+      adminRepository,
+      authenticationRepository,
+      authTokenManager,
+      passwordHash,
+    }),
+    verifyAdminUseCase: new VerifyAdminUseCase({
+      authTokenManager,
+    }),
+    refreshAdminUseCase: new RefreshAdminUseCase({
+      authenticationRepository,
+      authTokenManager,
+    }),
+    logoutAdminUseCase: new LogoutAdminUseCase({
+      authenticationRepository,
+      authTokenManager,
+    }),
+
+    // Admins
+    registerAdminUseCase: new RegisterAdminUseCase({
+      adminRepository,
+      passwordHash,
+      authTokenManager,
+    }),
+    getAdminsUseCase: new GetAdminsUseCase({
+      adminRepository,
+      authTokenManager,
+    }),
+    getAdminByIdUseCase: new GetAdminByIdUseCase({
+      adminRepository,
+      authTokenManager,
+    }),
+    updateAdminByIdUseCase: new UpdateAdminByIdUseCase({
+      adminRepository,
+      authTokenManager,
+    }),
+  };
 
   // Routes
   const authenticationRoutes = await authentications.register({
-    loginAdminUseCase,
-    verifyAdminUseCase,
-    refreshAdminUseCase,
-    logoutAdminUseCase,
+    loginAdminUseCase: useCases.loginAdminUseCase,
+    verifyAdminUseCase: useCases.verifyAdminUseCase,
+    refreshAdminUseCase: useCases.refreshAdminUseCase,
+    logoutAdminUseCase: useCases.logoutAdminUseCase,
   });
   const adminRoutes = await admins.register({
-    registerAdminUseCase,
-    verifyAdminUseCase,
-    getAdminsUseCase,
-    getAdminByIdUseCase,
-    updateAdminByIdUseCase,
+    registerAdminUseCase: useCases.registerAdminUseCase,
+    getAdminsUseCase: useCases.getAdminsUseCase,
+    getAdminByIdUseCase: useCases.getAdminByIdUseCase,
+    updateAdminByIdUseCase: useCases.updateAdminByIdUseCase,
   });
 
   return [...authenticationRoutes, ...adminRoutes];

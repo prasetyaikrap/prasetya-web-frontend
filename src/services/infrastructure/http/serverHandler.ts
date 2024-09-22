@@ -28,7 +28,7 @@ export async function serverHandler(
   const routesContainer = await serviceContainer();
 
   try {
-    let routeParams: HTTPHandlerRouteParams = {};
+    const routeParams: HTTPHandlerRouteParams = {};
     const matchRoute = routesContainer.find((route) => {
       const { regex, params } = routeToRegex(route.path);
       const match = path.match(regex);
