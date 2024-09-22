@@ -9,6 +9,12 @@ const routes = (handler: AdminsHandler): RoutesHandler[] => [
     path: "/v1/admins",
     handler: async (props) => await handler.postAdminUser(props),
   },
+  {
+    name: "Get List Admin",
+    method: "GET",
+    path: "/v1/admins",
+    handler: async (props) => await handler.getAdminsUser(props),
+  },
 ];
 
 export default routes;

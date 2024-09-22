@@ -2,7 +2,7 @@ import { createSecretKey } from "crypto";
 import * as Jose from "jose";
 
 import { ENV } from "@/configs";
-import AuthorizationError from "@/services/commons/exceptions/AuthorizationError";
+import AuthenticationError from "@/services/commons/exceptions/AuthenticationError";
 
 export type VerifyTokensProps = {
   accessToken: string;
@@ -61,7 +61,7 @@ export default class AuthTokenManager {
         audience: ENV.JWT_AUDIENCE,
       });
     } catch (error) {
-      throw new AuthorizationError("access token is not valid");
+      throw new AuthenticationError("access token is not valid");
     }
   }
 
@@ -80,7 +80,7 @@ export default class AuthTokenManager {
       });
     } catch (error) {
       await failedCallback?.(token);
-      throw new AuthorizationError("refresh token is not valid");
+      throw new AuthenticationError("refresh token is not valid");
     }
   }
 

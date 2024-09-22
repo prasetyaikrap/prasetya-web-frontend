@@ -1,6 +1,6 @@
 import { FieldValue, Firestore } from "firebase-admin/firestore";
 
-import AuthorizationError from "@/services/commons/exceptions/AuthorizationError";
+import AuthenticationError from "@/services/commons/exceptions/AuthenticationError";
 import { AuthenticationDocProps } from "@/services/commons/types/firestoreDoc";
 
 export type AuthenticationRepositoryProps = {
@@ -36,7 +36,7 @@ export default class AuthenticationRepository {
     const isTokenAvailable = data?.refreshTokens?.includes(token);
 
     if (!isTokenAvailable) {
-      throw new AuthorizationError("Token not found");
+      throw new AuthenticationError("Token not found");
     }
 
     return {

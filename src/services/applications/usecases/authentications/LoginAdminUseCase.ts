@@ -50,9 +50,9 @@ export default class LoginAdminUseCase {
       password: payload.password,
     });
 
-    const { id, username, hashPassword } =
+    const { id, username, hash_password } =
       await this._adminRepository.getAdminByUsername(pUsername);
-    await this._passwordHash.comparePassword(pPassword, hashPassword);
+    await this._passwordHash.comparePassword(pPassword, hash_password);
 
     const tokenPayload: AuthTokenPayload = {
       profile: {

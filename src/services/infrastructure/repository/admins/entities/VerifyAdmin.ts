@@ -1,4 +1,4 @@
-import { DomainError } from "@/services/commons/exceptions/DomainErrorTranslator";
+import AuthenticationError from "@/services/commons/exceptions/AuthenticationError";
 
 export type VerifyAdminPayload = {
   accessToken: string;
@@ -20,13 +20,13 @@ export default class VerifyAdmin {
     const { accessToken, refreshToken } = payload;
     // Check required fields
     if (!accessToken || !refreshToken) {
-      throw new Error(DomainError["VERIFY_ADMIN.NOT_CONTAIN_NEEDED_PROPERTY"]);
+      throw new AuthenticationError("Unauthorized. Auth tokens is required");
     }
 
     // Check fields data type
     if (typeof accessToken !== "string" || typeof refreshToken !== "string") {
-      throw new Error(
-        DomainError["VERIFY_ADMIN.NOT_MEET_DATA_TYPE_SPECIFICATION"]
+      throw new AuthenticationError(
+        "Unauthorized. Invalid type of auth tokens"
       );
     }
   }

@@ -1,13 +1,13 @@
 export type AdminDocProps = {
   id: string;
   username: string;
-  hashPassword: string;
+  hash_password: string;
   name: string;
   email: string;
   avatar: string;
   permissions: ["p" | "g", string, string, string][];
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
 };
 
 export type AuthenticationDocProps = {
