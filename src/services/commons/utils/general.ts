@@ -34,6 +34,6 @@ export function getCredentials({ request }: GetCredentialProps) {
     accessToken: isBearerAuth ? accessToken : "",
     refreshToken,
     clientId,
-    userAgents,
+    userAgent: userAgents,
   };
 }

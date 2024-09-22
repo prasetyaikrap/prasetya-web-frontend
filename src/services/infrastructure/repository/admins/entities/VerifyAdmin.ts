@@ -20,13 +20,13 @@ export default class VerifyAdmin {
     const { accessToken, refreshToken } = payload;
     // Check required fields
     if (!accessToken || !refreshToken) {
-      throw new AuthenticationError("Unauthorized. Auth tokens is required");
+      throw new AuthenticationError("Unauthenticated. Auth tokens is required");
     }
 
     // Check fields data type
     if (typeof accessToken !== "string" || typeof refreshToken !== "string") {
       throw new AuthenticationError(
-        "Unauthorized. Invalid type of auth tokens"
+        "Unauthenticated. Invalid type of auth tokens"
       );
     }
   }

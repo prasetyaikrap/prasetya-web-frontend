@@ -5,6 +5,7 @@ import firebaseInitialize from "@/libs/firebase/initialize";
 import GetAdminByIdUseCase from "@/services/applications/usecases/admins/GetAdminByIdUseCase";
 import GetAdminsUseCase from "@/services/applications/usecases/admins/GetAdminsUseCase";
 import RegisterAdminUseCase from "@/services/applications/usecases/admins/RegisterAdminUseCase";
+import UpdateAdminByIdUseCase from "@/services/applications/usecases/admins/UpdateAdminByIdUseCase";
 import LoginAdminUseCase from "@/services/applications/usecases/authentications/LoginAdminUseCase";
 import LogoutAdminUseCase from "@/services/applications/usecases/authentications/LogoutAdminUseCase";
 import RefreshAdminUseCase from "@/services/applications/usecases/authentications/RefreshAdminUseCase";
@@ -49,7 +50,14 @@ export default async function serviceContainer() {
     passwordHash,
   });
   const getAdminsUseCase = new GetAdminsUseCase({ adminRepository });
-  const getAdminByIdUseCase = new GetAdminByIdUseCase({ adminRepository });
+  const getAdminByIdUseCase = new GetAdminByIdUseCase({
+    adminRepository,
+    authTokenManager,
+  });
+  const updateAdminByIdUseCase = new UpdateAdminByIdUseCase({
+    adminRepository,
+    authTokenManager,
+  });
 
   // Routes
   const authenticationRoutes = await authentications.register({
@@ -63,6 +71,7 @@ export default async function serviceContainer() {
     verifyAdminUseCase,
     getAdminsUseCase,
     getAdminByIdUseCase,
+    updateAdminByIdUseCase,
   });
 
   return [...authenticationRoutes, ...adminRoutes];

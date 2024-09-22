@@ -21,6 +21,12 @@ const routes = (handler: AdminsHandler): RoutesHandler[] => [
     path: "/v1/admins/:id",
     handler: async (props) => await handler.getAdminUser(props),
   },
+  {
+    name: "Update Admin by ID",
+    method: "PUT",
+    path: "/v1/admins/:id",
+    handler: async (props) => await handler.updateAdminUser(props),
+  },
 ];
 
 export default routes;

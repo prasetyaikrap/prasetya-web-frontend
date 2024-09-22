@@ -3,29 +3,33 @@ import {
   BaseUseCasePayload,
 } from "@/services/commons/types/general";
 import AdminRepository from "@/services/infrastructure/repository/admins/AdminRepository";
+import { UpdateAdminPayload } from "@/services/infrastructure/repository/admins/entities/UpdateAdmin";
 import VerifyAdmin from "@/services/infrastructure/repository/admins/entities/VerifyAdmin";
 import ClientIdentityAuth from "@/services/infrastructure/repository/authentications/entities/ClientIdentityAuth";
 import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
 
-export type GetAdminByIdUseCaseProps = {
+export type UpdateAdminByIdUseCaseProps = {
   adminRepository: AdminRepository;
   authTokenManager: AuthTokenManager;
 };
 
-export type GetAdminByIdUseCasePayload = {
+export type UpdateAdminByIdUseCasePayload = {
   adminId: string;
+  payload: UpdateAdminPayload;
 } & BaseUseCasePayload;
 
-export default class GetAdminByIdUseCase {
+export default class UpdateAdminByIdUseCase {
   public _adminRepository: AdminRepository;
   public _authTokenManager: AuthTokenManager;
-
-  constructor({ adminRepository, authTokenManager }: GetAdminByIdUseCaseProps) {
+  constructor({
+    adminRepository,
+    authTokenManager,
+  }: UpdateAdminByIdUseCaseProps) {
     this._adminRepository = adminRepository;
     this._authTokenManager = authTokenManager;
   }
 
-  async execute({ adminId, auth }: GetAdminByIdUseCasePayload) {
+  async execute({ adminId, payload, auth }: UpdateAdminByIdUseCasePayload) {
     new ClientIdentityAuth({ clientId: auth?.clientId || "" });
     const { accessToken } = new VerifyAdmin({
       accessToken: auth?.accessToken || "",
@@ -35,6 +39,7 @@ export default class GetAdminByIdUseCase {
     await this._authTokenManager.verifyAccessToken<AuthTokenPayload>(
       accessToken
     );
-    return await this._adminRepository.getAdminById({ adminId });
+
+    return await this._adminRepository.updateAdminById({ adminId, payload });
   }
 }

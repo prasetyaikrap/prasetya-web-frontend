@@ -31,6 +31,14 @@ export type GetAdminByIdPayload = {
   adminId: string;
 };
 
+export type UpdateAdminByIdPayload = {
+  adminId: string;
+  payload: Omit<
+    AdminDocProps,
+    "id" | "username" | "hash_password" | "created_at" | "updated_at"
+  >;
+};
+
 export default class AdminRepository {
   public _firestore: Firestore;
   public adminsCollectionRef: CollectionReference;
@@ -152,5 +160,15 @@ export default class AdminRepository {
       created_at: adminData.created_at,
       updated_at: adminData.updated_at,
     };
+  }
+
+  async updateAdminById({ adminId, payload }: UpdateAdminByIdPayload) {
+    const snapshot = await this.adminsCollectionRef
+      .doc(adminId)
+      .update({ ...payload, updated_at: FieldValue.serverTimestamp() });
+
+    if (!snapshot.isEqual) {
+      throw new InvariantError("Failed to update admin profile");
+    }
   }
 }

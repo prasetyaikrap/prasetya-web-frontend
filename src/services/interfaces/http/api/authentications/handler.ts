@@ -40,11 +40,11 @@ export default class AuthenticationsHandler {
 
   async postAdminAuthentications({ request }: HTTPHandlerProps) {
     const payload: LoginAdminUseCasePayload["payload"] = await request.json();
-    const { clientId } = getCredentials({ request });
+    const authCredentials = getCredentials({ request });
     const useCasePayload: LoginAdminUseCasePayload = {
       payload,
       auth: {
-        clientId,
+        ...authCredentials,
       },
     };
     const { accessToken, refreshToken } =
@@ -62,12 +62,10 @@ export default class AuthenticationsHandler {
   }
 
   async getAdminAuthentication({ request }: HTTPHandlerProps) {
-    const { accessToken, refreshToken, clientId } = getCredentials({ request });
+    const authCredentials = getCredentials({ request });
     const useCasePayload: VerifyAdminUseCasePayload = {
       auth: {
-        accessToken,
-        refreshToken,
-        clientId,
+        ...authCredentials,
       },
     };
     const { accessToken: validatedAccessToken } =
@@ -81,12 +79,10 @@ export default class AuthenticationsHandler {
   }
 
   async putAdminAuthentication({ request }: HTTPHandlerProps) {
-    const { accessToken, refreshToken, clientId } = getCredentials({ request });
+    const authCredentials = getCredentials({ request });
     const useCasePayload: RefreshAdminUseCasePayload = {
       auth: {
-        accessToken,
-        refreshToken,
-        clientId,
+        ...authCredentials,
       },
     };
     const { accessToken: newAccessToken } =
@@ -100,12 +96,10 @@ export default class AuthenticationsHandler {
   }
 
   async deleteAdminAuthentication({ request }: HTTPHandlerProps) {
-    const { accessToken, refreshToken, clientId } = getCredentials({ request });
+    const authCredentials = getCredentials({ request });
     const useCasePayload: LogoutAdminUseCasePayload = {
       auth: {
-        accessToken,
-        refreshToken,
-        clientId,
+        ...authCredentials,
       },
     };
     await this._logoutAdminUseCase.execute(useCasePayload);
