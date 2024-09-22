@@ -2,6 +2,7 @@ import * as bcrypts from "bcrypt-ts";
 import * as Jose from "jose";
 
 import firebaseInitialize from "@/libs/firebase/initialize";
+import GetAdminByIdUseCase from "@/services/applications/usecases/admins/GetAdminByIdUseCase";
 import GetAdminsUseCase from "@/services/applications/usecases/admins/GetAdminsUseCase";
 import RegisterAdminUseCase from "@/services/applications/usecases/admins/RegisterAdminUseCase";
 import LoginAdminUseCase from "@/services/applications/usecases/authentications/LoginAdminUseCase";
@@ -48,6 +49,7 @@ export default async function serviceContainer() {
     passwordHash,
   });
   const getAdminsUseCase = new GetAdminsUseCase({ adminRepository });
+  const getAdminByIdUseCase = new GetAdminByIdUseCase({ adminRepository });
 
   // Routes
   const authenticationRoutes = await authentications.register({
@@ -60,6 +62,7 @@ export default async function serviceContainer() {
     registerAdminUseCase,
     verifyAdminUseCase,
     getAdminsUseCase,
+    getAdminByIdUseCase,
   });
 
   return [...authenticationRoutes, ...adminRoutes];

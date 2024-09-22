@@ -6,6 +6,7 @@ import {
 } from "firebase-admin/firestore";
 
 import InvariantError from "@/services/commons/exceptions/InvariantError";
+import NotFoundError from "@/services/commons/exceptions/NotFoundError";
 import { AdminDocProps } from "@/services/commons/types/firestoreDoc";
 import { QueryFilter } from "@/services/commons/types/query";
 import { generateFirestoreQueries } from "@/services/commons/utils/query";
@@ -24,6 +25,10 @@ export type GetAdminsPayload = {
   orders: string[];
   limit: number;
   offset: number;
+};
+
+export type GetAdminByIdPayload = {
+  adminId: string;
 };
 
 export default class AdminRepository {
@@ -60,8 +65,8 @@ export default class AdminRepository {
     const snapshot = await this.adminsCollectionRef
       .where(
         Filter.or(
-          Filter.where("username", "in", username),
-          Filter.where("email", "in", email)
+          Filter.where("username", "==", username),
+          Filter.where("email", "==", email)
         )
       )
       .get();
@@ -104,8 +109,8 @@ export default class AdminRepository {
         email: d.email,
         avatar: d.avatar,
         permissions: d.permissions,
-        createdAt: d.created_at,
-        updatedAt: d.updated_at,
+        created_at: d.created_at,
+        updated_at: d.updated_at,
       };
     });
 
@@ -125,6 +130,27 @@ export default class AdminRepository {
         total_page: totalPages,
         per_page: limit,
       },
+    };
+  }
+
+  async getAdminById({ adminId }: GetAdminByIdPayload) {
+    const snapshot = await this.adminsCollectionRef.doc(adminId).get();
+
+    if (!snapshot.exists) {
+      throw new NotFoundError("Admin Not Found");
+    }
+
+    const adminData = snapshot.data() as AdminDocProps;
+
+    return {
+      id: snapshot.id,
+      username: adminData.username,
+      name: adminData.name,
+      email: adminData.email,
+      avatar: adminData.avatar,
+      permissions: adminData.permissions,
+      created_at: adminData.created_at,
+      updated_at: adminData.updated_at,
     };
   }
 }

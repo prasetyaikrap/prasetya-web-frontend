@@ -29,7 +29,10 @@ export type AuthTokenPayload = {
 export type HTTPHandlerProps = {
   request: NextRequest;
   context: RouteContext;
+  routeParams: HTTPHandlerRouteParams;
 };
+
+export type HTTPHandlerRouteParams = { [key: string]: string };
 
 export type BaseResponseBody = {
   [key: string]: any;

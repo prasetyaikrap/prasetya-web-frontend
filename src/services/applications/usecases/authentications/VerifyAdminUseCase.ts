@@ -24,13 +24,15 @@ export default class VerifyAdminUseCase {
       accessToken: auth?.accessToken || "",
       refreshToken: auth?.refreshToken || "",
     });
-    await this._authTokenManager.verifyAccessToken<AuthTokenPayload>(
-      accessToken
-    );
+    const { payload } =
+      await this._authTokenManager.verifyAccessToken<AuthTokenPayload>(
+        accessToken
+      );
 
     return {
       accessToken,
       refreshToken,
+      payload,
     };
   }
 }

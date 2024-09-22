@@ -1,3 +1,6 @@
+import GetAdminByIdUseCase, {
+  GetAdminByIdUseCasePayload,
+} from "@/services/applications/usecases/admins/GetAdminByIdUseCase";
 import GetAdminsUseCase, {
   GetAdminsUseCasePayload,
 } from "@/services/applications/usecases/admins/GetAdminsUseCase";
@@ -14,21 +17,25 @@ export type AdminsHandlerProps = {
   verifyAdminUseCase: VerifyAdminUseCase;
   registerAdminUseCase: RegisterAdminUseCase;
   getAdminsUseCase: GetAdminsUseCase;
+  getAdminByIdUseCase: GetAdminByIdUseCase;
 };
 
 export default class AdminsHandler {
   public _verifyAdminUseCase: AdminsHandlerProps["verifyAdminUseCase"];
   public _registerAdminUseCase: AdminsHandlerProps["registerAdminUseCase"];
   public _getAdminsUseCase: AdminsHandlerProps["getAdminsUseCase"];
+  public _getAdminByIdUseCase: AdminsHandlerProps["getAdminByIdUseCase"];
 
   constructor({
     registerAdminUseCase,
     verifyAdminUseCase,
     getAdminsUseCase,
+    getAdminByIdUseCase,
   }: AdminsHandlerProps) {
     this._registerAdminUseCase = registerAdminUseCase;
     this._verifyAdminUseCase = verifyAdminUseCase;
     this._getAdminsUseCase = getAdminsUseCase;
+    this._getAdminByIdUseCase = getAdminByIdUseCase;
   }
 
   async postAdminUser({ request }: HTTPHandlerProps) {
@@ -86,6 +93,28 @@ export default class AdminsHandler {
       metadata,
     });
 
+    return response;
+  }
+
+  async getAdminUser({
+    request,
+    routeParams: { id: adminId },
+  }: HTTPHandlerProps) {
+    const { clientId, accessToken, refreshToken } = getCredentials({ request });
+    await this._verifyAdminUseCase.execute({
+      auth: { accessToken, refreshToken, clientId },
+    });
+
+    const useCasePayload: GetAdminByIdUseCasePayload = {
+      payload: {
+        adminId,
+      },
+    };
+    const adminData = await this._getAdminByIdUseCase.execute(useCasePayload);
+    const response = SuccessResponse({
+      data: adminData,
+      message: "Successfully get Admin Profile",
+    });
     return response;
   }
 }
