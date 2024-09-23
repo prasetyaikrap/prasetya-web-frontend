@@ -41,7 +41,9 @@ export const apiSchema = {
             data: z
               .object({
                 accessToken: z.string(),
+                accessTokenKey: z.string(),
                 refreshToken: z.string(),
+                refreshTokenKey: z.string(),
               })
               .passthrough(),
           })
@@ -63,6 +65,7 @@ export const apiSchema = {
             data: z
               .object({
                 accessToken: z.string(),
+                accessTokenKey: z.string(),
               })
               .passthrough(),
           })
@@ -84,6 +87,7 @@ export const apiSchema = {
             data: z
               .object({
                 accessToken: z.string(),
+                accessTokenKey: z.string(),
               })
               .passthrough(),
           })
