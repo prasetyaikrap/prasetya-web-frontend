@@ -8,4 +8,5 @@ export const ENV = {
   JWT_SECRET_ACCESS_TOKEN_KEY: process.env.JWT_SECRET_ACCESS_TOKEN_KEY ?? "",
   JWT_SECRET_REFRESH_TOKEN_KEY: process.env.JWT_SECRET_REFRESH_TOKEN_KEY ?? "",
   APP_VERSION: process.env.NEXT_PUBLIC_APP_VERSION ?? "dev-environment-v0.0.0",
+  APP_ID: process.env.NEXT_PUBLIC_APP_ID ?? "",
 };

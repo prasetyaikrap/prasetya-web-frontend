@@ -5,7 +5,7 @@ import {
   LogicalFilter,
   Pagination,
 } from "@refinedev/core";
-import { AxiosResponse, isAxiosError } from "axios";
+import { AxiosResponse } from "axios";
 import { match, P } from "ts-pattern";
 
 import { axiosInstance } from "@/libs/axios";
@@ -47,7 +47,7 @@ export function initClient<T extends { [key: string]: BaseAPISchema }>({
             return replaceRouteParams(basePath, params);
           })
           .otherwise(() => `${baseUrl}/${path}`);
-        return await httpClient[axiosMethod](route, config);
+        return await httpClient({ method: axiosMethod, url: route, ...config });
       };
 
       return result;
@@ -94,11 +94,7 @@ export function responsesOk<T extends BaseResponseBody>(res: AxiosResponse<T>) {
 }
 
 export function responseError(err: unknown) {
-  if (isAxiosError(err)) {
-    return Promise.reject(`Axios error: ${err.message}`);
-  } else {
-    return Promise.reject(`Unknown error: ${err}`);
-  }
+  return Promise.reject(err);
 }
 
 export function generateParams(

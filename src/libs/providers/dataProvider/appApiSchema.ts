@@ -24,7 +24,7 @@ export const BaseErrorResponse = z
   })
   .passthrough();
 
-export const apiSchema = {
+export const appApiSchema = {
   postLoginAdmin: {
     method: "POST",
     path: "/v1/authentications",
@@ -224,7 +224,7 @@ export const apiSchema = {
   },
 };
 
-export type AppAPISchema = typeof apiSchema;
+export type AppAPISchema = typeof appApiSchema;
 
 export type PLoginAdmin = z.infer<AppAPISchema["postLoginAdmin"]["payload"]>;
 export type PostLoginAdminSuccessResponse = z.infer<

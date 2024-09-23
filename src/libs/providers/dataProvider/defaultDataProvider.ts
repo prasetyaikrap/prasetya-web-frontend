@@ -12,7 +12,7 @@ import { match } from "ts-pattern";
 import { axiosInstance } from "@/libs/axios";
 
 import {
-  apiSchema,
+  appApiSchema,
   DeleteLogoutAdminSuccessResponse,
   GetAdminListSuccessResponse,
   GetVerifyAdminSuccessResponse,
@@ -37,7 +37,7 @@ export const dataProvider = (
   "getMany" | "createMany" | "updateMany" | "deleteMany" | "custom"
 > => {
   const service = initClient({
-    schema: apiSchema,
+    schema: appApiSchema,
     baseUrl: apiUrl,
     httpClient,
   });
