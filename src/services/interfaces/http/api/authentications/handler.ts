@@ -47,13 +47,15 @@ export default class AuthenticationsHandler {
         ...authCredentials,
       },
     };
-    const { accessToken, refreshToken } =
+    const { accessToken, accessTokenKey, refreshToken, refreshTokenKey } =
       await this._loginAdminUseCase.execute(useCasePayload);
 
     const response = SuccessResponse({
       data: {
         accessToken,
+        accessTokenKey,
         refreshToken,
+        refreshTokenKey,
       },
       message: "Admin Logged in successfully",
     });
@@ -68,11 +70,11 @@ export default class AuthenticationsHandler {
         ...authCredentials,
       },
     };
-    const { accessToken: validatedAccessToken } =
+    const { accessToken, accessTokenKey } =
       await this._verifyAdminUseCase.execute(useCasePayload);
 
     const response = SuccessResponse({
-      data: { accessToken: validatedAccessToken },
+      data: { accessToken, accessTokenKey },
       message: "Admin Verified",
     });
     return response;
@@ -85,11 +87,11 @@ export default class AuthenticationsHandler {
         ...authCredentials,
       },
     };
-    const { accessToken: newAccessToken } =
+    const { accessToken: newAccessToken, accessTokenKey } =
       await this._refreshAdminUseCase.execute(useCasePayload);
 
     const response = SuccessResponse({
-      data: { accessToken: newAccessToken },
+      data: { accessToken: newAccessToken, accessTokenKey },
       message: "Admin Token Refreshed",
     });
     return response;

@@ -1,4 +1,8 @@
 import {
+  AUTH_TOKENS,
+  CLIENT_IDS_ENUM,
+} from "@/services/commons/constants/general";
+import {
   AuthTokenPayload,
   BaseUseCasePayload,
 } from "@/services/commons/types/general";
@@ -19,7 +23,9 @@ export default class VerifyAdminUseCase {
   }
 
   async execute({ auth }: VerifyAdminUseCasePayload) {
-    new ClientIdentityAuth({ clientId: auth?.clientId || "" });
+    const { clientId } = new ClientIdentityAuth({
+      clientId: auth?.clientId || "",
+    });
     const { accessToken, refreshToken } = new VerifyAdmin({
       accessToken: auth?.accessToken || "",
       refreshToken: auth?.refreshToken || "",
@@ -31,7 +37,9 @@ export default class VerifyAdminUseCase {
 
     return {
       accessToken,
+      accessTokenKey: AUTH_TOKENS[clientId as CLIENT_IDS_ENUM].accessTokenKey,
       refreshToken,
+      refreshTokenKey: AUTH_TOKENS[clientId as CLIENT_IDS_ENUM].refreshTokenKey,
       payload,
     };
   }

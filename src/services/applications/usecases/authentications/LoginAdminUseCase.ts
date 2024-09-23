@@ -1,4 +1,8 @@
 import {
+  AUTH_TOKENS,
+  CLIENT_IDS_ENUM,
+} from "@/services/commons/constants/general";
+import {
   AuthTokenPayload,
   BaseUseCasePayload,
 } from "@/services/commons/types/general";
@@ -43,7 +47,9 @@ export default class LoginAdminUseCase {
   }
 
   async execute({ payload, auth }: LoginAdminUseCasePayload) {
-    new ClientIdentityAuth({ clientId: auth?.clientId || "" });
+    const { clientId } = new ClientIdentityAuth({
+      clientId: auth?.clientId || "",
+    });
 
     const { username: pUsername, password: pPassword } = new LoginAdmin({
       username: payload.username,
@@ -71,12 +77,15 @@ export default class LoginAdminUseCase {
       "30d"
     );
 
-    const newAuthentication = new AdminAuth({ accessToken, refreshToken });
-    await this._authenticationRepository.addToken(
-      id,
-      newAuthentication.refreshToken
-    );
+    const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+      new AdminAuth({ accessToken, refreshToken });
+    await this._authenticationRepository.addToken(id, newRefreshToken);
 
-    return newAuthentication;
+    return {
+      accessToken: newAccessToken,
+      accessTokenKey: AUTH_TOKENS[clientId as CLIENT_IDS_ENUM].accessTokenKey,
+      refreshToken: newRefreshToken,
+      refreshTokenKey: AUTH_TOKENS[clientId as CLIENT_IDS_ENUM].refreshTokenKey,
+    };
   }
 }
