@@ -15,6 +15,13 @@ export default function Providers({ children }: ProvidersProps) {
       primary: colorScheme.navy,
       ...colorScheme,
     },
+    components: {
+      Button: {
+        defaultProps: {
+          colorScheme: "brand",
+        },
+      },
+    },
   });
   return (
     <ChakraProvider theme={customTheme}>
