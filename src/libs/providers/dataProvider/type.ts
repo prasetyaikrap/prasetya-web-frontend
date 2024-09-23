@@ -1,5 +1,11 @@
-import { BaseRecord } from "@refinedev/core";
-import type { AxiosInstance } from "axios";
+import {
+  BaseKey,
+  BaseRecord,
+  CrudFilters,
+  CrudSorting,
+  MetaQuery,
+} from "@refinedev/core";
+import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { ZodType } from "zod";
 
 export type MethodTypes = "GET" | "DELETE" | "HEAD" | "OPTIONS";
@@ -13,6 +19,10 @@ export type AxiosMethodTypes =
   | "post"
   | "put"
   | "patch";
+
+export type ExtendedAxiosRequestConfig = {
+  routeParams?: Record<string, BaseKey>;
+} & AxiosRequestConfig;
 
 export type BaseAPISchema = {
   method: string;
@@ -44,3 +54,10 @@ export type BaseResponseBody = {
     per_page: number;
   };
 };
+
+export type CustomMetaQuery = {
+  transformFilters?: (filters?: CrudFilters) => CrudFilters;
+  transformSorters?: (sorters?: CrudSorting) => CrudSorting;
+  paginationMode?: "default" | "per_page" | "none";
+  filterMode?: "default";
+} & MetaQuery;
