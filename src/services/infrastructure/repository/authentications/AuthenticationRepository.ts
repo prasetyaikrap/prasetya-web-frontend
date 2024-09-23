@@ -18,7 +18,7 @@ export default class AuthenticationRepository {
     const docRef = this._firestore.collection("authentications").doc(docId);
     const snapshot = await docRef.get();
 
-    if (snapshot.exists) {
+    if (!snapshot.exists) {
       await docRef.set({ userId, refreshTokens: FieldValue.arrayUnion(token) });
     } else {
       await docRef.update({ refreshTokens: FieldValue.arrayUnion(token) });
