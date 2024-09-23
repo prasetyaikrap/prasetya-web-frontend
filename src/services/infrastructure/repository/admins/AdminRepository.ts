@@ -60,7 +60,7 @@ export default class AdminRepository {
       )
       .get();
     if (snapshot.empty) {
-      throw new InvariantError("Admin not found");
+      throw new NotFoundError("Admin not found");
     }
 
     return {

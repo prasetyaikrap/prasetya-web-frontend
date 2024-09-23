@@ -49,20 +49,11 @@ export async function serverHandler(
   } catch (error) {
     // Translate error context
     const translatedError = DomainErrorTranslator.translate(error as Error);
-    const errorCode = match(translatedError)
-      .with(
-        P.union(P.instanceOf(ClientError), P.instanceOf(InvariantError)),
-        () => 400
-      )
-      .with(P.instanceOf(AuthenticationError), () => 401)
-      .with(P.instanceOf(AuthorizationError), () => 403)
-      .with(P.instanceOf(NotFoundError), () => 404)
-      .otherwise(() => 500);
 
     const errorResponse = ErrorResponse({
-      message: translatedError.message,
+      message: translatedError?.message || "Unknown Error",
       error: translatedError,
-      code: errorCode,
+      code: translatedError?.statusCode || 500,
     });
     return errorResponse;
   }
