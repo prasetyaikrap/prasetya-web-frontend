@@ -1,5 +1,5 @@
-import { Box } from "@chakra-ui/react";
+import { LoginPage } from "@/features";
 
 export default function Page() {
-  return <Box>Login Admin</Box>;
+  return <LoginPage />;
 }

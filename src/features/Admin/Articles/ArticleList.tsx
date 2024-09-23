@@ -5,7 +5,7 @@ import { useTable } from "@refinedev/react-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 
-import { List, RefineTable } from "@/components";
+import { List, NotAuthorized, RefineTable } from "@/components";
 
 import { ArticlesList } from "./type";
 
@@ -57,8 +57,8 @@ export default function ArticleList() {
   });
 
   return (
-    <Authenticated key="admin-articles">
-      <CanAccess>
+    <Authenticated key="admin-articles" redirectOnFail="/admin/login">
+      <CanAccess fallback={<NotAuthorized />}>
         <List>
           <RefineTable {...tableProps} />
         </List>
