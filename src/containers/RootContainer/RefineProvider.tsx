@@ -23,6 +23,8 @@ export default function RefineProviders({ children }: RefineProvidersProps) {
         resources={resources}
         options={{
           syncWithLocation: true,
+          warnWhenUnsavedChanges: true,
+          disableTelemetry: true,
         }}
       >
         {children}
