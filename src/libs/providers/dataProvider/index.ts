@@ -1,10 +1,11 @@
 import { DataProviders } from "@refinedev/core";
-import dataProvider from "@refinedev/simple-rest";
 
-const RefineFakeAPIURL = "https://api.fake-rest.refine.dev";
+import { ENV } from "@/configs";
+
+import { dataProvider } from "./defaultDataProvider";
 
 const dataProviders: DataProviders = {
-  default: dataProvider(RefineFakeAPIURL),
+  default: dataProvider(ENV.APP_HOST),
 };
 
 export default dataProviders;
