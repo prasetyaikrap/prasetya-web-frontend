@@ -28,6 +28,9 @@ export default class RefreshAdminUseCase {
   }: RefreshAdminUseCaseProps) {
     this._authTokenManager = authTokenManager;
     this._authenticationRepository = authenticationRepository;
+
+    this.onVerifyRefreshTokenFailed =
+      this.onVerifyRefreshTokenFailed.bind(this);
   }
 
   async execute({ auth }: RefreshAdminUseCasePayload) {
@@ -39,7 +42,6 @@ export default class RefreshAdminUseCase {
       accessToken: auth?.accessToken || "",
       refreshToken: auth?.refreshToken || "",
     });
-
     const { payload } =
       await this._authTokenManager.verifyRefreshToken<AuthTokenPayload>(
         refreshToken,
@@ -62,9 +64,10 @@ export default class RefreshAdminUseCase {
   }
 
   async onVerifyRefreshTokenFailed(token: string) {
-    const {
-      profile: { id: userId },
-    } = this._authTokenManager.decodeToken<AuthTokenPayload>(token);
-    await this._authenticationRepository.deleteToken(userId, token);
+    const res = this._authTokenManager.decodeToken<AuthTokenPayload>(token);
+    await this._authenticationRepository.deleteToken(
+      res?.profile.id || "",
+      token
+    );
   }
 }

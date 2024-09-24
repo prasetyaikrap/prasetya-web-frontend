@@ -47,7 +47,12 @@ export function initClient<T extends { [key: string]: BaseAPISchema }>({
             return replaceRouteParams(basePath, params);
           })
           .otherwise(() => `${baseUrl}/${path}`);
-        return await httpClient({ method: axiosMethod, url: route, ...config });
+        return await httpClient({
+          method: axiosMethod,
+          url: route,
+          withCredentials: true,
+          ...config,
+        });
       };
 
       return result;

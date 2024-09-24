@@ -106,6 +106,12 @@ export const appApiSchema = {
           .object({
             success: z.boolean(),
             message: z.string(),
+            data: z
+              .object({
+                accessTokenKey: z.string(),
+                refreshTokenKey: z.string(),
+              })
+              .passthrough(),
           })
           .passthrough()
       ),
