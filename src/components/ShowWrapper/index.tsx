@@ -9,6 +9,7 @@ export default function ShowWrapper({
   return (
     <Show
       wrapperProps={{ width: "full", boxShadow: "base" }}
+      contentProps={{ paddingY: "20px" }}
       {...refineListProps}
     >
       {children}

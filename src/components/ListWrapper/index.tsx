@@ -9,6 +9,7 @@ export default function ListWrapper({
   return (
     <List
       wrapperProps={{ width: "full", boxShadow: "base" }}
+      contentProps={{ paddingY: "20px" }}
       {...refineListProps}
     >
       {children}

@@ -9,6 +9,7 @@ export default function EditWrapper({
   return (
     <Edit
       wrapperProps={{ width: "full", boxShadow: "base" }}
+      contentProps={{ paddingY: "20px" }}
       {...refineListProps}
     >
       {children}
