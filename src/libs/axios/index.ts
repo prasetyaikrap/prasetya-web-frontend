@@ -3,10 +3,11 @@ import axios, { AxiosError, AxiosInstance } from "axios";
 
 import { ENV } from "@/configs";
 import { COOKIES } from "@/configs/cookies";
-import { getCookies, setCookies } from "@/utils";
+import { deleteCookies, getCookies, setCookies } from "@/utils";
 
 import {
   appApiSchema,
+  DeleteLogoutAdminSuccessResponse,
   PutRenewAdminSuccessResponse,
 } from "../providers/dataProvider/appApiSchema";
 import { initClient } from "../providers/dataProvider/handler";
@@ -14,6 +15,7 @@ import { initClient } from "../providers/dataProvider/handler";
 type ExtendedAxiosError = {
   config: {
     _retry: boolean;
+    _isRenewToken: boolean;
   };
 } & AxiosError;
 
@@ -22,7 +24,7 @@ function defaultRequestInterceptor(axiosInstance: AxiosInstance) {
     async (config) => {
       if (config.headers !== undefined) {
         const [accessTokenCookie] = await getCookies([COOKIES.accessToken]);
-
+        config.headers.set("ACCESS-CONTROL-allow-credentials");
         config.headers.set("X-Client-Id", ENV.APP_ID);
         config.headers.set("X-Client-Version", ENV.APP_VERSION);
         config.headers.set(
@@ -56,10 +58,14 @@ function defaultResponseInterceptor(axiosInstance: AxiosInstance) {
       const originalAccessToken = (originalAuthorizationHeader as string).split(
         "Bearer "
       )[1];
+      const isRenewToken =
+        originalRequest?.headers.get("X-Renew-Token")?.toString() === "true";
+
       if (
         error.response &&
         error.response.status === 401 &&
         !originalRequest?._retry &&
+        !isRenewToken &&
         originalAccessToken
       ) {
         originalRequest._retry = true;
@@ -69,20 +75,26 @@ function defaultResponseInterceptor(axiosInstance: AxiosInstance) {
             data: {
               data: { accessToken, accessTokenKey },
             },
-          } = await authService.putRenewAdmin<PutRenewAdminSuccessResponse>();
+          } = await authService.putRenewAdmin<PutRenewAdminSuccessResponse>({
+            headers: {
+              "X-Renew-Token": true,
+            },
+          });
+
           originalRequest.headers.set("Authorization", `Bearer ${accessToken}`);
-          await axiosInstance(originalRequest);
           await setCookies([
             {
               name: accessTokenKey,
-              path: "/",
               value: accessToken,
-              httpOnly: true,
-              secure: true,
             },
           ]);
-        } catch (error) {
+
+          return await axiosInstance(originalRequest);
+        } catch (err) {
+          await deleteCookies(["pa_access_token", "pa_refresh_token"]);
           window.location.replace("/admin/login");
+
+          return Promise.reject(err);
         }
       }
 

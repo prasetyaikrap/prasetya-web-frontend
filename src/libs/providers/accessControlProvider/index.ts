@@ -15,7 +15,7 @@ export function accessControlProvider({
       action,
     }: CanParams): Promise<CanReturnType> => {
       if (opts?.bypass) {
-        return Promise.resolve({ can: false });
+        return Promise.resolve({ can: true });
       }
 
       if (!params || !userProfiles?.email) {
