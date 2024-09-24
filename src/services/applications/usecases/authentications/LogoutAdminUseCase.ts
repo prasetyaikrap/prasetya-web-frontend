@@ -1,4 +1,8 @@
 import {
+  AUTH_TOKENS,
+  CLIENT_IDS_ENUM,
+} from "@/services/commons/constants/general";
+import {
   AuthTokenPayload,
   BaseUseCasePayload,
 } from "@/services/commons/types/general";
@@ -27,7 +31,9 @@ export default class LogoutAdminUseCase {
   }
 
   async execute({ auth }: LogoutAdminUseCasePayload) {
-    new ClientIdentityAuth({ clientId: auth?.clientId || "" });
+    const { clientId } = new ClientIdentityAuth({
+      clientId: auth?.clientId || "",
+    });
 
     const { refreshToken } = new LogoutAdmin({
       accessToken: auth?.accessToken || "",
@@ -44,5 +50,10 @@ export default class LogoutAdminUseCase {
       );
 
     await this._authenticationRepository.deleteToken(userId, refreshToken);
+
+    return {
+      accessTokenKey: AUTH_TOKENS[clientId as CLIENT_IDS_ENUM].accessTokenKey,
+      refreshTokenKey: AUTH_TOKENS[clientId as CLIENT_IDS_ENUM].refreshTokenKey,
+    };
   }
 }

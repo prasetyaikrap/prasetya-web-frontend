@@ -104,10 +104,11 @@ export default class AuthenticationsHandler {
         ...authCredentials,
       },
     };
-    await this._logoutAdminUseCase.execute(useCasePayload);
+    const { accessTokenKey, refreshTokenKey } =
+      await this._logoutAdminUseCase.execute(useCasePayload);
 
     const response = SuccessResponse({
-      data: { loggedOut: true },
+      data: { accessTokenKey, refreshTokenKey },
       message: "Admin Logged out successfully",
     });
     return response;
