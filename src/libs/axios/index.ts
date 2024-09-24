@@ -7,7 +7,6 @@ import { deleteCookies, getCookies, setCookies } from "@/utils";
 
 import {
   appApiSchema,
-  DeleteLogoutAdminSuccessResponse,
   PutRenewAdminSuccessResponse,
 } from "../providers/dataProvider/appApiSchema";
 import { initClient } from "../providers/dataProvider/handler";
@@ -24,7 +23,7 @@ function defaultRequestInterceptor(axiosInstance: AxiosInstance) {
     async (config) => {
       if (config.headers !== undefined) {
         const [accessTokenCookie] = await getCookies([COOKIES.accessToken]);
-        config.headers.set("ACCESS-CONTROL-allow-credentials");
+        config.headers.set("Access-Control-Allow-Credentials");
         config.headers.set("X-Client-Id", ENV.APP_ID);
         config.headers.set("X-Client-Version", ENV.APP_VERSION);
         config.headers.set(
@@ -91,7 +90,7 @@ function defaultResponseInterceptor(axiosInstance: AxiosInstance) {
 
           return await axiosInstance(originalRequest);
         } catch (err) {
-          await deleteCookies(["pa_access_token", "pa_refresh_token"]);
+          await deleteCookies([COOKIES.accessToken, COOKIES.refreshToken]);
           window.location.replace("/admin/login");
 
           return Promise.reject(err);
