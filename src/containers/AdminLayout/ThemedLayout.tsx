@@ -1,11 +1,12 @@
 import { useBreakpoint, VStack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
+import { colorScheme } from "@/configs";
+
+import Header from "./Header";
 import Sider from "./Sider";
 import Title from "./Title";
 import { ThemedLayoutProps } from "./type";
-import { colorScheme } from "@/configs";
-import { useEffect, useState } from "react";
-import Header from "./Header";
 
 export default function ThemedLayout({ children }: ThemedLayoutProps) {
   const breakpoint = useBreakpoint();
@@ -18,7 +19,7 @@ export default function ThemedLayout({ children }: ThemedLayoutProps) {
 
   useEffect(() => {
     setCollapsed(isSmallScreen);
-  }, [breakpoint]);
+  }, [isSmallScreen]);
 
   return (
     <VStack position="relative" width="full">

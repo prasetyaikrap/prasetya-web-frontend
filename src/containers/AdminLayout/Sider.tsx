@@ -8,19 +8,16 @@ import {
   Button,
   Circle,
   Flex,
-  Icon,
   Tooltip,
-  useBreakpoint,
-  useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
+import { CanAccess, useLink, useMenu } from "@refinedev/core";
 import { CSSProperties } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 import { colorScheme } from "@/configs";
 
 import { SiderProps, TreeViewProps } from "./type";
-import { CanAccess, useLink, useMenu } from "@refinedev/core";
 
 export default function Sider({
   Title,
@@ -159,7 +156,7 @@ function RenderTreeView({
                   _active={{
                     _before: {
                       content: "''",
-                      bgColor: useColorModeValue("brand.200", "brand.200"),
+                      bgColor: "brand.200",
                       opacity: 0.05,
                       position: "absolute",
                       top: 0,

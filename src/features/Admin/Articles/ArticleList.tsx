@@ -1,6 +1,6 @@
 "use client";
 
-import { Authenticated, CanAccess } from "@refinedev/core";
+import { CanAccess } from "@refinedev/core";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
@@ -57,12 +57,10 @@ export default function ArticleList() {
   });
 
   return (
-    <Authenticated key="admin-articles" redirectOnFail="/admin/login">
-      <CanAccess fallback={<NotAuthorized />}>
-        <List>
-          <RefineTable {...tableProps} />
-        </List>
-      </CanAccess>
-    </Authenticated>
+    <CanAccess fallback={<NotAuthorized />}>
+      <List>
+        <RefineTable {...tableProps} />
+      </List>
+    </CanAccess>
   );
 }
