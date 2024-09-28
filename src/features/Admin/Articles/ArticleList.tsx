@@ -58,7 +58,7 @@ export default function ArticleList() {
 
   return (
     <CanAccess fallback={<NotAuthorized />}>
-      <List>
+      <List canCreate>
         <RefineTable {...tableProps} />
       </List>
     </CanAccess>
