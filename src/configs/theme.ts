@@ -1,5 +1,6 @@
 export const colorScheme = {
   monochrome: {
+    50: "#ffffff",
     100: "#ffffff",
     200: "#f4f4f4",
     300: "#e9e9e9",
@@ -11,6 +12,7 @@ export const colorScheme = {
     900: "#000000",
   },
   navy: {
+    50: "#CCDCDA",
     100: "#CCDCDA",
     200: "#99ABB0",
     300: "#667A83",
@@ -22,6 +24,7 @@ export const colorScheme = {
     900: "#000F1F",
   },
   sky: {
+    50: "#CCF6FF",
     100: "#CCF6FF",
     200: "#BCECFB",
     300: "#ABE2F6",
@@ -33,6 +36,7 @@ export const colorScheme = {
     900: "#4E7697",
   },
   blue: {
+    50: "#CCF2FF",
     100: "#CCF2FF",
     200: "#99E5FF",
     300: "#66D8FF",
@@ -44,6 +48,7 @@ export const colorScheme = {
     900: "#006299",
   },
   red: {
+    50: "#FFB3B3",
     100: "#FFB3B3",
     200: "#FF9999",
     300: "#FF8080",
@@ -54,6 +59,7 @@ export const colorScheme = {
     800: "#331313",
   },
   green: {
+    50: "#B3DCB9",
     100: "#B3DCB9",
     200: "#99D19F",
     300: "#80C685",

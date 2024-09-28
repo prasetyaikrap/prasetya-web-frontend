@@ -1,4 +1,6 @@
 "use client";
+import "@fontsource-variable/inter";
+
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 import { ErrorBoundary } from "@/components";
@@ -10,6 +12,9 @@ import { ProvidersProps } from "./type";
 
 export default function Providers({ children }: ProvidersProps) {
   const customTheme = extendTheme({
+    fonts: {
+      body: "'Inter Variable', sans-serif",
+    },
     colors: {
       brand: colorScheme.navy,
       primary: colorScheme.navy,

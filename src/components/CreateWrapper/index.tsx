@@ -4,13 +4,17 @@ import { CreateWrapperProps } from "./type";
 
 export default function CreateWrapper({
   children,
-  ...refineListProps
+  ...refineCreateProps
 }: CreateWrapperProps) {
   return (
     <Create
-      wrapperProps={{ width: "full", boxShadow: "base" }}
-      contentProps={{ paddingY: "20px" }}
-      {...refineListProps}
+      {...refineCreateProps}
+      wrapperProps={{
+        width: "full",
+        boxShadow: "base",
+        ...refineCreateProps?.wrapperProps,
+      }}
+      contentProps={{ paddingY: "20px", ...refineCreateProps?.contentProps }}
     >
       {children}
     </Create>

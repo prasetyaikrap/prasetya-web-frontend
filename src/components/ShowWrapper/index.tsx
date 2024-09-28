@@ -4,13 +4,17 @@ import { ShowWrapperProps } from "./type";
 
 export default function ShowWrapper({
   children,
-  ...refineListProps
+  ...refineShowProps
 }: ShowWrapperProps) {
   return (
     <Show
-      wrapperProps={{ width: "full", boxShadow: "base" }}
-      contentProps={{ paddingY: "20px" }}
-      {...refineListProps}
+      {...refineShowProps}
+      wrapperProps={{
+        width: "full",
+        boxShadow: "base",
+        ...refineShowProps?.wrapperProps,
+      }}
+      contentProps={{ paddingY: "20px", ...refineShowProps?.contentProps }}
     >
       {children}
     </Show>

@@ -4,13 +4,17 @@ import { EditWrapperProps } from "./type";
 
 export default function EditWrapper({
   children,
-  ...refineListProps
+  ...refineEditProps
 }: EditWrapperProps) {
   return (
     <Edit
-      wrapperProps={{ width: "full", boxShadow: "base" }}
-      contentProps={{ paddingY: "20px" }}
-      {...refineListProps}
+      {...refineEditProps}
+      wrapperProps={{
+        width: "full",
+        boxShadow: "base",
+        ...refineEditProps?.wrapperProps,
+      }}
+      contentProps={{ paddingY: "20px", ...refineEditProps?.contentProps }}
     >
       {children}
     </Edit>
