@@ -131,5 +131,8 @@ export const editorStyle: SystemStyleObject = {
     outline: `1px solid ${colorScheme.blue[700]}`,
     borderRadius: "8px",
   },
+  ".ProseMirror-selectednode figure": {
+    outline: `2px solid ${colorScheme.blue[500]}`,
+  },
   ...codeStyling,
 };
