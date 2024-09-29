@@ -2,6 +2,7 @@ export { default as Create } from "./CreateWrapper";
 export * from "./Debug";
 export { default as Edit } from "./EditWrapper";
 export { default as ErrorBoundary } from "./ErrorBoundary";
+export { default as FileUpload } from "./FileUpload";
 export { default as ChakraLink } from "./Link";
 export { default as List } from "./ListWrapper";
 export { default as NotAuthorized } from "./NotAutorized";
