@@ -16,6 +16,7 @@ import {
   FaAlignLeft,
   FaAlignRight,
 } from "react-icons/fa6";
+import { LuTextQuote } from "react-icons/lu";
 import { MdFormatListBulleted, MdFormatListNumbered } from "react-icons/md";
 
 import { colorScheme } from "@/configs";
@@ -106,6 +107,16 @@ export function TextAligns({ editor }: TextAlignsProps) {
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         isDisabled={!editor.can().chain().toggleOrderedList().run()}
         isActive={editor.isActive("orderedList")}
+        _active={{ bg: colorScheme.navy[50] }}
+      />
+      <IconButton
+        aria-label="blockquote"
+        size="xs"
+        variant="ghost"
+        icon={<LuTextQuote size="20px" />}
+        onClick={() => editor.chain().focus().toggleBlockquote().run()}
+        isDisabled={!editor.can().chain().toggleBlockquote().run()}
+        isActive={editor.isActive("blockquote")}
         _active={{ bg: colorScheme.navy[50] }}
       />
     </HStack>

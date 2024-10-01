@@ -37,13 +37,13 @@ export default function TiptapEditor({
     >
       <MenuBar editor={editor} />
       <VStack
-        flex={1}
         className="tiptap-wrapper"
+        height="60vh"
         width="full"
-        maxWidth="1000px"
         borderRadius="8px"
         boxShadow="base"
         outline={`1px solid ${colorScheme.monochrome[300]}`}
+        overflowY="auto"
         {...contentProps}
         sx={{
           ...editorStyle,

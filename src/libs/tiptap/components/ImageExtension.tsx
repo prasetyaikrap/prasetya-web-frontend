@@ -108,7 +108,12 @@ function ImageComponent(props: NodeViewProps) {
 
   return (
     <NodeViewWrapper>
-      <VStack as="figure" justifyContent="center" marginY="24px">
+      <VStack
+        className="chakraImage"
+        as="figure"
+        justifyContent="center"
+        marginY="24px"
+      >
         <Image
           src={props.node.attrs.src}
           alt={props.node.attrs.alt}

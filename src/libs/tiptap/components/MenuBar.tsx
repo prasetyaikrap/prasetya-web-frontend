@@ -27,13 +27,7 @@ export function MenuBar({ editor }: MenuBarProps) {
   }
 
   return (
-    <HStack
-      width="full"
-      height="50px"
-      maxWidth="1100px"
-      boxShadow="base"
-      padding="10px 20px"
-    >
+    <HStack width="full" height="50px" boxShadow="base" padding="10px 20px">
       <UndoRedo editor={editor} />
       <Divider orientation="vertical" />
       <TypographyMenus editor={editor} />

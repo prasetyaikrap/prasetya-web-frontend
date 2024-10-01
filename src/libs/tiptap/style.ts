@@ -127,6 +127,14 @@ export const editorStyle: SystemStyleObject = {
     height: 0,
     pointerEvents: "none",
   },
+  ".tiptap a": {
+    color: "blue.600",
+    textDecoration: "underline",
+    cursor: "pointer",
+  },
+  ".tiptap a:hover": {
+    color: "blue.400",
+  },
   ".ProseMirror-focused": {
     outline: `1px solid ${colorScheme.blue[700]}`,
     borderRadius: "8px",

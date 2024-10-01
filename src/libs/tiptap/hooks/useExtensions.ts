@@ -1,4 +1,5 @@
 import TCodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import TLink from "@tiptap/extension-link";
 import TPlaceholder from "@tiptap/extension-placeholder";
 import TSubscript from "@tiptap/extension-subscript";
 import TSuperscript from "@tiptap/extension-superscript";
@@ -21,6 +22,9 @@ export function useExtensions(): Extensions {
       keepMarks: true,
     },
     codeBlock: false,
+    dropcursor: {
+      color: "#ff0000",
+    },
   });
 
   const ExtendedPlaceholder = TPlaceholder.configure({
@@ -43,6 +47,13 @@ export function useExtensions(): Extensions {
     },
   }).configure({ lowlight });
 
+  const ExtendedLink = TLink.configure({
+    defaultProtocol: "https",
+    HTMLAttributes: {
+      rel: "noopener noreferrer",
+    },
+  });
+
   return [
     ExtendedStarterKit,
     ExtendedPlaceholder,
@@ -53,5 +64,6 @@ export function useExtensions(): Extensions {
     TSubscript,
     TSuperscript,
     ChakraImage,
+    ExtendedLink,
   ];
 }
