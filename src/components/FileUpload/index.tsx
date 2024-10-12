@@ -29,7 +29,7 @@ export default function FileUpload({
     if (file.size > maxSizeInMb) {
       return {
         success: false,
-        reason: "Exceeded Max File Size",
+        reason: `Exceeded Max File Size (${maxSize} Mb)`,
       };
     }
 

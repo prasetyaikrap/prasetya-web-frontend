@@ -14,9 +14,8 @@ export const adminResources: ResourceProps[] = [
   {
     name: "admin-articles",
     list: "/admin/articles",
-    create: "/admin/articles/create",
-    show: "/admin/articles/show/:id",
-    edit: "/admin/articles/edit/:id",
+    show: "/admin/articles/:id",
+    edit: "/admin/articles/:id/edit",
     meta: {
       label: "Articles",
       icon: <MdArticle />,

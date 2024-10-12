@@ -1,6 +1,7 @@
 "use client";
 
-import { CanAccess } from "@refinedev/core";
+import { CreateButton } from "@refinedev/chakra-ui";
+import { CanAccess, useNavigation } from "@refinedev/core";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
@@ -58,9 +59,27 @@ export default function ArticleList() {
 
   return (
     <CanAccess fallback={<NotAuthorized />}>
-      <List canCreate>
+      <List headerButtons={HeaderButtons}>
         <RefineTable {...tableProps} />
       </List>
     </CanAccess>
+  );
+}
+
+function HeaderButtons() {
+  const { edit } = useNavigation();
+  const handleCreate = () => {
+    // TODO: handle create template and redirect to edit page
+    edit("admin-articles", "article-1");
+  };
+
+  return (
+    <CreateButton
+      size="md"
+      accessControl={{ hideIfUnauthorized: true }}
+      onClick={handleCreate}
+    >
+      Create Articles
+    </CreateButton>
   );
 }

@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import { match, P } from "ts-pattern";
 
 import {
-  ArticleCreate,
   ArticleEdit,
   ArticleList,
   ArticleShow,
@@ -14,13 +13,10 @@ export async function generateMetadata({
 }: GenerateMetadataProps): Promise<Metadata> {
   const pageMeta: Metadata | undefined = match(slug)
     .with(P.nullish, () => ({ title: "Articles - Prasetya Priyadi" }))
-    .with(["create"], () => ({
-      title: "Create New Article - Prasetya Priyadi",
-    }))
-    .with(["edit", P.string], () => ({
+    .with([P.string, "edit"], () => ({
       title: "Edit Article - Prasetya Priyadi",
     }))
-    .with(["show", P.string], () => ({
+    .with([P.string], () => ({
       title: "Article - Prasetya Priyadi",
     }))
     .otherwise(() => undefined);
@@ -37,8 +33,7 @@ export async function generateMetadata({
 export default function Page({ params: { slug } }: PageProps) {
   return match(slug)
     .with(P.nullish, () => <ArticleList />)
-    .with(["create"], () => <ArticleCreate />)
-    .with(["show", P.string], () => <ArticleShow />)
-    .with(["edit", P.string], () => <ArticleEdit />)
+    .with([P.string], () => <ArticleShow />)
+    .with([P.string, "edit"], () => <ArticleEdit />)
     .otherwise(() => <div>Not Found</div>);
 }

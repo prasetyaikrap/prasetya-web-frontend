@@ -14,11 +14,17 @@ import { TiptapEditorProps } from "./type";
 export default function TiptapEditor({
   wrapperProps,
   contentProps,
+  onUpdateContent,
+  editable = true,
+  content,
 }: TiptapEditorProps) {
   const extensions = useExtensions();
   const editor = useEditor({
     extensions,
     immediatelyRender: false,
+    onUpdate: onUpdateContent,
+    content,
+    editable,
   });
 
   return (
