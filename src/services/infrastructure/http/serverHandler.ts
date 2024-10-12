@@ -1,13 +1,8 @@
 "use server";
 
 import { NextRequest } from "next/server";
-import { match, P } from "ts-pattern";
 
-import AuthenticationError from "@/services/commons/exceptions/AuthenticationError";
-import AuthorizationError from "@/services/commons/exceptions/AuthorizationError";
-import ClientError from "@/services/commons/exceptions/ClientError";
 import DomainErrorTranslator from "@/services/commons/exceptions/DomainErrorTranslator";
-import InvariantError from "@/services/commons/exceptions/InvariantError";
 import NotFoundError from "@/services/commons/exceptions/NotFoundError";
 import { ErrorResponse } from "@/services/commons/http/ResponseHandler";
 import {
@@ -25,7 +20,7 @@ export async function serverHandler(
   const { version, endpoint: pathEndpoint } = context.params;
   const path = `/${version}/${pathEndpoint.join("/")}`;
   const method = request.method.toUpperCase();
-  const routesContainer = await serviceContainer();
+  const { routes: routesContainer, middleware } = await serviceContainer();
 
   try {
     const routeParams: HTTPHandlerRouteParams = {};
@@ -45,7 +40,18 @@ export async function serverHandler(
 
     if (!matchRoute) throw new NotFoundError("Resource Not Found");
 
-    return await matchRoute.handler({ request, context, routeParams });
+    const credentials = await middleware.execute({
+      request,
+      context,
+      routeParams,
+      route: matchRoute,
+    });
+
+    return await matchRoute.handler({
+      request,
+      context: { ...context, credentials },
+      routeParams,
+    });
   } catch (error) {
     // Translate error context
     const translatedError = DomainErrorTranslator.translate(error as Error);

@@ -1,5 +1,7 @@
-import { JWTPayload } from "jose";
+import { JWTPayload, JWTVerifyResult } from "jose";
 import { NextRequest, NextResponse, userAgent } from "next/server";
+
+export type MiddlewareKeys = "authMiddleware";
 
 export type BaseKeyObject = {
   [key: string]: string | number | string[] | number[];
@@ -28,7 +30,15 @@ export type AuthTokenPayload = {
 
 export type HTTPHandlerProps = {
   request: NextRequest;
-  context: RouteContext;
+  context: {
+    credentials: {
+      accessToken: string;
+      refreshToken: string;
+      clientId: string;
+      userAgent: ReturnType<typeof userAgent>;
+      tokenPayload: JWTVerifyResult<JWTPayload> | null;
+    };
+  } & RouteContext;
   routeParams: HTTPHandlerRouteParams;
 };
 
@@ -39,12 +49,7 @@ export type BaseResponseBody = {
 };
 
 export type BaseUseCasePayload = {
-  auth?: {
-    accessToken?: string;
-    refreshToken?: string;
-    clientId?: string;
-    userAgent?: ReturnType<typeof userAgent>;
-  };
+  credentials: HTTPHandlerProps["context"]["credentials"];
 };
 
 export type RoutesHandler = {
@@ -53,5 +58,9 @@ export type RoutesHandler = {
   method: NextRequest["method"];
   path: string;
   handler: (props: HTTPHandlerProps) => Promise<NextResponse>;
-  options?: any;
+  options?: RoutesOption;
+};
+
+export type RoutesOption = {
+  middleware?: MiddlewareKeys[];
 };

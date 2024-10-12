@@ -12,7 +12,6 @@ import UpdateAdminByIdUseCase, {
 } from "@/services/applications/usecases/admins/UpdateAdminByIdUseCase";
 import { SuccessResponse } from "@/services/commons/http/ResponseHandler";
 import { HTTPHandlerProps } from "@/services/commons/types/general";
-import { getCredentials } from "@/services/commons/utils/general";
 import { getPaginationSearchParams } from "@/services/commons/utils/query";
 
 export type AdminsHandlerProps = {
@@ -40,15 +39,12 @@ export default class AdminsHandler {
     this._updateAdminByIdUseCase = updateAdminByIdUseCase;
   }
 
-  async postAdminUser({ request }: HTTPHandlerProps) {
+  async postAdminUser({ request, context: { credentials } }: HTTPHandlerProps) {
     const payload: RegisterAdminUseCasePayload["payload"] =
       await request.json();
-    const authCredentials = getCredentials({ request });
     const useCasePayload: RegisterAdminUseCasePayload = {
       payload,
-      auth: {
-        ...authCredentials,
-      },
+      credentials,
     };
 
     const { id } = await this._registerAdminUseCase.execute(useCasePayload);
@@ -63,16 +59,13 @@ export default class AdminsHandler {
     return response;
   }
 
-  async getAdminsUser({ request }: HTTPHandlerProps) {
+  async getAdminsUser({ request, context: { credentials } }: HTTPHandlerProps) {
     const queryParams = getPaginationSearchParams({
       request,
     });
-    const authCredentials = getCredentials({ request });
     const useCasePayload: GetAdminsUseCasePayload = {
+      credentials,
       queryParams,
-      auth: {
-        ...authCredentials,
-      },
     };
 
     const { data: adminsData, metadata } =
@@ -88,16 +81,12 @@ export default class AdminsHandler {
   }
 
   async getAdminUser({
-    request,
     routeParams: { id: adminId },
+    context: { credentials },
   }: HTTPHandlerProps) {
-    const authCredentials = getCredentials({ request });
-
     const useCasePayload: GetAdminByIdUseCasePayload = {
       adminId,
-      auth: {
-        ...authCredentials,
-      },
+      credentials,
     };
     const adminData = await this._getAdminByIdUseCase.execute(useCasePayload);
     const response = SuccessResponse({
@@ -110,19 +99,15 @@ export default class AdminsHandler {
   async updateAdminUser({
     request,
     routeParams: { id: adminId },
+    context: { credentials },
   }: HTTPHandlerProps) {
     const payload: UpdateAdminByIdUseCasePayload["payload"] =
       await request.json();
-    const authCredentials = getCredentials({
-      request,
-    });
 
     const useCasePayload: UpdateAdminByIdUseCasePayload = {
       adminId,
       payload,
-      auth: {
-        ...authCredentials,
-      },
+      credentials,
     };
 
     await this._updateAdminByIdUseCase.execute(useCasePayload);

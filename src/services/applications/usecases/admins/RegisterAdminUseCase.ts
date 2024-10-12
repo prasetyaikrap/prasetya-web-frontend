@@ -1,13 +1,8 @@
-import {
-  AuthTokenPayload,
-  BaseUseCasePayload,
-} from "@/services/commons/types/general";
+import { BaseUseCasePayload } from "@/services/commons/types/general";
 import AdminRepository from "@/services/infrastructure/repository/admins/AdminRepository";
 import RegisterAdmin, {
   RegisterAdminPayload,
 } from "@/services/infrastructure/repository/admins/entities/RegisterAdmin";
-import VerifyAdmin from "@/services/infrastructure/repository/admins/entities/VerifyAdmin";
-import ClientIdentityAuth from "@/services/infrastructure/repository/authentications/entities/ClientIdentityAuth";
 import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
 import PasswordHash from "@/services/infrastructure/security/PasswordHash";
 
@@ -36,16 +31,7 @@ export default class RegisterAdminUseCase {
     this._authTokenManager = authTokenManager;
   }
 
-  async execute({ payload, auth }: RegisterAdminUseCasePayload) {
-    new ClientIdentityAuth({ clientId: auth?.clientId || "" });
-    const { accessToken } = new VerifyAdmin({
-      accessToken: auth?.accessToken || "",
-      refreshToken: auth?.refreshToken || "",
-    });
-    await this._authTokenManager.verifyAccessToken<AuthTokenPayload>(
-      accessToken
-    );
-
+  async execute({ payload }: RegisterAdminUseCasePayload) {
     const { username, password, name, email, avatar, permissions } =
       new RegisterAdmin(payload);
     await this._adminRepository.checkAvailablityAdmin(username, email);

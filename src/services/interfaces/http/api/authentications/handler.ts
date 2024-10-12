@@ -12,7 +12,6 @@ import VerifyAdminUseCase, {
 } from "@/services/applications/usecases/authentications/VerifyAdminUseCase";
 import { SuccessResponse } from "@/services/commons/http/ResponseHandler";
 import { HTTPHandlerProps } from "@/services/commons/types/general";
-import { getCredentials } from "@/services/commons/utils/general";
 
 export type AuthenticationsHandlerProps = {
   loginAdminUseCase: LoginAdminUseCase;
@@ -38,14 +37,14 @@ export default class AuthenticationsHandler {
     this._logoutAdminUseCase = logoutAdminUseCase;
   }
 
-  async postAdminAuthentications({ request }: HTTPHandlerProps) {
+  async postAdminAuthentications({
+    request,
+    context: { credentials },
+  }: HTTPHandlerProps) {
     const payload: LoginAdminUseCasePayload["payload"] = await request.json();
-    const authCredentials = getCredentials({ request });
     const useCasePayload: LoginAdminUseCasePayload = {
       payload,
-      auth: {
-        ...authCredentials,
-      },
+      credentials,
     };
     const { accessToken, accessTokenKey, refreshToken, refreshTokenKey } =
       await this._loginAdminUseCase.execute(useCasePayload);
@@ -63,12 +62,9 @@ export default class AuthenticationsHandler {
     return response;
   }
 
-  async getAdminAuthentication({ request }: HTTPHandlerProps) {
-    const authCredentials = getCredentials({ request });
+  async getAdminAuthentication({ context: { credentials } }: HTTPHandlerProps) {
     const useCasePayload: VerifyAdminUseCasePayload = {
-      auth: {
-        ...authCredentials,
-      },
+      credentials,
     };
     const { accessToken, accessTokenKey } =
       await this._verifyAdminUseCase.execute(useCasePayload);
@@ -80,12 +76,9 @@ export default class AuthenticationsHandler {
     return response;
   }
 
-  async putAdminAuthentication({ request }: HTTPHandlerProps) {
-    const authCredentials = getCredentials({ request });
+  async putAdminAuthentication({ context: { credentials } }: HTTPHandlerProps) {
     const useCasePayload: RefreshAdminUseCasePayload = {
-      auth: {
-        ...authCredentials,
-      },
+      credentials,
     };
     const { accessToken: newAccessToken, accessTokenKey } =
       await this._refreshAdminUseCase.execute(useCasePayload);
@@ -97,12 +90,11 @@ export default class AuthenticationsHandler {
     return response;
   }
 
-  async deleteAdminAuthentication({ request }: HTTPHandlerProps) {
-    const authCredentials = getCredentials({ request });
+  async deleteAdminAuthentication({
+    context: { credentials },
+  }: HTTPHandlerProps) {
     const useCasePayload: LogoutAdminUseCasePayload = {
-      auth: {
-        ...authCredentials,
-      },
+      credentials,
     };
     const { accessTokenKey, refreshTokenKey } =
       await this._logoutAdminUseCase.execute(useCasePayload);

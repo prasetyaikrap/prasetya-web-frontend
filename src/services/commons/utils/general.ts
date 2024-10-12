@@ -24,9 +24,10 @@ export function getCredentials({ request }: GetCredentialProps) {
   const authHeaders = request.headers.get("Authorization")?.split(" ") || "";
   const isBearerAuth = authHeaders?.[0] === "Bearer";
   const accessToken = authHeaders?.[1] || "";
-  const refreshToken = request.cookies.get(
-    AUTH_TOKENS[clientId as CLIENT_IDS_ENUM]?.refreshTokenKey || ""
-  )?.value;
+  const refreshToken =
+    request.cookies.get(
+      AUTH_TOKENS[clientId as CLIENT_IDS_ENUM]?.refreshTokenKey || ""
+    )?.value || "";
 
   const userAgents = userAgent(request);
 

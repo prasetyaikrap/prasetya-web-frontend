@@ -10,7 +10,6 @@ import AdminRepository from "@/services/infrastructure/repository/admins/AdminRe
 import LoginAdmin from "@/services/infrastructure/repository/admins/entities/LoginAdmin";
 import AuthenticationRepository from "@/services/infrastructure/repository/authentications/AuthenticationRepository";
 import AdminAuth from "@/services/infrastructure/repository/authentications/entities/AdminAuth";
-import ClientIdentityAuth from "@/services/infrastructure/repository/authentications/entities/ClientIdentityAuth";
 import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
 import PasswordHash from "@/services/infrastructure/security/PasswordHash";
 
@@ -46,11 +45,10 @@ export default class LoginAdminUseCase {
     this._passwordHash = passwordHash;
   }
 
-  async execute({ payload, auth }: LoginAdminUseCasePayload) {
-    const { clientId } = new ClientIdentityAuth({
-      clientId: auth?.clientId || "",
-    });
-
+  async execute({
+    payload,
+    credentials: { clientId, userAgent },
+  }: LoginAdminUseCasePayload) {
     const { username: pUsername, password: pPassword } = new LoginAdmin({
       username: payload.username,
       password: payload.password,
@@ -65,12 +63,12 @@ export default class LoginAdminUseCase {
         id,
         username,
       },
-      userAgent: auth?.userAgent || null,
+      userAgent: userAgent || null,
     };
 
     const accessToken = await this._authTokenManager.createAccessToken(
       tokenPayload,
-      "6h"
+      "1d"
     );
     const refreshToken = await this._authTokenManager.createRefreshToken(
       tokenPayload,

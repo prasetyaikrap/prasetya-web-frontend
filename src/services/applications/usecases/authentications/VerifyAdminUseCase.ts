@@ -7,7 +7,6 @@ import {
   BaseUseCasePayload,
 } from "@/services/commons/types/general";
 import VerifyAdmin from "@/services/infrastructure/repository/admins/entities/VerifyAdmin";
-import ClientIdentityAuth from "@/services/infrastructure/repository/authentications/entities/ClientIdentityAuth";
 import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
 
 export type VerifyAdminUseCaseProps = {
@@ -22,14 +21,18 @@ export default class VerifyAdminUseCase {
     this._authTokenManager = authTokenManager;
   }
 
-  async execute({ auth }: VerifyAdminUseCasePayload) {
-    const { clientId } = new ClientIdentityAuth({
-      clientId: auth?.clientId || "",
-    });
+  async execute({
+    credentials: {
+      accessToken: clientAccessToken,
+      refreshToken: clientRefreshToken,
+      clientId,
+    },
+  }: VerifyAdminUseCasePayload) {
     const { accessToken, refreshToken } = new VerifyAdmin({
-      accessToken: auth?.accessToken || "",
-      refreshToken: auth?.refreshToken || "",
+      accessToken: clientAccessToken,
+      refreshToken: clientRefreshToken,
     });
+
     const { payload } =
       await this._authTokenManager.verifyAccessToken<AuthTokenPayload>(
         accessToken

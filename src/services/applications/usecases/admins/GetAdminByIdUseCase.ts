@@ -1,10 +1,5 @@
-import {
-  AuthTokenPayload,
-  BaseUseCasePayload,
-} from "@/services/commons/types/general";
+import { BaseUseCasePayload } from "@/services/commons/types/general";
 import AdminRepository from "@/services/infrastructure/repository/admins/AdminRepository";
-import VerifyAdmin from "@/services/infrastructure/repository/admins/entities/VerifyAdmin";
-import ClientIdentityAuth from "@/services/infrastructure/repository/authentications/entities/ClientIdentityAuth";
 import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
 
 export type GetAdminByIdUseCaseProps = {
@@ -25,16 +20,7 @@ export default class GetAdminByIdUseCase {
     this._authTokenManager = authTokenManager;
   }
 
-  async execute({ adminId, auth }: GetAdminByIdUseCasePayload) {
-    new ClientIdentityAuth({ clientId: auth?.clientId || "" });
-    const { accessToken } = new VerifyAdmin({
-      accessToken: auth?.accessToken || "",
-      refreshToken: auth?.refreshToken || "",
-    });
-
-    await this._authTokenManager.verifyAccessToken<AuthTokenPayload>(
-      accessToken
-    );
+  async execute({ adminId }: GetAdminByIdUseCasePayload) {
     return await this._adminRepository.getAdminById({ adminId });
   }
 }

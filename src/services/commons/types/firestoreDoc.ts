@@ -5,7 +5,7 @@ export type AdminDocProps = {
   name: string;
   email: string;
   avatar: string;
-  permissions: ["p" | "g", string, string, string][];
+  permissions: string[];
   created_at: string;
   updated_at: string;
 };
@@ -14,3 +14,5 @@ export type AuthenticationDocProps = {
   userId: string;
   refreshTokens: string[];
 };
+
+export type MetadataTotalRowsDocProp = Record<string, number>;

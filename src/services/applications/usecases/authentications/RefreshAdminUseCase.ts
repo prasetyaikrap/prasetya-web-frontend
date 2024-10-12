@@ -8,7 +8,6 @@ import {
 } from "@/services/commons/types/general";
 import VerifyAdmin from "@/services/infrastructure/repository/admins/entities/VerifyAdmin";
 import AuthenticationRepository from "@/services/infrastructure/repository/authentications/AuthenticationRepository";
-import ClientIdentityAuth from "@/services/infrastructure/repository/authentications/entities/ClientIdentityAuth";
 import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
 
 export type RefreshAdminUseCaseProps = {
@@ -33,20 +32,24 @@ export default class RefreshAdminUseCase {
       this.onVerifyRefreshTokenFailed.bind(this);
   }
 
-  async execute({ auth }: RefreshAdminUseCasePayload) {
-    const { clientId } = new ClientIdentityAuth({
-      clientId: auth?.clientId || "",
+  async execute({
+    credentials: {
+      accessToken: clientAccessToken,
+      refreshToken: clientRefreshToken,
+      clientId,
+    },
+  }: RefreshAdminUseCasePayload) {
+    const { refreshToken } = new VerifyAdmin({
+      accessToken: clientAccessToken,
+      refreshToken: clientRefreshToken,
     });
 
-    const { refreshToken } = new VerifyAdmin({
-      accessToken: auth?.accessToken || "",
-      refreshToken: auth?.refreshToken || "",
-    });
     const { payload } =
       await this._authTokenManager.verifyRefreshToken<AuthTokenPayload>(
         refreshToken,
         this.onVerifyRefreshTokenFailed
       );
+
     await this._authenticationRepository.checkAvailabilityToken(
       payload.profile.id,
       refreshToken
@@ -60,6 +63,7 @@ export default class RefreshAdminUseCase {
       accessTokenKey: AUTH_TOKENS[clientId as CLIENT_IDS_ENUM].accessTokenKey,
       refreshToken,
       refreshTokenKey: AUTH_TOKENS[clientId as CLIENT_IDS_ENUM].refreshTokenKey,
+      payload,
     };
   }
 

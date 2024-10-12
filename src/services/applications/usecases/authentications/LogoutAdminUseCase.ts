@@ -8,7 +8,6 @@ import {
 } from "@/services/commons/types/general";
 import LogoutAdmin from "@/services/infrastructure/repository/admins/entities/LogoutAdmin";
 import AuthenticationRepository from "@/services/infrastructure/repository/authentications/AuthenticationRepository";
-import ClientIdentityAuth from "@/services/infrastructure/repository/authentications/entities/ClientIdentityAuth";
 import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
 
 export type LogoutAdminUseCaseProps = {
@@ -28,26 +27,30 @@ export default class LogoutAdminUseCase {
   }: LogoutAdminUseCaseProps) {
     this._authenticationRepository = authenticationRepository;
     this._authTokenManager = authTokenManager;
+    this.onVerifyRefreshTokenFailed =
+      this.onVerifyRefreshTokenFailed.bind(this);
   }
 
-  async execute({ auth }: LogoutAdminUseCasePayload) {
-    const { clientId } = new ClientIdentityAuth({
-      clientId: auth?.clientId || "",
-    });
-
+  async execute({
+    credentials: {
+      accessToken: clientAccessToken,
+      refreshToken: clientRefreshToken,
+      clientId,
+    },
+  }: LogoutAdminUseCasePayload) {
     const { refreshToken } = new LogoutAdmin({
-      accessToken: auth?.accessToken || "",
-      refreshToken: auth?.refreshToken || "",
+      accessToken: clientAccessToken,
+      refreshToken: clientRefreshToken,
     });
 
     const {
       payload: {
         profile: { id: userId },
       },
-    } =
-      await this._authTokenManager.verifyRefreshToken<AuthTokenPayload>(
-        refreshToken
-      );
+    } = await this._authTokenManager.verifyRefreshToken<AuthTokenPayload>(
+      refreshToken,
+      this.onVerifyRefreshTokenFailed
+    );
 
     await this._authenticationRepository.deleteToken(userId, refreshToken);
 
@@ -55,5 +58,13 @@ export default class LogoutAdminUseCase {
       accessTokenKey: AUTH_TOKENS[clientId as CLIENT_IDS_ENUM].accessTokenKey,
       refreshTokenKey: AUTH_TOKENS[clientId as CLIENT_IDS_ENUM].refreshTokenKey,
     };
+  }
+
+  async onVerifyRefreshTokenFailed(token: string) {
+    const res = this._authTokenManager.decodeToken<AuthTokenPayload>(token);
+    await this._authenticationRepository.deleteToken(
+      res?.profile.id || "",
+      token
+    );
   }
 }

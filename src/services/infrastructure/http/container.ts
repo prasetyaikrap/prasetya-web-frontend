@@ -17,6 +17,8 @@ import PasswordHash from "@/services/infrastructure/security/PasswordHash";
 import admins from "@/services/interfaces/http/api/admins";
 import authentications from "@/services/interfaces/http/api/authentications";
 
+import MiddlewareHandlers from "./middleware";
+
 export default async function serviceContainer() {
   const { firestoreDB } = await firebaseInitialize();
   // Repository and Security
@@ -26,6 +28,7 @@ export default async function serviceContainer() {
   const adminRepository = new AdminRepository({ firestore: firestoreDB });
   const authTokenManager = new AuthTokenManager(Jose);
   const passwordHash = new PasswordHash(bcrypts);
+  const middleware = new MiddlewareHandlers({ authTokenManager });
 
   // UseCases
   const useCases = {
@@ -82,5 +85,8 @@ export default async function serviceContainer() {
     updateAdminByIdUseCase: useCases.updateAdminByIdUseCase,
   });
 
-  return [...authenticationRoutes, ...adminRoutes];
+  return {
+    routes: [...authenticationRoutes, ...adminRoutes],
+    middleware,
+  };
 }
