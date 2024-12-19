@@ -38,6 +38,7 @@ export function CodeBlock({
               minWidth: "125px",
               borderRadius: "20px",
             }),
+            menuList: (provided) => ({ ...provided, maxH: "150px" }),
             dropdownIndicator: (provided) => ({
               ...provided,
               bg: "transparent",

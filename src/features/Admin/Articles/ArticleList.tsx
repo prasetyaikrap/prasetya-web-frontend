@@ -8,10 +8,10 @@ import { useMemo } from "react";
 
 import { List, NotAuthorized, RefineTable } from "@/components";
 
-import { ArticlesList } from "./type";
+import { ArticleData } from "./type";
 
 export default function ArticleList() {
-  const columns: ColumnDef<ArticlesList>[] = useMemo(
+  const columns: ColumnDef<ArticleData>[] = useMemo(
     () => [
       {
         id: "title",
@@ -47,7 +47,7 @@ export default function ArticleList() {
     []
   );
 
-  const tableProps = useTable<ArticlesList>({
+  const tableProps = useTable<ArticleData>({
     refineCoreProps: {
       resource: "articleList",
       queryOptions: {

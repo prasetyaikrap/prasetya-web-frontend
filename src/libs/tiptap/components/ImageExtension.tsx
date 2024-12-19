@@ -1,6 +1,5 @@
 import { Image, Text, Textarea, VStack } from "@chakra-ui/react";
 import {
-  mergeAttributes,
   Node,
   NodeViewProps,
   NodeViewWrapper,
@@ -65,7 +64,18 @@ export const ChakraImage = Node.create({
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ["chakra-image", mergeAttributes(HTMLAttributes)];
+    return [
+      "figure",
+      { class: "chakra-image" },
+      [
+        "img",
+        {
+          src: HTMLAttributes.src,
+          alt: HTMLAttributes.alt,
+        },
+      ],
+      ["figcaption", {}, HTMLAttributes.caption],
+    ];
   },
 
   addCommands() {
@@ -98,10 +108,11 @@ function ImageComponent(props: NodeViewProps) {
     }
   };
 
-  const handleChange = (event: any) => {
+  const handleCaptionChange = (event: any) => {
     props.updateAttributes({
       ...props.node.attrs,
       caption: event.target.value,
+      alt: event.target.value,
     });
     handleInput();
   };
@@ -137,7 +148,7 @@ function ImageComponent(props: NodeViewProps) {
             rows={1}
             maxLength={500}
             value={props.node.attrs.caption}
-            onChange={handleChange}
+            onChange={handleCaptionChange}
           />
         )}
         {!isEditable && (

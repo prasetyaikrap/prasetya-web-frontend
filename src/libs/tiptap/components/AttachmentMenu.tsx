@@ -43,7 +43,7 @@ export function AttachmentMenus({ editor }: AttachmentMenusProps) {
     editor
       .chain()
       .focus()
-      .setImage({ src: src as string, alt: "contoh-image", title: file.name })
+      .setImage({ src: src as string, alt: "", title: file.name })
       .run();
   };
 
