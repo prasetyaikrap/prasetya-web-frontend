@@ -1,6 +1,8 @@
+import { JWTVerifyResult } from "jose";
 import { NextRequest } from "next/server";
 
 import {
+  AuthTokenPayload,
   HTTPHandlerRouteParams,
   RouteContext,
   RoutesHandler,
@@ -38,7 +40,7 @@ export default class MiddlewareHandlers {
 
     if (options?.middleware?.includes("authMiddleware")) {
       const result = new VerifyAdmin({ accessToken, refreshToken });
-      const verifiedTokenPayload =
+      const verifiedTokenPayload: JWTVerifyResult<AuthTokenPayload> =
         await this._authTokenManager.verifyAccessToken(result.accessToken);
 
       return {

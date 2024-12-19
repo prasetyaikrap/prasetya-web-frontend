@@ -6,6 +6,7 @@ import GetAdminByIdUseCase from "@/services/applications/usecases/admins/GetAdmi
 import GetAdminsUseCase from "@/services/applications/usecases/admins/GetAdminsUseCase";
 import RegisterAdminUseCase from "@/services/applications/usecases/admins/RegisterAdminUseCase";
 import UpdateAdminByIdUseCase from "@/services/applications/usecases/admins/UpdateAdminByIdUseCase";
+import CreateArticleUseCase from "@/services/applications/usecases/articles/CreateArticleUseCase";
 import LoginAdminUseCase from "@/services/applications/usecases/authentications/LoginAdminUseCase";
 import LogoutAdminUseCase from "@/services/applications/usecases/authentications/LogoutAdminUseCase";
 import RefreshAdminUseCase from "@/services/applications/usecases/authentications/RefreshAdminUseCase";
@@ -15,8 +16,10 @@ import AuthenticationRepository from "@/services/infrastructure/repository/authe
 import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
 import PasswordHash from "@/services/infrastructure/security/PasswordHash";
 import admins from "@/services/interfaces/http/api/admins";
+import articles from "@/services/interfaces/http/api/articles";
 import authentications from "@/services/interfaces/http/api/authentications";
 
+import ArticlesRepository from "../repository/articles/ArticlesRepository";
 import MiddlewareHandlers from "./middleware";
 
 export default async function serviceContainer() {
@@ -26,6 +29,7 @@ export default async function serviceContainer() {
     firestore: firestoreDB,
   });
   const adminRepository = new AdminRepository({ firestore: firestoreDB });
+  const articlesRepository = new ArticlesRepository({ firestore: firestoreDB });
   const authTokenManager = new AuthTokenManager(Jose);
   const passwordHash = new PasswordHash(bcrypts);
   const middleware = new MiddlewareHandlers({ authTokenManager });
@@ -69,6 +73,12 @@ export default async function serviceContainer() {
       adminRepository,
       authTokenManager,
     }),
+
+    // Articles
+    createArticleUseCase: new CreateArticleUseCase({
+      articlesRepository,
+      adminRepository,
+    }),
   };
 
   // Routes
@@ -84,9 +94,12 @@ export default async function serviceContainer() {
     getAdminByIdUseCase: useCases.getAdminByIdUseCase,
     updateAdminByIdUseCase: useCases.updateAdminByIdUseCase,
   });
+  const articlesRoutes = await articles.register({
+    createArticleUseCase: useCases.createArticleUseCase,
+  });
 
   return {
-    routes: [...authenticationRoutes, ...adminRoutes],
+    routes: [...authenticationRoutes, ...adminRoutes, ...articlesRoutes],
     middleware,
   };
 }
