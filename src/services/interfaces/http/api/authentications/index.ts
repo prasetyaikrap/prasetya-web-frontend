@@ -1,7 +1,7 @@
 import AuthenticationsHandler, { AuthenticationsHandlerProps } from "./handler";
 import routes from "./routes";
 
-const authentication = {
+const authenticationClient = {
   name: "authentication",
   register: async (container: AuthenticationsHandlerProps) => {
     const authenticationHandler = new AuthenticationsHandler(container);
@@ -9,4 +9,4 @@ const authentication = {
   },
 };
 
-export default authentication;
+export default authenticationClient;

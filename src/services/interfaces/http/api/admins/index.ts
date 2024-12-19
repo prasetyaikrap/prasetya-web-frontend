@@ -1,7 +1,7 @@
 import AdminsHandler, { AdminsHandlerProps } from "./handler";
 import routes from "./routes";
 
-const admins = {
+const adminsClient = {
   name: "administrator",
   register: async (container: AdminsHandlerProps) => {
     const adminsHandler = new AdminsHandler(container);
@@ -9,4 +9,4 @@ const admins = {
   },
 };
 
-export default admins;
+export default adminsClient;

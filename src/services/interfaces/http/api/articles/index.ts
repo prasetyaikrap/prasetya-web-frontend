@@ -1,7 +1,7 @@
 import ArticlesHandler, { ArticlesHandlerProps } from "./handler";
 import routes from "./routes";
 
-const articles = {
+const articlesClient = {
   name: "articles",
   register: async (container: ArticlesHandlerProps) => {
     const articlesHandler = new ArticlesHandler(container);
@@ -9,4 +9,4 @@ const articles = {
   },
 };
 
-export default articles;
+export default articlesClient;

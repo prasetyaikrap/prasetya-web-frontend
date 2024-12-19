@@ -10,6 +10,13 @@ const routes = (handler: ArticlesHandler): RoutesHandler[] => [
     handler: async (props) => await handler.postArticle(props),
     options: { middleware: ["authMiddleware"] },
   },
+  {
+    name: "Get list article",
+    method: "GET",
+    path: "/v1/articles",
+    handler: async (props) => await handler.getArticles(props),
+    options: { middleware: ["authMiddleware"] },
+  },
 ];
 
 export default routes;

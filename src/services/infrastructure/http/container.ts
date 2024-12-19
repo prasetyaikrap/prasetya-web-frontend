@@ -7,6 +7,7 @@ import GetAdminsUseCase from "@/services/applications/usecases/admins/GetAdminsU
 import RegisterAdminUseCase from "@/services/applications/usecases/admins/RegisterAdminUseCase";
 import UpdateAdminByIdUseCase from "@/services/applications/usecases/admins/UpdateAdminByIdUseCase";
 import CreateArticleUseCase from "@/services/applications/usecases/articles/CreateArticleUseCase";
+import GetArticlesUseCase from "@/services/applications/usecases/articles/GetArticlesUseCase";
 import LoginAdminUseCase from "@/services/applications/usecases/authentications/LoginAdminUseCase";
 import LogoutAdminUseCase from "@/services/applications/usecases/authentications/LogoutAdminUseCase";
 import RefreshAdminUseCase from "@/services/applications/usecases/authentications/RefreshAdminUseCase";
@@ -15,9 +16,9 @@ import AdminRepository from "@/services/infrastructure/repository/admins/AdminRe
 import AuthenticationRepository from "@/services/infrastructure/repository/authentications/AuthenticationRepository";
 import AuthTokenManager from "@/services/infrastructure/security/AuthTokenManager";
 import PasswordHash from "@/services/infrastructure/security/PasswordHash";
-import admins from "@/services/interfaces/http/api/admins";
-import articles from "@/services/interfaces/http/api/articles";
-import authentications from "@/services/interfaces/http/api/authentications";
+import adminsClient from "@/services/interfaces/http/api/admins";
+import articlesClient from "@/services/interfaces/http/api/articles";
+import authenticationsClient from "@/services/interfaces/http/api/authentications";
 
 import ArticlesRepository from "../repository/articles/ArticlesRepository";
 import MiddlewareHandlers from "./middleware";
@@ -79,23 +80,27 @@ export default async function serviceContainer() {
       articlesRepository,
       adminRepository,
     }),
+    getArticlesUseCase: new GetArticlesUseCase({
+      articlesRepository,
+    }),
   };
 
   // Routes
-  const authenticationRoutes = await authentications.register({
+  const authenticationRoutes = await authenticationsClient.register({
     loginAdminUseCase: useCases.loginAdminUseCase,
     verifyAdminUseCase: useCases.verifyAdminUseCase,
     refreshAdminUseCase: useCases.refreshAdminUseCase,
     logoutAdminUseCase: useCases.logoutAdminUseCase,
   });
-  const adminRoutes = await admins.register({
+  const adminRoutes = await adminsClient.register({
     registerAdminUseCase: useCases.registerAdminUseCase,
     getAdminsUseCase: useCases.getAdminsUseCase,
     getAdminByIdUseCase: useCases.getAdminByIdUseCase,
     updateAdminByIdUseCase: useCases.updateAdminByIdUseCase,
   });
-  const articlesRoutes = await articles.register({
+  const articlesRoutes = await articlesClient.register({
     createArticleUseCase: useCases.createArticleUseCase,
+    getArticlesUseCase: useCases.getArticlesUseCase,
   });
 
   return {
