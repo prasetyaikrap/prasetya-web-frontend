@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { z } from "zod";
 
+import { UserField } from "@/types";
+
 import { articleFormSchema } from "./constants";
 
 export type ArticleFormFieldValues = z.infer<typeof articleFormSchema>;
@@ -20,12 +22,7 @@ export type ArticleTag = {
   value: string;
 };
 
-export type ArticleAuthor = {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-};
+export type ArticleAuthor = UserField;
 
 export type ArticleData = {
   id: string;
@@ -40,10 +37,11 @@ export type ArticleData = {
   metadata: Metadata;
   visibility: ArticleVisibility;
   author: ArticleAuthor[];
+  slug_histories: string[];
   created_at: string;
-  created_by: string;
+  created_by: UserField;
   modified_at: string;
-  modified_by: string;
+  modified_by: UserField;
 };
 
 export type ArticleUpdatePayload = {
@@ -57,4 +55,6 @@ export type ArticleUpdatePayload = {
 
   visibility: ArticleVisibility;
   author: ArticleAuthor[];
+  metadata: Metadata;
+  slug_histories: string[];
 };

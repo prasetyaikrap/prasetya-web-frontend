@@ -4,3 +4,10 @@ export type UserProfileData = {
   email: string;
   permissions: ["p" | "g", string, string, string][];
 };
+
+export type UserField = {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+};

@@ -181,3 +181,29 @@ export function getPaginationSearchParams({
     _sort,
   };
 }
+
+export type GetPaginationMetadataProps = {
+  queryRef: CollectionReference;
+  totalRowsKey: string;
+  limit: number;
+  offset: number;
+};
+
+export async function getPaginationMetadata({
+  queryRef,
+  totalRowsKey,
+  limit,
+  offset,
+}: GetPaginationMetadataProps) {
+  const totalRowsMetadata = await queryRef.doc("total_rows").get();
+
+  const totalRows = totalRowsMetadata.data()?.[totalRowsKey] || 0;
+  const totalPages = Math.ceil(totalRows / limit);
+  const currentPage = offset / limit + 1;
+
+  return {
+    totalRows,
+    totalPages,
+    currentPage,
+  };
+}

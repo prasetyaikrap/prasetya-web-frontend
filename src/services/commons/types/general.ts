@@ -36,7 +36,7 @@ export type HTTPHandlerProps = {
       refreshToken: string;
       clientId: string;
       userAgent: ReturnType<typeof userAgent>;
-      tokenPayload: JWTVerifyResult<JWTPayload> | null;
+      tokenPayload: JWTVerifyResult<AuthTokenPayload> | null;
     };
   } & RouteContext;
   routeParams: HTTPHandlerRouteParams;
