@@ -7,6 +7,7 @@ import GetAdminsUseCase from "@/services/applications/usecases/admins/GetAdminsU
 import RegisterAdminUseCase from "@/services/applications/usecases/admins/RegisterAdminUseCase";
 import UpdateAdminByIdUseCase from "@/services/applications/usecases/admins/UpdateAdminByIdUseCase";
 import CreateArticleUseCase from "@/services/applications/usecases/articles/CreateArticleUseCase";
+import GetArticleByIdOrSlugUseCase from "@/services/applications/usecases/articles/GetArticleByIdOrSlugUseCase";
 import GetArticlesUseCase from "@/services/applications/usecases/articles/GetArticlesUseCase";
 import UpdateArticleByIdUseCase from "@/services/applications/usecases/articles/UpdateArticleByIdUseCase";
 import LoginAdminUseCase from "@/services/applications/usecases/authentications/LoginAdminUseCase";
@@ -88,6 +89,9 @@ export default async function serviceContainer() {
     getArticlesUseCase: new GetArticlesUseCase({
       articlesRepository,
     }),
+    getArticleByIdOrSlugUseCase: new GetArticleByIdOrSlugUseCase({
+      articlesRepository,
+    }),
   };
 
   // Routes
@@ -107,6 +111,7 @@ export default async function serviceContainer() {
     createArticleUseCase: useCases.createArticleUseCase,
     updateArticleByIdUseCase: useCases.updateArticleByIdUseCase,
     getArticlesUseCase: useCases.getArticlesUseCase,
+    getArticleByIdOrSlugUseCase: useCases.getArticleByIdOrSlugUseCase,
   });
 
   return {

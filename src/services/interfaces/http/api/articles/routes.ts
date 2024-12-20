@@ -24,6 +24,27 @@ const routes = (handler: ArticlesHandler): RoutesHandler[] => [
     handler: async (props) => await handler.getArticles(props),
     options: { middleware: ["authMiddleware"] },
   },
+  {
+    name: "Get article by id or slug",
+    method: "GET",
+    path: "/v1/articles/:id",
+    handler: async (props) => await handler.getArticleByIdOrSlug(props),
+    options: { middleware: ["authMiddleware"] },
+  },
+
+  // Public
+  {
+    name: "Get list article (public)",
+    method: "GET",
+    path: "/v1/public/articles",
+    handler: async (props) => await handler.getArticles(props),
+  },
+  {
+    name: "Get article by id or slug (public)",
+    method: "GET",
+    path: "/v1/public/articles/:id",
+    handler: async (props) => await handler.getArticleByIdOrSlug(props),
+  },
 ];
 
 export default routes;

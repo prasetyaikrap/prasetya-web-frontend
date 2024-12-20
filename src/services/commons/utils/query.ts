@@ -45,7 +45,7 @@ export function generateFirestoreQueries({
 
 function firestoreFilterParams(filter: QueryFilter) {
   const { field, value } = filter;
-  const [operator, fieldKey] = field.split("__") as [FilterOperators, string];
+  const [fieldKey, operator] = field.split("__") as [string, FilterOperators];
   const filterParam: {
     operator: string;
     value: FirestoreFilterValue;
@@ -165,9 +165,9 @@ export type GetPaginationSearchParamsProps = {
   request: NextRequest;
 };
 
-export function getPaginationSearchParams({
-  request,
-}: GetPaginationSearchParamsProps) {
+export function getPaginationSearchParams<
+  T extends Record<string, string> = Record<string, string>,
+>({ request }: GetPaginationSearchParamsProps) {
   const { searchParams } = request.nextUrl;
   const _page = searchParams.get("_page") || "";
   const _limit = searchParams.get("_limit") || "";
@@ -175,7 +175,7 @@ export function getPaginationSearchParams({
   const queries = searchParams.get("queries") || "";
 
   return {
-    queries: queries ? JSON.parse(queries) : undefined,
+    queries: queries ? (JSON.parse(queries) as T) : undefined,
     _page,
     _limit,
     _sort,

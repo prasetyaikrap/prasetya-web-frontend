@@ -1,3 +1,5 @@
+import { match } from "ts-pattern";
+
 import { BaseUseCasePayload } from "@/services/commons/types/general";
 import { generateFilters } from "@/services/commons/utils/query";
 import ArticlesRepository from "@/services/infrastructure/repository/articles/ArticlesRepository";
@@ -11,6 +13,7 @@ export type GetArticlesUseCaseProps = {
 
 export type GetArticlesUseCasePayload = {
   queryParams: QueryPaginationPayload;
+  isPublic: boolean;
 } & BaseUseCasePayload;
 
 export default class GetArticlesUseCase {
@@ -20,17 +23,40 @@ export default class GetArticlesUseCase {
     this._articleRepository = articlesRepository;
   }
 
-  async execute({ queryParams }: GetArticlesUseCasePayload) {
+  async execute({ queryParams, isPublic }: GetArticlesUseCasePayload) {
     const { queries, _page, _limit, _sort } = new QueryPagination(queryParams);
     const offset = _page * _limit;
-    const filters = generateFilters(queries);
     const orders = _sort?.split(",") || [];
 
-    return await this._articleRepository.getArticles({
+    const modifiedQueries = match({ isPublic })
+      .with({ isPublic: true }, () => ({
+        ...queries,
+        "visibility.status__equal": "published",
+      }))
+      .otherwise(() => queries);
+
+    const filters = generateFilters(modifiedQueries);
+
+    const { data, metadata } = await this._articleRepository.getArticles({
       filters,
       orders,
       limit: _limit,
       offset,
     });
+
+    const filteredData = data.map((d) => {
+      const {
+        metadata: _metadata,
+        content: _content,
+        slug_histories: _slugHistories,
+        ...selectedData
+      } = d;
+      return selectedData;
+    });
+
+    return {
+      data: filteredData,
+      metadata,
+    };
   }
 }

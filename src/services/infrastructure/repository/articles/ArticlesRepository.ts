@@ -1,10 +1,12 @@
 import {
   CollectionReference,
   FieldValue,
+  Filter,
   Firestore,
 } from "firebase-admin/firestore";
 
 import InvariantError from "@/services/commons/exceptions/InvariantError";
+import NotFoundError from "@/services/commons/exceptions/NotFoundError";
 import { ArticleDocProps } from "@/services/commons/types/firestoreDoc";
 import { QueryFilter } from "@/services/commons/types/query";
 import {
@@ -36,6 +38,14 @@ export type UpdateArticlePayloadProps = {
   payload: UpdateArticleByIdPayload;
   updatedBy: UserField;
   articleId: string;
+};
+
+export type GetArticleByIdProps = {
+  articleId: string;
+};
+
+export type GetArticleBySlugProps = {
+  slug: string;
 };
 
 export default class ArticlesRepository {
@@ -116,6 +126,41 @@ export default class ArticlesRepository {
         total_page: totalPages,
         per_page: limit,
       },
+    };
+  }
+
+  async getArticleById({ articleId }: GetArticleByIdProps) {
+    const snapshot = await this.articlesCollectionRef.doc(articleId).get();
+
+    if (!snapshot.exists) {
+      throw new NotFoundError("Admin Not Found");
+    }
+
+    const articleData = snapshot.data() as ArticleDocProps;
+
+    return {
+      ...articleData,
+      id: snapshot.id,
+    };
+  }
+
+  async getArticleBySlug({ slug }: GetArticleBySlugProps) {
+    const snapshot = await this.articlesCollectionRef
+      .where(
+        Filter.or(
+          Filter.where("slug", "==", slug),
+          Filter.where("slug_histories", "array-contains", slug)
+        )
+      )
+      .get();
+
+    if (snapshot.empty) {
+      throw new NotFoundError("Admin not found");
+    }
+
+    return {
+      ...(snapshot.docs[0].data() as ArticleDocProps),
+      id: snapshot.docs[0].id,
     };
   }
 }

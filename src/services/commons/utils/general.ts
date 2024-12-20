@@ -5,6 +5,7 @@ import {
   CLIENT_ID_KEY,
   CLIENT_IDS_ENUM,
 } from "../constants/general";
+import { RouteContextParams } from "../types/general";
 
 export function routeToRegex(route: string) {
   // Convert route params (e.g., :id) to regex capture groups (e.g., (\w+))
@@ -37,4 +38,10 @@ export function getCredentials({ request }: GetCredentialProps) {
     clientId,
     userAgent: userAgents,
   };
+}
+
+export function isPublicEndpoint(params: RouteContextParams) {
+  const publicParams = params.endpoint[0];
+
+  return publicParams === "public";
 }
