@@ -8,6 +8,7 @@ import RegisterAdminUseCase from "@/services/applications/usecases/admins/Regist
 import UpdateAdminByIdUseCase from "@/services/applications/usecases/admins/UpdateAdminByIdUseCase";
 import CreateArticleUseCase from "@/services/applications/usecases/articles/CreateArticleUseCase";
 import GetArticlesUseCase from "@/services/applications/usecases/articles/GetArticlesUseCase";
+import UpdateArticleByIdUseCase from "@/services/applications/usecases/articles/UpdateArticleByIdUseCase";
 import LoginAdminUseCase from "@/services/applications/usecases/authentications/LoginAdminUseCase";
 import LogoutAdminUseCase from "@/services/applications/usecases/authentications/LogoutAdminUseCase";
 import RefreshAdminUseCase from "@/services/applications/usecases/authentications/RefreshAdminUseCase";
@@ -80,6 +81,10 @@ export default async function serviceContainer() {
       articlesRepository,
       adminRepository,
     }),
+    updateArticleByIdUseCase: new UpdateArticleByIdUseCase({
+      articlesRepository,
+      adminRepository,
+    }),
     getArticlesUseCase: new GetArticlesUseCase({
       articlesRepository,
     }),
@@ -100,6 +105,7 @@ export default async function serviceContainer() {
   });
   const articlesRoutes = await articlesClient.register({
     createArticleUseCase: useCases.createArticleUseCase,
+    updateArticleByIdUseCase: useCases.updateArticleByIdUseCase,
     getArticlesUseCase: useCases.getArticlesUseCase,
   });
 

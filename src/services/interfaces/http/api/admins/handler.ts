@@ -50,6 +50,7 @@ export default class AdminsHandler {
     const { id } = await this._registerAdminUseCase.execute(useCasePayload);
 
     const response = SuccessResponse({
+      code: 201,
       data: {
         id,
       },

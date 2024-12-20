@@ -4,6 +4,7 @@ import {
   Firestore,
 } from "firebase-admin/firestore";
 
+import InvariantError from "@/services/commons/exceptions/InvariantError";
 import { ArticleDocProps } from "@/services/commons/types/firestoreDoc";
 import { QueryFilter } from "@/services/commons/types/query";
 import {
@@ -13,6 +14,7 @@ import {
 import { UserField } from "@/types";
 
 import { CreateArticlePayload } from "./entities/CreateArticleEntities";
+import { UpdateArticleByIdPayload } from "./entities/UpdateArticleByIdEntities";
 
 export type ArticlesRepositoryProps = {
   firestore: Firestore;
@@ -28,6 +30,12 @@ export type GetArticlesPayload = {
 export type CreateArticlePayloadProps = {
   payload: CreateArticlePayload;
   createdBy: UserField;
+};
+
+export type UpdateArticlePayloadProps = {
+  payload: UpdateArticleByIdPayload;
+  updatedBy: UserField;
+  articleId: string;
 };
 
 export default class ArticlesRepository {
@@ -55,6 +63,24 @@ export default class ArticlesRepository {
       .update({ articles: FieldValue.increment(1) });
 
     return { id: res.id };
+  }
+
+  async updateArticleById({
+    payload,
+    updatedBy,
+    articleId,
+  }: UpdateArticlePayloadProps) {
+    const snapshot = await this.articlesCollectionRef.doc(articleId).update({
+      ...payload,
+      updated_by: updatedBy,
+      updated_at: FieldValue.serverTimestamp(),
+    });
+
+    if (!snapshot.isEqual) {
+      throw new InvariantError("Failed to update Article");
+    }
+
+    return { id: articleId };
   }
 
   async getArticles({ filters, orders, limit, offset }: GetArticlesPayload) {
