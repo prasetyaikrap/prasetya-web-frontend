@@ -12,7 +12,7 @@ export type UpdateArticleByIdPayload = Pick<
   | "tags"
   | "featuredImage"
   | "content"
-  | "visibility"
+  | "publicity"
   | "author"
   | "metadata"
   | "slug_histories"
@@ -23,7 +23,33 @@ export default class UpdateArticleByIdEntities {
 
   constructor(payload: UpdateArticleByIdPayload) {
     this._verifyPayload(payload);
-    this.payload = payload;
+    const {
+      title,
+      summary,
+      slug,
+      categories,
+      tags,
+      featuredImage,
+      content,
+      publicity,
+      author,
+      metadata,
+      slug_histories,
+    } = payload;
+
+    this.payload = {
+      title,
+      summary,
+      slug,
+      categories,
+      tags,
+      featuredImage,
+      content,
+      publicity,
+      author,
+      metadata,
+      slug_histories,
+    };
   }
 
   _verifyPayload(payload: UpdateArticleByIdPayload) {
@@ -37,7 +63,7 @@ export default class UpdateArticleByIdEntities {
           tags: P.not(P.array({ id: P.string, value: P.string })),
           featuredImage: P.not(P.string),
           content: P.not(P.string),
-          visibility: P.not({ publicity: P.string, status: P.string }),
+          publicity: P.not(P.array(P.string)),
           author: P.not(
             P.array({
               id: P.string,

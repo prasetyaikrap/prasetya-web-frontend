@@ -24,6 +24,8 @@ import authenticationsClient from "@/services/interfaces/http/api/authentication
 
 import ArticlesRepository from "../repository/articles/ArticlesRepository";
 import MiddlewareHandlers from "./middleware";
+import UpdateArticleStatusByIdUseCase from "@/services/applications/usecases/articles/UpdateArticleStatusByIdUseCase";
+import DeleteArticleByIdUseCase from "@/services/applications/usecases/articles/DeleteArticleByIdUseCase";
 
 export default async function serviceContainer() {
   const { firestoreDB } = await firebaseInitialize();
@@ -92,6 +94,13 @@ export default async function serviceContainer() {
     getArticleByIdOrSlugUseCase: new GetArticleByIdOrSlugUseCase({
       articlesRepository,
     }),
+    updateArticleStatusByIdUseCase: new UpdateArticleStatusByIdUseCase({
+      articlesRepository,
+      adminRepository,
+    }),
+    deleteArticleByIdUseCase: new DeleteArticleByIdUseCase({
+      articlesRepository,
+    }),
   };
 
   // Routes
@@ -112,6 +121,8 @@ export default async function serviceContainer() {
     updateArticleByIdUseCase: useCases.updateArticleByIdUseCase,
     getArticlesUseCase: useCases.getArticlesUseCase,
     getArticleByIdOrSlugUseCase: useCases.getArticleByIdOrSlugUseCase,
+    updateArticleStatusByIdUseCase: useCases.updateArticleStatusByIdUseCase,
+    deleteArticleByIdUseCase: useCases.deleteArticleByIdUseCase,
   });
 
   return {

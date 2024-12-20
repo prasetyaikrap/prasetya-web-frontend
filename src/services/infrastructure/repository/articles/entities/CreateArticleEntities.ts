@@ -12,7 +12,8 @@ export type CreateArticlePayload = Pick<
   | "tags"
   | "featuredImage"
   | "content"
-  | "visibility"
+  | "publicity"
+  | "status"
   | "author"
   | "metadata"
   | "slug_histories"
@@ -23,7 +24,35 @@ export default class CreateArticleEntities {
 
   constructor(payload: CreateArticlePayload) {
     this._verifyPayload(payload);
-    this.payload = payload;
+    const {
+      title,
+      summary,
+      slug,
+      categories,
+      tags,
+      featuredImage,
+      content,
+      publicity,
+      status,
+      author,
+      metadata,
+      slug_histories,
+    } = payload;
+
+    this.payload = {
+      title,
+      summary,
+      slug,
+      categories,
+      tags,
+      featuredImage,
+      content,
+      publicity,
+      status,
+      author,
+      metadata,
+      slug_histories,
+    };
   }
 
   _verifyPayload(payload: CreateArticlePayload) {
@@ -37,7 +66,8 @@ export default class CreateArticleEntities {
           tags: P.not(P.array({ id: P.string, value: P.string })),
           featuredImage: P.not(P.string),
           content: P.not(P.string),
-          visibility: P.not({ publicity: P.string, status: P.string }),
+          publicity: P.not(P.array(P.string)),
+          status: P.not(P.string),
           author: P.not(
             P.array({
               id: P.string,

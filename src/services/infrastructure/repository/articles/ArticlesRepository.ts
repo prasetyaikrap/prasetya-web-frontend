@@ -48,6 +48,16 @@ export type GetArticleBySlugProps = {
   slug: string;
 };
 
+export type UpdateArticleStatusByIdProps = {
+  articleId: string;
+  status: string;
+  updatedBy: UserField;
+};
+
+export type DeleteArticleByIdProps = {
+  articleId: string;
+};
+
 export default class ArticlesRepository {
   public _firestore: Firestore;
   public articlesCollectionRef: CollectionReference;
@@ -162,5 +172,33 @@ export default class ArticlesRepository {
       ...(snapshot.docs[0].data() as ArticleDocProps),
       id: snapshot.docs[0].id,
     };
+  }
+
+  async updateArticleStatusById({
+    status,
+    articleId,
+    updatedBy,
+  }: UpdateArticleStatusByIdProps) {
+    const snapshot = await this.articlesCollectionRef.doc(articleId).update({
+      status,
+      updated_by: updatedBy,
+      updated_at: FieldValue.serverTimestamp(),
+    });
+
+    if (!snapshot.isEqual) {
+      throw new InvariantError("Failed to update status");
+    }
+
+    return { id: articleId };
+  }
+
+  async deleteArticleById({ articleId }: DeleteArticleByIdProps) {
+    const snapshot = await this.articlesCollectionRef.doc(articleId).delete();
+
+    if (!snapshot.isEqual) {
+      throw new InvariantError("Failed to delete article");
+    }
+
+    return { id: articleId };
   }
 }

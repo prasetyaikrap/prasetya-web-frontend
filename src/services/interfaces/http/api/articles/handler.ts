@@ -1,6 +1,9 @@
 import CreateArticleUseCase, {
   CreateArticleUseCasePayload,
 } from "@/services/applications/usecases/articles/CreateArticleUseCase";
+import DeleteArticleByIdUseCase, {
+  DeleteArticleByIdUseCasePayload,
+} from "@/services/applications/usecases/articles/DeleteArticleByIdUseCase";
 import GetArticleByIdOrSlugUseCase, {
   GetArticleByIdOrSlugUseCasePayload,
 } from "@/services/applications/usecases/articles/GetArticleByIdOrSlugUseCase";
@@ -10,6 +13,9 @@ import GetArticlesUseCase, {
 import UpdateArticleByIdUseCase, {
   UpdateArticleByIdUseCasePayload,
 } from "@/services/applications/usecases/articles/UpdateArticleByIdUseCase";
+import UpdateArticleStatusByIdUseCase, {
+  UpdateArticleStatusByIdUseCasePayload,
+} from "@/services/applications/usecases/articles/UpdateArticleStatusByIdUseCase";
 import { SuccessResponse } from "@/services/commons/http/ResponseHandler";
 import { HTTPHandlerProps } from "@/services/commons/types/general";
 import { isPublicEndpoint } from "@/services/commons/utils/general";
@@ -20,6 +26,8 @@ export type ArticlesHandlerProps = {
   updateArticleByIdUseCase: UpdateArticleByIdUseCase;
   getArticlesUseCase: GetArticlesUseCase;
   getArticleByIdOrSlugUseCase: GetArticleByIdOrSlugUseCase;
+  updateArticleStatusByIdUseCase: UpdateArticleStatusByIdUseCase;
+  deleteArticleByIdUseCase: DeleteArticleByIdUseCase;
 };
 
 export default class ArticlesHandler {
@@ -27,17 +35,23 @@ export default class ArticlesHandler {
   public _updateArticleByIdUseCase: ArticlesHandlerProps["updateArticleByIdUseCase"];
   public _getArticlesUseCase: ArticlesHandlerProps["getArticlesUseCase"];
   public _getArticleByIdOrSlugUseCase: ArticlesHandlerProps["getArticleByIdOrSlugUseCase"];
+  public _updateArticleStatusByIdUseCase: ArticlesHandlerProps["updateArticleStatusByIdUseCase"];
+  public _deleteArticleByIdUseCase: ArticlesHandlerProps["deleteArticleByIdUseCase"];
 
   constructor({
     createArticleUseCase,
     updateArticleByIdUseCase,
     getArticlesUseCase,
     getArticleByIdOrSlugUseCase,
+    updateArticleStatusByIdUseCase,
+    deleteArticleByIdUseCase,
   }: ArticlesHandlerProps) {
     this._createArticleUseCase = createArticleUseCase;
     this._updateArticleByIdUseCase = updateArticleByIdUseCase;
     this._getArticlesUseCase = getArticlesUseCase;
     this._getArticleByIdOrSlugUseCase = getArticleByIdOrSlugUseCase;
+    this._updateArticleStatusByIdUseCase = updateArticleStatusByIdUseCase;
+    this._deleteArticleByIdUseCase = deleteArticleByIdUseCase;
   }
 
   async postArticle({ request, context: { credentials } }: HTTPHandlerProps) {
@@ -137,6 +151,53 @@ export default class ArticlesHandler {
     const response = SuccessResponse({
       data: articlesData,
       message: "Article Found",
+    });
+
+    return response;
+  }
+
+  async putArticleStatusById({
+    request,
+    routeParams: { id: articleId },
+    context: { credentials },
+  }: HTTPHandlerProps) {
+    const payload: UpdateArticleStatusByIdUseCasePayload["payload"] =
+      await request.json();
+    const useCasePayload: UpdateArticleStatusByIdUseCasePayload = {
+      articleId,
+      payload,
+      credentials,
+    };
+
+    const { id } =
+      await this._updateArticleStatusByIdUseCase.execute(useCasePayload);
+
+    const response = SuccessResponse({
+      data: {
+        id,
+      },
+      message: "Article status updated successfully",
+    });
+
+    return response;
+  }
+
+  async deleteArticleById({
+    routeParams: { id: articleId },
+    context: { credentials },
+  }: HTTPHandlerProps) {
+    const useCasePayload: DeleteArticleByIdUseCasePayload = {
+      articleId,
+      credentials,
+    };
+
+    const { id } = await this._deleteArticleByIdUseCase.execute(useCasePayload);
+
+    const response = SuccessResponse({
+      data: {
+        id,
+      },
+      message: "Article deleted successfully",
     });
 
     return response;

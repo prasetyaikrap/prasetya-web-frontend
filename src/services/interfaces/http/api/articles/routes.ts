@@ -11,7 +11,7 @@ const routes = (handler: ArticlesHandler): RoutesHandler[] => [
     options: { middleware: ["authMiddleware"] },
   },
   {
-    name: "Update new article",
+    name: "Update article by ID",
     method: "PUT",
     path: "/v1/articles/:id",
     handler: async (props) => await handler.putArticleById(props),
@@ -25,10 +25,24 @@ const routes = (handler: ArticlesHandler): RoutesHandler[] => [
     options: { middleware: ["authMiddleware"] },
   },
   {
-    name: "Get article by id or slug",
+    name: "Get article by ID or slug",
     method: "GET",
     path: "/v1/articles/:id",
     handler: async (props) => await handler.getArticleByIdOrSlug(props),
+    options: { middleware: ["authMiddleware"] },
+  },
+  {
+    name: "Update Article Status",
+    method: "PUT",
+    path: "/v1/articles/:id/status",
+    handler: async (props) => await handler.putArticleStatusById(props),
+    options: { middleware: ["authMiddleware"] },
+  },
+  {
+    name: "Delete article by ID",
+    method: "DELETE",
+    path: "/v1/articles/:id",
+    handler: async (props) => await handler.deleteArticleById(props),
     options: { middleware: ["authMiddleware"] },
   },
 

@@ -31,7 +31,7 @@ export default class GetArticlesUseCase {
     const modifiedQueries = match({ isPublic })
       .with({ isPublic: true }, () => ({
         ...queries,
-        "visibility.status__equal": "published",
+        status__equal: "published",
       }))
       .otherwise(() => queries);
 

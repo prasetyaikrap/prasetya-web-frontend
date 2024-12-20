@@ -21,11 +21,6 @@ export type AuthenticationDocProps = {
 
 export type MetadataTotalRowsDocProp = Record<string, number>;
 
-export type ArticleVisibility = {
-  publicity: string;
-  status: string;
-};
-
 export type ArticleCategory = {
   id: string;
   value: string;
@@ -49,7 +44,8 @@ export type ArticleDocProps = {
   content: string;
 
   metadata: Metadata;
-  visibility: ArticleVisibility;
+  publicity: string[];
+  status: string;
   author: ArticleAuthor[];
   slug_histories: string[];
   created_at: string;
