@@ -73,9 +73,16 @@ export default class ArticlesRepository {
   async createArticle({ payload, createdBy }: CreateArticlePayloadProps) {
     const res = await this.articlesCollectionRef.add({
       ...payload,
+      summary: "",
+      content: "",
+      featuredImage: "",
+      categories: [],
+      tags: [],
       author: createdBy,
+      status: "unpublish",
       slug_histories: [],
       title_search: [],
+      metadata: {},
       created_at: FieldValue.serverTimestamp(),
       updated_at: FieldValue.serverTimestamp(),
     });

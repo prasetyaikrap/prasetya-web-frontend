@@ -5,16 +5,7 @@ import { ArticleDocProps } from "@/services/commons/types/firestoreDoc";
 
 export type CreateArticlePayload = Pick<
   ArticleDocProps,
-  | "title"
-  | "summary"
-  | "slug"
-  | "categories"
-  | "tags"
-  | "featuredImage"
-  | "content"
-  | "publicity"
-  | "status"
-  | "metadata"
+  "title" | "slug" | "publicity"
 >;
 
 export default class CreateArticleEntities {
@@ -22,30 +13,12 @@ export default class CreateArticleEntities {
 
   constructor(payload: CreateArticlePayload) {
     this._verifyPayload(payload);
-    const {
-      title,
-      summary,
-      slug,
-      categories,
-      tags,
-      featuredImage,
-      content,
-      publicity,
-      status,
-      metadata,
-    } = payload;
+    const { title, slug, publicity } = payload;
 
     this.payload = {
       title,
-      summary,
       slug,
-      categories,
-      tags,
-      featuredImage,
-      content,
       publicity,
-      status,
-      metadata,
     };
   }
 
@@ -54,14 +27,8 @@ export default class CreateArticleEntities {
       .with(
         {
           title: P.not(P.string),
-          summary: P.not(P.string),
           slug: P.not(P.string),
-          categories: P.not(P.array(P.string)),
-          tags: P.not(P.array(P.string)),
-          featuredImage: P.not(P.string),
-          content: P.not(P.string),
           publicity: P.not(P.array(P.string)),
-          status: P.not(P.string),
         },
         () => {
           throw new InvariantError("Create Article Failed. Invalid Payload");

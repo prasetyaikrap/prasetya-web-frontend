@@ -23,13 +23,25 @@ export default class GetArticleByIdOrSlugUseCase {
       const articleDataBySlug = await this._articleRepository.getArticleBySlug({
         slug: articleId,
       });
-      return { data: articleDataBySlug };
+
+      const {
+        slug_histories: _slugHistories,
+        title_search: _titleSearch,
+        ...articleData
+      } = articleDataBySlug;
+      return { data: articleData };
     }
 
     const articleDataById = await this._articleRepository.getArticleById({
       articleId,
     });
 
-    return { data: articleDataById };
+    const {
+      slug_histories: _slugHistories,
+      title_search: _titleSearch,
+      ...articleData
+    } = articleDataById;
+
+    return { data: articleData };
   }
 }
