@@ -15,6 +15,8 @@ export type ResponseMetadata = {
   current_page: number;
   total_page: number;
   per_page: number;
+  previousCursor: string;
+  nextCursor: string;
 };
 
 export function SuccessResponse<T extends BaseResponseBody = BaseResponseBody>({

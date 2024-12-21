@@ -7,9 +7,11 @@ import GetAdminsUseCase from "@/services/applications/usecases/admins/GetAdminsU
 import RegisterAdminUseCase from "@/services/applications/usecases/admins/RegisterAdminUseCase";
 import UpdateAdminByIdUseCase from "@/services/applications/usecases/admins/UpdateAdminByIdUseCase";
 import CreateArticleUseCase from "@/services/applications/usecases/articles/CreateArticleUseCase";
+import DeleteArticleByIdUseCase from "@/services/applications/usecases/articles/DeleteArticleByIdUseCase";
 import GetArticleByIdOrSlugUseCase from "@/services/applications/usecases/articles/GetArticleByIdOrSlugUseCase";
 import GetArticlesUseCase from "@/services/applications/usecases/articles/GetArticlesUseCase";
 import UpdateArticleByIdUseCase from "@/services/applications/usecases/articles/UpdateArticleByIdUseCase";
+import UpdateArticleStatusByIdUseCase from "@/services/applications/usecases/articles/UpdateArticleStatusByIdUseCase";
 import LoginAdminUseCase from "@/services/applications/usecases/authentications/LoginAdminUseCase";
 import LogoutAdminUseCase from "@/services/applications/usecases/authentications/LogoutAdminUseCase";
 import RefreshAdminUseCase from "@/services/applications/usecases/authentications/RefreshAdminUseCase";
@@ -24,8 +26,6 @@ import authenticationsClient from "@/services/interfaces/http/api/authentication
 
 import ArticlesRepository from "../repository/articles/ArticlesRepository";
 import MiddlewareHandlers from "./middleware";
-import UpdateArticleStatusByIdUseCase from "@/services/applications/usecases/articles/UpdateArticleStatusByIdUseCase";
-import DeleteArticleByIdUseCase from "@/services/applications/usecases/articles/DeleteArticleByIdUseCase";
 
 export default async function serviceContainer() {
   const { firestoreDB } = await firebaseInitialize();
