@@ -6,7 +6,6 @@ import {
   MetaQuery,
 } from "@refinedev/core";
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
-import { ZodType } from "zod";
 
 export type MethodTypes = "GET" | "DELETE" | "HEAD" | "OPTIONS";
 export type MethodTypesWithBody = "POST" | "PUT" | "PATCH";
@@ -24,20 +23,8 @@ export type ExtendedAxiosRequestConfig = {
   routeParams?: Record<string, BaseKey>;
 } & AxiosRequestConfig;
 
-export type BaseAPISchema = {
-  method: string;
-  path: string;
-  summary: string;
-  response: {
-    success: ZodType;
-    failed: ZodType;
-  };
-  payload?: ZodType;
-  query?: ZodType;
-};
-
-export type InitClientProps<TSchema> = {
-  schema: TSchema;
+export type InitClientProps<TContract> = {
+  contract: TContract;
   baseUrl: string;
   httpClient?: AxiosInstance;
 };
@@ -47,11 +34,17 @@ export type BaseResponseBody = {
   message: string;
   data?: BaseRecord;
   error?: Error;
-  metadata?: {
+};
+
+export type BaseResponsesBody = BaseResponseBody & {
+  error?: Error;
+  metadata: {
     total_rows: number;
     total_page: number;
-    curent_page: number;
+    current_page: number;
     per_page: number;
+    previousCursor: string;
+    nextCursor: string;
   };
 };
 

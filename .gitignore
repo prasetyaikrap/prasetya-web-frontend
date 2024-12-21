@@ -38,6 +38,7 @@ next-env.d.ts
 
 # other
 .legacy
+**/*.gen*
 
 # firebase
 firebase-cert.json

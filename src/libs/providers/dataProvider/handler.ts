@@ -5,6 +5,7 @@ import {
   LogicalFilter,
   Pagination,
 } from "@refinedev/core";
+import { AppRoute, isSuccessResponse } from "@ts-rest/core";
 import { AxiosResponse } from "axios";
 import { match, P } from "ts-pattern";
 
@@ -12,19 +13,19 @@ import { axiosInstance } from "@/libs/axios";
 
 import {
   AxiosMethodTypes,
-  BaseAPISchema,
   BaseResponseBody,
+  BaseResponsesBody,
   CustomMetaQuery,
   ExtendedAxiosRequestConfig,
   InitClientProps,
 } from "./type";
 
-export function initClient<T extends { [key: string]: BaseAPISchema }>({
-  schema,
+export function initClient<T extends Record<string, AppRoute>>({
+  contract,
   baseUrl,
   httpClient = axiosInstance,
 }: InitClientProps<T>) {
-  const schemaKeys = Object.keys(schema) as (keyof T)[];
+  const schemaKeys = Object.keys(contract) as (keyof T)[];
 
   return schemaKeys.reduce(
     (
@@ -35,7 +36,7 @@ export function initClient<T extends { [key: string]: BaseAPISchema }>({
       },
       current
     ) => {
-      const { method, path } = schema[current as keyof T];
+      const { method, path } = contract[current as keyof T];
       const axiosMethod = method.toLowerCase() as AxiosMethodTypes;
       result[current as keyof T] = async (
         config?: ExtendedAxiosRequestConfig
@@ -74,7 +75,7 @@ function replaceRouteParams(
 }
 
 export function responseOk<T extends BaseResponseBody>(res: AxiosResponse<T>) {
-  if (res.status !== 200) {
+  if (![200, 201, 202, 203, 204, 205, 206, 207].includes(res.status)) {
     throw new Error(res.data.message);
   }
 
@@ -83,8 +84,11 @@ export function responseOk<T extends BaseResponseBody>(res: AxiosResponse<T>) {
   };
 }
 
-export function responsesOk<T extends BaseResponseBody>(res: AxiosResponse<T>) {
-  if (res.status !== 200) {
+export function responsesOk<T extends BaseResponsesBody>(
+  res: AxiosResponse<T>
+) {
+  isSuccessResponse;
+  if (![200, 201, 202, 203, 204, 205, 206, 207].includes(res.status)) {
     throw new Error(res.data.message);
   }
 

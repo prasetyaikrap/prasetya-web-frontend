@@ -1,19 +1,14 @@
 import { AuthActionResponse, CheckResponse, HttpError } from "@refinedev/core";
 
 import { ENV } from "@/configs";
+import { FormLoginFields } from "@/features/Login/type";
 import { deleteCookies, setCookies } from "@/utils";
 
-import {
-  appApiSchema,
-  DeleteLogoutAdminSuccessResponse,
-  GetVerifyAdminSuccessResponse,
-  PostLoginAdminSuccessResponse,
-} from "../dataProvider/appApiSchema";
 import { initClient } from "../dataProvider/handler";
-import { FormLoginFields } from "@/features/Login/type";
+import { defaultAppApi } from "../dataProvider/schema";
 
 const service = initClient({
-  schema: appApiSchema,
+  contract: defaultAppApi,
   baseUrl: `${ENV.APP_HOST}/api`,
 });
 
@@ -27,7 +22,7 @@ export async function loginAdminUser(
       data: {
         data: { accessToken, accessTokenKey, refreshToken, refreshTokenKey },
       },
-    } = await service.postLoginAdmin<PostLoginAdminSuccessResponse>({
+    } = await service.postLoginAdmin({
       data: { username, password },
     });
 
@@ -60,7 +55,7 @@ export async function loginAdminUser(
 
 export async function verifyAdminUser(): Promise<CheckResponse> {
   try {
-    await service.getVerifyAdmin<GetVerifyAdminSuccessResponse>();
+    await service.getVerifyAdmin();
     return {
       authenticated: true,
     };
@@ -81,7 +76,7 @@ export async function logoutAdminUser(
       data: {
         data: { accessTokenKey, refreshTokenKey },
       },
-    } = await service.deleteLogoutAdmin<DeleteLogoutAdminSuccessResponse>();
+    } = await service.deleteLogoutAdmin();
     await deleteCookies([accessTokenKey, refreshTokenKey]);
 
     return {

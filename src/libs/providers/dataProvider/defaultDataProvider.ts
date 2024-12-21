@@ -12,22 +12,29 @@ import { match } from "ts-pattern";
 import { axiosInstance } from "@/libs/axios";
 
 import {
-  appApiSchema,
-  DeleteLogoutAdminSuccessResponse,
-  GetAdminListSuccessResponse,
-  GetVerifyAdminSuccessResponse,
-  PostLoginAdminSuccessResponse,
-  PutRenewAdminSuccessResponse,
-  PutUpdateAdminSuccessResponse,
-} from "./appApiSchema";
-import {
   generateParams,
   initClient,
   responseError,
   responseOk,
   responsesOk,
 } from "./handler";
+import {
+  AdministratorCreateResponse,
+  AdministratorGetListResponse,
+  AdministratorGetResponse,
+  AdministratorUpdateResponse,
+  AuthenticationLoginResponse,
+  AuthenticationLogoutResponse,
+  AuthenticationRenewResponse,
+  AuthenticationVerifyResponse,
+  defaultAppApi,
+} from "./schema";
 import { CustomMetaQuery } from "./type";
+
+type BaseParamsMatcher = {
+  resource: string;
+  metadata?: Record<string, string | number>;
+};
 
 export const dataProvider = (
   apiUrl: string,
@@ -37,7 +44,7 @@ export const dataProvider = (
   "getMany" | "createMany" | "updateMany" | "deleteMany" | "custom"
 > => {
   const service = initClient({
-    schema: appApiSchema,
+    contract: defaultAppApi,
     baseUrl: apiUrl,
     httpClient,
   });
@@ -54,12 +61,12 @@ export const dataProvider = (
       });
 
       return (
-        match([resource])
+        match<BaseParamsMatcher>({ resource })
           // Admins
-          .with(["adminList"], () =>
+          .with({ resource: "adminList" }, () =>
             service
-              .getAdminList<GetAdminListSuccessResponse>({ params })
-              .then(responsesOk)
+              .getAdminList({ params })
+              .then(responsesOk<AdministratorGetListResponse>)
               .catch(responseError)
           )
           .otherwise(() => Promise.reject("Method not implemented")) as Promise<
@@ -69,50 +76,46 @@ export const dataProvider = (
     },
 
     create: async ({ resource, variables }) => {
-      return (
-        match([resource])
-          // Authentications
-          .with(["loginAdmin"], () =>
-            service
-              .postLoginAdmin<PostLoginAdminSuccessResponse>({
-                data: variables,
-              })
-              .then(responseOk)
-              .catch(responseError)
-          )
-          // Admins
-          .with(["addAdmin"], () =>
-            service
-              .postAddAdminUser({ data: variables })
-              .then(responseOk)
-              .catch(responseError)
-          )
-          .otherwise(() => Promise.reject("Method not implemented")) as Promise<
-          CreateResponse<never>
-        >
-      );
+      return match<BaseParamsMatcher>({ resource })
+        .with({ resource: "loginAdmin" }, () =>
+          service
+            .postLoginAdmin({
+              data: variables,
+            })
+            .then(responseOk<AuthenticationLoginResponse>)
+            .catch(responseError)
+        )
+        .with({ resource: "addAdmin" }, () =>
+          service
+            .postCreateAdmin({ data: variables })
+            .then(responseOk<AdministratorCreateResponse>)
+            .catch(responseError)
+        )
+        .otherwise(() => Promise.reject("Method not implemented")) as Promise<
+        CreateResponse<never>
+      >;
     },
 
     update: async ({ resource, id, variables }) => {
       return (
-        match([resource])
+        match<BaseParamsMatcher>({ resource })
           // Authentications
-          .with(["renewAdmin"], () =>
+          .with({ resource: "renewAdmin" }, () =>
             service
-              .putRenewAdmin<PutRenewAdminSuccessResponse>()
-              .then(responseOk)
+              .putRenewAdmin()
+              .then(responseOk<AuthenticationRenewResponse>)
               .catch(responseError)
           )
           // Admins
-          .with(["updateAdmin"], () =>
+          .with({ resource: "updateAdmin" }, () =>
             service
-              .putUpdateAdminUser<PutUpdateAdminSuccessResponse>({
+              .putUpdateAdmin({
                 routeParams: {
                   id,
                 },
                 data: variables,
               })
-              .then(responseOk)
+              .then(responseOk<AdministratorUpdateResponse>)
               .catch(responseError)
           )
           .otherwise(() => Promise.reject("Method not implemented")) as Promise<
@@ -123,19 +126,19 @@ export const dataProvider = (
 
     getOne: async ({ resource, id }) => {
       return (
-        match([resource])
+        match<BaseParamsMatcher>({ resource })
           // Authentications
-          .with(["verifyAdmin"], () =>
+          .with({ resource: "verifyAdmin" }, () =>
             service
-              .getVerifyAdmin<GetVerifyAdminSuccessResponse>()
-              .then(responseOk)
+              .getVerifyAdmin()
+              .then(responseOk<AuthenticationVerifyResponse>)
               .catch(responseError)
           )
           // Admins
-          .with(["getAdminUser"], () =>
+          .with({ resource: "getAdminUser" }, () =>
             service
-              .getAdminUser({ routeParams: { id } })
-              .then(responseOk)
+              .getAdmin({ routeParams: { id } })
+              .then(responseOk<AdministratorGetResponse>)
               .catch(responseError)
           )
           .otherwise(() => Promise.reject("Method not implemented")) as Promise<
@@ -146,12 +149,12 @@ export const dataProvider = (
 
     deleteOne: async ({ resource }) => {
       return (
-        match([resource])
+        match<BaseParamsMatcher>({ resource })
           // Authentications
-          .with(["logoutAdmin"], () =>
+          .with({ resource: "logoutAdmin" }, () =>
             service
-              .deleteLogoutAdmin<DeleteLogoutAdminSuccessResponse>()
-              .then(responseOk)
+              .deleteLogoutAdmin()
+              .then(responseOk<AuthenticationLogoutResponse>)
               .catch(responseError)
           )
           .otherwise(() => Promise.reject("Method not implemented")) as Promise<

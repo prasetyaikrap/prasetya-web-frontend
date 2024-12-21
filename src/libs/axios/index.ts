@@ -5,11 +5,8 @@ import { ENV } from "@/configs";
 import { COOKIES } from "@/configs/cookies";
 import { deleteCookies, getCookies, setCookies } from "@/utils";
 
-import {
-  appApiSchema,
-  PutRenewAdminSuccessResponse,
-} from "../providers/dataProvider/appApiSchema";
 import { initClient } from "../providers/dataProvider/handler";
+import { defaultAppApi } from "../providers/dataProvider/schema";
 
 type ExtendedAxiosError = {
   config: {
@@ -41,7 +38,7 @@ function defaultRequestInterceptor(axiosInstance: AxiosInstance) {
 
 function defaultResponseInterceptor(axiosInstance: AxiosInstance) {
   const authService = initClient({
-    schema: appApiSchema,
+    contract: defaultAppApi,
     baseUrl: `${ENV.APP_HOST}/api`,
     httpClient: axiosInstance,
   });
@@ -74,7 +71,7 @@ function defaultResponseInterceptor(axiosInstance: AxiosInstance) {
             data: {
               data: { accessToken, accessTokenKey },
             },
-          } = await authService.putRenewAdmin<PutRenewAdminSuccessResponse>({
+          } = await authService.putRenewAdmin({
             headers: {
               "X-Renew-Token": true,
             },
