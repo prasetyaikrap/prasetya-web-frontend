@@ -24,8 +24,27 @@ export default class GetArticlesUseCase {
   }
 
   async execute({ queryParams, isPublic }: GetArticlesUseCasePayload) {
-    const { queries, _page, _limit, _sort } = new QueryPagination(queryParams);
-    const offset = _page * _limit;
+    const { queries, _page, _limit, _sort, _cursor } = new QueryPagination(
+      queryParams,
+      [
+        "title_search__arrayContainsAny",
+        "categories__arrayContainsAny",
+        "tags__arrayContainsAny",
+        "publicity__contains",
+        "status__equal",
+        "author.email__equal",
+        "author.id__equal",
+        "created_at__dateLessThan",
+        "created_at__dateLessThanEqual",
+        "created_at__dateGreaterThan",
+        "created_at__dateGreaterThanEqual",
+        "updated_at__dateLessThan",
+        "updated_at__dateLessThanEqual",
+        "updated_at__dateGreaterThan",
+        "updated_at__dateGreaterThanEqual",
+      ]
+    );
+
     const orders = _sort?.split(",") || [];
 
     const modifiedQueries = match({ isPublic })
@@ -41,7 +60,8 @@ export default class GetArticlesUseCase {
       filters,
       orders,
       limit: _limit,
-      offset,
+      page: _page,
+      cursor: _cursor,
     });
 
     const filteredData = data.map((d) => {
@@ -49,6 +69,7 @@ export default class GetArticlesUseCase {
         metadata: _metadata,
         content: _content,
         slug_histories: _slugHistories,
+        title_search: _titleSearch,
         ...selectedData
       } = d;
       return selectedData;

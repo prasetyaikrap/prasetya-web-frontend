@@ -25,8 +25,9 @@ export type ArticlesRepositoryProps = {
 export type GetArticlesPayload = {
   filters: QueryFilter[];
   orders: string[];
+  page: number;
   limit: number;
-  offset: number;
+  cursor: string;
 };
 
 export type CreateArticlePayloadProps = {
@@ -72,6 +73,8 @@ export default class ArticlesRepository {
   async createArticle({ payload, createdBy }: CreateArticlePayloadProps) {
     const res = await this.articlesCollectionRef.add({
       ...payload,
+      slug_histories: [],
+      title_search: [],
       created_by: createdBy,
       created_at: FieldValue.serverTimestamp(),
       updated_by: createdBy,
@@ -90,8 +93,11 @@ export default class ArticlesRepository {
     updatedBy,
     articleId,
   }: UpdateArticlePayloadProps) {
+    const { title } = payload;
+    const title_search = title.split(" ").map((v) => v.trim());
     const snapshot = await this.articlesCollectionRef.doc(articleId).update({
       ...payload,
+      title_search,
       updated_by: updatedBy,
       updated_at: FieldValue.serverTimestamp(),
     });
@@ -103,13 +109,19 @@ export default class ArticlesRepository {
     return { id: articleId };
   }
 
-  async getArticles({ filters, orders, limit, offset }: GetArticlesPayload) {
+  async getArticles({
+    filters,
+    orders,
+    limit,
+    cursor,
+    page,
+  }: GetArticlesPayload) {
     const queries = generateFirestoreQueries({
       queryRef: this.articlesCollectionRef,
       filters,
       orders,
       limit,
-      offset,
+      cursor,
     });
 
     const snapshot = await queries.get();
@@ -121,12 +133,16 @@ export default class ArticlesRepository {
       };
     });
 
-    const { currentPage, totalRows, totalPages } = await getPaginationMetadata({
-      queryRef: this.metadataCollectionRef,
-      totalRowsKey: "articles",
-      limit,
-      offset,
-    });
+    const lastData = snapshot.docs[snapshot.docs.length - 1];
+    const { currentPage, totalRows, totalPages, previousCursor, nextCursor } =
+      await getPaginationMetadata({
+        queryRef: this.metadataCollectionRef,
+        totalRowsKey: "articles",
+        limit,
+        page,
+        currentCursor: cursor || "",
+        nextCursor: lastData.id,
+      });
 
     return {
       data: articlesData,
@@ -135,6 +151,8 @@ export default class ArticlesRepository {
         current_page: currentPage,
         total_page: totalPages,
         per_page: limit,
+        previousCursor,
+        nextCursor,
       },
     };
   }

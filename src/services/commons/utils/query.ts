@@ -18,16 +18,16 @@ export type GenerateFirestoreQueriesProps = {
   queryRef: CollectionReference;
   filters?: QueryFilter[];
   orders?: string[];
-  offset?: number;
   limit?: number;
+  cursor: string;
 };
 
 export function generateFirestoreQueries({
   queryRef,
   filters = [],
   orders = [],
-  offset = 0,
   limit = 10,
+  cursor,
 }: GenerateFirestoreQueriesProps) {
   const queryFilters = filters.reduce((result: Query, current) => {
     const { field, operator, value } = firestoreFilterParams(current);
@@ -39,80 +39,81 @@ export function generateFirestoreQueries({
     return result.orderBy(field, order as OrderByDirection);
   }, queryFilters);
 
-  const fullQuery = queryOrders.offset(offset).limit(limit);
+  const fullQuery = queryOrders.startAfter(cursor).limit(limit);
   return fullQuery;
 }
 
 function firestoreFilterParams(filter: QueryFilter) {
   const { field, value } = filter;
   const [fieldKey, operator] = field.split("__") as [string, FilterOperators];
+
   const filterParam: {
     operator: string;
     value: FirestoreFilterValue;
   } = match(operator)
     .with("equal", () => ({
       operator: "==",
-      value: normalizeFilterValue(value),
+      value,
     }))
     .with("dateEqual", () => ({
       operator: "!=",
-      value: Timestamp.fromDate(new Date(value)),
+      value: Timestamp.fromDate(new Date(value as string)),
     }))
     .with("notEqual", () => ({
       operator: "!=",
-      value: normalizeFilterValue(value),
+      value,
     }))
     .with("dateNotEqual", () => ({
       operator: "!=",
-      value: Timestamp.fromDate(new Date(value)),
+      value: Timestamp.fromDate(new Date(value as string)),
     }))
     .with("lessThan", () => ({
       operator: "<",
-      value: parseInt(value),
+      value,
     }))
     .with("lessThanEqual", () => ({
       operator: "<=",
-      value: parseInt(value),
+      value,
     }))
     .with("dateLessThan", () => ({
       operator: "<",
-      value: Timestamp.fromDate(new Date(value)),
+      value: Timestamp.fromDate(new Date(value as string)),
     }))
     .with("dateLessThanEqual", () => ({
       operator: "<=",
-      value: Timestamp.fromDate(new Date(value)),
+      value: Timestamp.fromDate(new Date(value as string)),
     }))
     .with("greaterThan", () => ({
       operator: "<",
-      value: parseInt(value),
+      value,
     }))
     .with("greaterThanEqual", () => ({
       operator: "<=",
-      value: parseInt(value),
+      value,
     }))
     .with("dateGreaterThan", () => ({
       operator: "<",
-      value: Timestamp.fromDate(new Date(value)),
+      value: Timestamp.fromDate(new Date(value as string)),
     }))
     .with("dateGreaterThanEqual", () => ({
       operator: "<=",
-      value: Timestamp.fromDate(new Date(value)),
+      value: Timestamp.fromDate(new Date(value as string)),
     }))
     .with("contains", () => ({
       operator: "in",
-      value: value.split(",").map((s) => normalizeFilterValue(s)),
+      value,
     }))
     .with("notContains", () => ({
       operator: "not-in",
-      value: value.split(",").map((s) => normalizeFilterValue(s)),
+      value,
     }))
     .with("arrayContains", () => ({
       operator: "array-contains",
-      value: normalizeFilterValue(value),
+      value,
     }))
     .with("arrayContainsAny", () => ({
       operator: "array-contains-any",
-      value: value.split(",").map((s) => normalizeFilterValue(s)),
+      value,
     }))
     .otherwise(() => ({
       operator: "==",
@@ -166,12 +167,13 @@ export type GetPaginationSearchParamsProps = {
 };
 
 export function getPaginationSearchParams<
-  T extends Record<string, string> = Record<string, string>,
+  T extends Record<string, any> = Record<string, any>,
 >({ request }: GetPaginationSearchParamsProps) {
   const { searchParams } = request.nextUrl;
   const _page = searchParams.get("_page") || "";
   const _limit = searchParams.get("_limit") || "";
   const _sort = searchParams.get("_sort") || "";
+  const _cursor = searchParams.get("_cursor") || "";
   const queries = searchParams.get("queries") || "";
 
   return {
@@ -179,6 +181,7 @@ export function getPaginationSearchParams<
     _page,
     _limit,
     _sort,
+    _cursor,
   };
 }
 
@@ -186,24 +189,29 @@ export type GetPaginationMetadataProps = {
   queryRef: CollectionReference;
   totalRowsKey: string;
   limit: number;
-  offset: number;
+  page: number;
+  currentCursor: string;
+  nextCursor: string;
 };
 
 export async function getPaginationMetadata({
   queryRef,
   totalRowsKey,
   limit,
-  offset,
+  page,
+  currentCursor,
+  nextCursor,
 }: GetPaginationMetadataProps) {
   const totalRowsMetadata = await queryRef.doc("total_rows").get();
 
   const totalRows = totalRowsMetadata.data()?.[totalRowsKey] || 0;
   const totalPages = Math.ceil(totalRows / limit);
-  const currentPage = offset / limit + 1;
 
   return {
     totalRows,
     totalPages,
-    currentPage,
+    currentPage: page,
+    previousCursor: currentCursor,
+    nextCursor,
   };
 }

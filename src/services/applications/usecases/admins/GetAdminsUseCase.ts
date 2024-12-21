@@ -24,8 +24,10 @@ export default class GetAdminsUseCase {
   }
 
   async execute({ queryParams }: GetAdminsUseCasePayload) {
-    const { queries, _page, _limit, _sort } = new QueryPagination(queryParams);
-    const offset = _page * _limit;
+    const { queries, _page, _limit, _sort, _cursor } = new QueryPagination(
+      queryParams,
+      []
+    );
     const filters = generateFilters(queries);
     const orders = _sort?.split(",") || [];
 
@@ -33,7 +35,8 @@ export default class GetAdminsUseCase {
       filters,
       orders,
       limit: _limit,
-      offset,
+      page: _page,
+      cursor: _cursor,
     });
   }
 }

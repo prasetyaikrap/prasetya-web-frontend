@@ -9,7 +9,10 @@ import InvariantError from "@/services/commons/exceptions/InvariantError";
 import NotFoundError from "@/services/commons/exceptions/NotFoundError";
 import { AdminDocProps } from "@/services/commons/types/firestoreDoc";
 import { QueryFilter } from "@/services/commons/types/query";
-import { generateFirestoreQueries } from "@/services/commons/utils/query";
+import {
+  generateFirestoreQueries,
+  getPaginationMetadata,
+} from "@/services/commons/utils/query";
 
 export type AdminRepositoryProps = {
   firestore: Firestore;
@@ -24,7 +27,8 @@ export type GetAdminsPayload = {
   filters: QueryFilter[];
   orders: string[];
   limit: number;
-  offset: number;
+  page: number;
+  cursor: string;
 };
 
 export type GetAdminByIdPayload = {
@@ -98,13 +102,13 @@ export default class AdminRepository {
     return { id: res.id };
   }
 
-  async getAdmins({ filters, orders, limit, offset }: GetAdminsPayload) {
+  async getAdmins({ filters, orders, limit, page, cursor }: GetAdminsPayload) {
     const queries = generateFirestoreQueries({
       queryRef: this.adminsCollectionRef,
       filters,
       orders,
       limit,
-      offset,
+      cursor,
     });
     const snapshot = await queries.get();
 
@@ -122,13 +126,16 @@ export default class AdminRepository {
       };
     });
 
-    const totalRowsMetadata = await this.metadataCollectionRef
-      .doc("total_rows")
-      .get();
-
-    const totalRows = totalRowsMetadata.data()?.admins || 0;
-    const totalPages = Math.ceil(totalRows / limit);
-    const currentPage = offset / limit + 1;
+    const lastData = snapshot.docs[snapshot.docs.length - 1];
+    const { currentPage, totalRows, totalPages, previousCursor, nextCursor } =
+      await getPaginationMetadata({
+        queryRef: this.metadataCollectionRef,
+        totalRowsKey: "admins",
+        limit,
+        page,
+        currentCursor: cursor || "",
+        nextCursor: lastData.id,
+      });
 
     return {
       data: adminsData,
@@ -137,6 +144,8 @@ export default class AdminRepository {
         current_page: currentPage,
         total_page: totalPages,
         per_page: limit,
+        previousCursor,
+        nextCursor,
       },
     };
   }

@@ -21,16 +21,6 @@ export type AuthenticationDocProps = {
 
 export type MetadataTotalRowsDocProp = Record<string, number>;
 
-export type ArticleCategory = {
-  id: string;
-  value: string;
-};
-
-export type ArticleTag = {
-  id: string;
-  value: string;
-};
-
 export type ArticleAuthor = UserField;
 
 export type ArticleDocProps = {
@@ -38,18 +28,18 @@ export type ArticleDocProps = {
   title: string;
   summary: string;
   slug: string;
-  categories: ArticleCategory[];
-  tags: ArticleTag[];
+  categories: string[];
+  tags: string[];
   featuredImage: string;
   content: string;
 
   metadata: Metadata;
   publicity: string[];
   status: string;
-  author: ArticleAuthor[];
-  slug_histories: string[];
+  author: ArticleAuthor;
   created_at: string;
-  created_by: UserField;
   updated_at: string;
-  updated_by: UserField;
+
+  slug_histories: string[];
+  title_search: string[];
 };

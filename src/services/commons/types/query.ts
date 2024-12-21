@@ -26,12 +26,13 @@ export type FirestoreFilterValue =
   | number[]
   | boolean[]
   | Timestamp
-  | (string | number | boolean | null)[]
+  | (string | number | boolean | Record<string, any> | null)[]
+  | Record<string, any>
   | null;
 
 export type QueryFilter = {
   field: string;
-  value: string;
+  value: string | string[] | number | number[] | boolean | Record<string, any>;
 };
 
 export type QueryOrder = string[];

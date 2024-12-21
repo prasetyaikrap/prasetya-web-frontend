@@ -1,30 +1,29 @@
 import InvariantError from "@/services/commons/exceptions/InvariantError";
-import { FilterOperators } from "@/services/commons/types/query";
 import { match, P } from "ts-pattern";
 
-export type QueryPaginationPayload<TQueryData = Record<string, string>> = {
+export type QueryPaginationPayload<TQueryData = Record<string, any>> = {
   queries?: TQueryData;
   _sort?: string;
   _page: string;
   _limit: string;
+  _cursor: string;
 };
 
-export default class QueryPagination<TQueryData = { [key: string]: string }> {
+export default class QueryPagination<TQueryData = Record<string, any>> {
   public queries: QueryPaginationPayload<TQueryData>["queries"];
   public _sort?: QueryPaginationPayload<TQueryData>["_sort"];
   public _page: number;
   public _limit: number;
+  public _cursor: string;
 
-  constructor(
-    payload: QueryPaginationPayload<TQueryData>,
-    keyMap?: Record<string, FilterOperators>
-  ) {
+  constructor(payload: QueryPaginationPayload<TQueryData>, keys: string[]) {
     this._verifyPayload(payload);
-    const { _page, _limit, _sort, queries } = payload;
-    this.queries = this._pickQueries(queries, keyMap);
+    const { _page, _limit, _sort, _cursor, queries } = payload;
+    this.queries = this._pickQueries(queries, keys);
     this._page = parseInt(_page);
     this._limit = parseInt(_limit);
     this._sort = _sort;
+    this._cursor = _cursor;
   }
 
   _verifyPayload(payload: QueryPaginationPayload<TQueryData>) {
@@ -46,18 +45,17 @@ export default class QueryPagination<TQueryData = { [key: string]: string }> {
 
   _pickQueries(
     queries: QueryPaginationPayload<TQueryData>["queries"],
-    keyMap?: Record<string, FilterOperators>
+    keys: string[]
   ) {
-    if (!queries || !keyMap) return queries;
+    if (!queries) return queries;
 
     return Object.entries(queries).reduce((result, current) => {
       const [key, value] = current;
-      const queryOperator = keyMap[current[0]];
-      if (!queryOperator) return result;
+      if (!keys.includes(key)) return result;
 
       return {
         ...result,
-        [`${key}__${queryOperator}`]: value,
+        [key]: value,
       };
     }, {} as TQueryData);
   }
