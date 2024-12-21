@@ -13,8 +13,11 @@ tags:
     description: Endpoint to manage Authentication Configuration
   - name: Administrator
     description: Endpoint to manage Administrator Configuration
+  - name: Articles
+    description: Endpoint to access Articles Resources
 
 paths:
+  # Authentications
   /v1/authentications:
     post:
       tags:
@@ -107,6 +110,7 @@ paths:
         "500":
           $ref: "#/components/responses/BaseErrorResponse"
 
+  # Administrator
   /v1/admins:
     post:
       tags:
@@ -141,13 +145,39 @@ paths:
       summary: Get Admin User List
       description: Get list of Administrator User Information
       operationId: getAdminList
+      parameters:
+        - name: queries
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: _page
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: _limit
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: _sort
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: _cursor
+          in: query
+          required: false
+          schema:
+            type: string
       responses:
         "200":
           description: Success Get Admin List
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AdministratorGetListResponse"
+                $ref: "#/components/schemas/AdministratorGetListResponses"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -218,7 +248,289 @@ paths:
         "500":
           $ref: "#/components/responses/BaseErrorResponse"
 
+  # Articles
+  /v1/articles:
+    post:
+      tags:
+        - Articles
+      summary: Create New Article
+      description: Create New Article
+      operationId: postCreateArticle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ArticleCreatePayload"
+      responses:
+        "200":
+          description: Success Create Article response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticleCreateResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/BaseErrorResponse"
+    get:
+      tags:
+        - Articles
+      summary: Get list of Article
+      description: Get list of Article
+      operationId: getArticleList
+      parameters:
+        - name: queries
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: _page
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: _limit
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: _sort
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: _cursor
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success Create Article response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticleGetListResponses"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/BaseErrorResponse"
+  /v1/articles/{id}:
+    put:
+      tags:
+        - Articles
+      summary: Update Article
+      description: Update Article
+      operationId: putUpdateArticle
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ArticleUpdatePayload"
+      responses:
+        "200":
+          description: Success Update Article response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticleUpdateResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/BaseErrorResponse"
+    get:
+      tags:
+        - Articles
+      summary: Get Article
+      description: Get Article Information
+      operationId: getArticle
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success Get Article response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticleGetResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/BaseErrorResponse"
+    delete:
+      tags:
+        - Articles
+      summary: Delete Article
+      description: Delete Article
+      operationId: deleteDeleteArticle
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success Delete Article response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticleDeleteResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/BaseErrorResponse"
+  /v1/articles/{id}/status:
+    put:
+      tags:
+        - Articles
+      summary: Update Article Status
+      description: Update Article Status
+      operationId: putUpdateArticleStatus
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ArticleUpdateStatusPayload"
+      responses:
+        "200":
+          description: Success Update Article Status response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticleUpdateStatusResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/BaseErrorResponse"
+
+  # Articles - Public
+  /v1/public/articles:
+    get:
+      tags:
+        - Articles
+      summary: Get list of Article
+      description: Get list of Article
+      operationId: getArticleListPublic
+      parameters:
+        - name: queries
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: _page
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: _limit
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: _sort
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: _cursor
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success Create Article response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticleGetListResponses"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/BaseErrorResponse"
+  /v1/public/articles/{id}:
+    get:
+      tags:
+        - Articles
+      summary: Get Article
+      description: Get Article Information
+      operationId: getArticlePublic
+      parameters:
+        - name: queries
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success Get Article response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticleGetResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/BaseErrorResponse"
+
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     BaseMetadata:
       type: object
@@ -273,7 +585,7 @@ components:
         error:
           type: object
 
-    # Authentications
+    # Authentications Schema
     AuthenticationLoginPayload:
       type: object
       required: [username, password]
@@ -345,10 +657,10 @@ components:
                 refreshTokenKey:
                   type: string
 
-    # Administrator
+    # Administrator Schema
     AdministratorCreatePayload:
       type: object
-      required: []
+      required: [username, password, name, email, avatar]
       properties:
         username:
           type: string
@@ -362,7 +674,7 @@ components:
           type: string
     AdministratorUpdatePayload:
       type: object
-      required: []
+      required: [name, email, avatar]
       properties:
         name:
           type: string
@@ -421,7 +733,7 @@ components:
                   type: string
                 updated_at:
                   type: string
-    AdministratorGetListResponse:
+    AdministratorGetListResponses:
       allOf:
         - $ref: "#/components/schemas/BaseResponses"
         - type: object
@@ -459,6 +771,248 @@ components:
               required: [id]
               properties:
                 id:
+                  type: string
+
+    # Article Schema
+    ArticleAuthor:
+      type: object
+      required: [id, name, email, avatar]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        avatar:
+          type: string
+    ArticleCreatePayload:
+      type: object
+      required: [title, slug, publicity]
+      properties:
+        title:
+          type: string
+        slug:
+          type: string
+        publicity:
+          type: array
+          items:
+            type: string
+    ArticleUpdatePayload:
+      type: object
+      required:
+        [
+          title,
+          summary,
+          slug,
+          categories,
+          tags,
+          featuredImage,
+          content,
+          publicity,
+          author,
+          metadata,
+          slug_histories,
+        ]
+      properties:
+        title:
+          type: string
+        summary:
+          type: string
+        slug:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        tags:
+          type: array
+          items:
+            type: string
+        featuredImage:
+          type: string
+        content:
+          type: string
+        publicity:
+          type: array
+          items:
+            type: string
+        author:
+          $ref: "#/components/schemas/ArticleAuthor"
+        metadata:
+          type: object
+        slug_histories:
+          type: array
+          items:
+            type: string
+    ArticleUpdateStatusPayload:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+
+    ArticleCreateResponse:
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [id]
+              properties:
+                id:
+                  type: string
+    ArticleUpdateResponse:
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [id]
+              properties:
+                id:
+                  type: string
+    ArticleUpdateStatusResponse:
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [id]
+              properties:
+                id:
+                  type: string
+    ArticleDeleteResponse:
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [id]
+              properties:
+                id:
+                  type: string
+    ArticleGetResponse:
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required:
+                [
+                  id,
+                  title,
+                  summary,
+                  slug,
+                  categories,
+                  tags,
+                  featuredImage,
+                  content,
+                  publicity,
+                  status,
+                  author,
+                  created_at,
+                  updated_at,
+                  metadata,
+                ]
+              properties:
+                id:
+                  type: string
+                title:
+                  type: string
+                summary:
+                  type: string
+                slug:
+                  type: string
+                categories:
+                  type: array
+                  items:
+                    type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+                featuredImage:
+                  type: string
+                content:
+                  type: string
+                publicity:
+                  type: array
+                  items:
+                    type: string
+                status:
+                  type: string
+                author:
+                  $ref: "#/components/schemas/ArticleAuthor"
+                created_at:
+                  type: string
+                updated_at:
+                  type: string
+                metadata:
+                  type: object
+    ArticleGetListResponses:
+      allOf:
+        - $ref: "#/components/schemas/BaseResponses"
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required:
+                [
+                  id,
+                  title,
+                  summary,
+                  slug,
+                  categories,
+                  tags,
+                  featuredImage,
+                  publicity,
+                  status,
+                  author,
+                  created_at,
+                  updated_at,
+                ]
+              properties:
+                id:
+                  type: string
+                title:
+                  type: string
+                summary:
+                  type: string
+                slug:
+                  type: string
+                categories:
+                  type: array
+                  items:
+                    type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+                featuredImage:
+                  type: string
+                publicity:
+                  type: array
+                  items:
+                    type: string
+                status:
+                  type: string
+                author:
+                  $ref: "#/components/schemas/ArticleAuthor"
+                created_at:
+                  type: string
+                updated_at:
                   type: string
 
   responses:

@@ -13,20 +13,18 @@ import { axiosInstance } from "@/libs/axios";
 
 import {
   generateParams,
-  initClient,
+  initRestClient,
   responseError,
   responseOk,
   responsesOk,
 } from "./handler";
 import {
-  AdministratorCreateResponse,
-  AdministratorGetListResponse,
-  AdministratorGetResponse,
-  AdministratorUpdateResponse,
-  AuthenticationLoginResponse,
-  AuthenticationLogoutResponse,
-  AuthenticationRenewResponse,
-  AuthenticationVerifyResponse,
+  AdministratorCreatePayload,
+  AdministratorUpdatePayload,
+  ArticleCreatePayload,
+  ArticleUpdatePayload,
+  ArticleUpdateStatusPayload,
+  AuthenticationLoginPayload,
   defaultAppApi,
 } from "./schema";
 import { CustomMetaQuery } from "./type";
@@ -43,8 +41,8 @@ export const dataProvider = (
   Required<DataProvider>,
   "getMany" | "createMany" | "updateMany" | "deleteMany" | "custom"
 > => {
-  const service = initClient({
-    contract: defaultAppApi,
+  const service = initRestClient({
+    router: defaultAppApi,
     baseUrl: apiUrl,
     httpClient,
   });
@@ -60,19 +58,28 @@ export const dataProvider = (
         filterMode,
       });
 
-      return (
-        match<BaseParamsMatcher>({ resource })
-          // Admins
-          .with({ resource: "adminList" }, () =>
-            service
-              .getAdminList({ params })
-              .then(responsesOk<AdministratorGetListResponse>)
-              .catch(responseError)
-          )
-          .otherwise(() => Promise.reject("Method not implemented")) as Promise<
-          GetListResponse<never>
-        >
-      );
+      return match<BaseParamsMatcher>({ resource })
+        .with({ resource: "adminList" }, () =>
+          service
+            .getAdminList({ query: params })
+            .then(responsesOk)
+            .catch(responseError)
+        )
+        .with({ resource: "articleList" }, () =>
+          service
+            .getArticleList({ query: params })
+            .then(responsesOk)
+            .catch(responseError)
+        )
+        .with({ resource: "articleListPublic" }, () =>
+          service
+            .getArticleListPublic({ query: params })
+            .then(responsesOk)
+            .catch(responseError)
+        )
+        .otherwise(() => Promise.reject("Method not implemented")) as Promise<
+        GetListResponse<never>
+      >;
     },
 
     create: async ({ resource, variables }) => {
@@ -80,15 +87,21 @@ export const dataProvider = (
         .with({ resource: "loginAdmin" }, () =>
           service
             .postLoginAdmin({
-              data: variables,
+              body: variables as AuthenticationLoginPayload,
             })
-            .then(responseOk<AuthenticationLoginResponse>)
+            .then(responseOk)
             .catch(responseError)
         )
         .with({ resource: "addAdmin" }, () =>
           service
-            .postCreateAdmin({ data: variables })
-            .then(responseOk<AdministratorCreateResponse>)
+            .postCreateAdmin({ body: variables as AdministratorCreatePayload })
+            .then(responseOk)
+            .catch(responseError)
+        )
+        .with({ resource: "createArticle" }, () =>
+          service
+            .postCreateArticle({ body: variables as ArticleCreatePayload })
+            .then(responseOk)
             .catch(responseError)
         )
         .otherwise(() => Promise.reject("Method not implemented")) as Promise<
@@ -101,21 +114,34 @@ export const dataProvider = (
         match<BaseParamsMatcher>({ resource })
           // Authentications
           .with({ resource: "renewAdmin" }, () =>
-            service
-              .putRenewAdmin()
-              .then(responseOk<AuthenticationRenewResponse>)
-              .catch(responseError)
+            service.putRenewAdmin().then(responseOk).catch(responseError)
           )
           // Admins
           .with({ resource: "updateAdmin" }, () =>
             service
               .putUpdateAdmin({
-                routeParams: {
-                  id,
-                },
-                data: variables,
+                params: { id: id as string },
+                body: variables as AdministratorUpdatePayload,
               })
-              .then(responseOk<AdministratorUpdateResponse>)
+              .then(responseOk)
+              .catch(responseError)
+          )
+          .with({ resource: "updateArticle" }, () =>
+            service
+              .putUpdateArticle({
+                params: { id: id as string },
+                body: variables as ArticleUpdatePayload,
+              })
+              .then(responseOk)
+              .catch(responseError)
+          )
+          .with({ resource: "updateArticleStatus" }, () =>
+            service
+              .putUpdateArticleStatus({
+                params: { id: id as string },
+                body: variables as ArticleUpdateStatusPayload,
+              })
+              .then(responseOk)
               .catch(responseError)
           )
           .otherwise(() => Promise.reject("Method not implemented")) as Promise<
@@ -129,16 +155,25 @@ export const dataProvider = (
         match<BaseParamsMatcher>({ resource })
           // Authentications
           .with({ resource: "verifyAdmin" }, () =>
-            service
-              .getVerifyAdmin()
-              .then(responseOk<AuthenticationVerifyResponse>)
-              .catch(responseError)
+            service.getVerifyAdmin().then(responseOk).catch(responseError)
           )
           // Admins
           .with({ resource: "getAdminUser" }, () =>
             service
-              .getAdmin({ routeParams: { id } })
-              .then(responseOk<AdministratorGetResponse>)
+              .getAdmin({ params: { id: id as string } })
+              .then(responseOk)
+              .catch(responseError)
+          )
+          .with({ resource: "getArticle" }, () =>
+            service
+              .getArticle({ params: { id: id as string } })
+              .then(responseOk)
+              .catch(responseError)
+          )
+          .with({ resource: "getArticlePublic" }, () =>
+            service
+              .getArticlePublic({ params: { id: id as string } })
+              .then(responseOk)
               .catch(responseError)
           )
           .otherwise(() => Promise.reject("Method not implemented")) as Promise<
@@ -147,14 +182,17 @@ export const dataProvider = (
       );
     },
 
-    deleteOne: async ({ resource }) => {
+    deleteOne: async ({ resource, id }) => {
       return (
         match<BaseParamsMatcher>({ resource })
           // Authentications
           .with({ resource: "logoutAdmin" }, () =>
+            service.deleteLogoutAdmin().then(responseOk).catch(responseError)
+          )
+          .with({ resource: "articleDelete" }, () =>
             service
-              .deleteLogoutAdmin()
-              .then(responseOk<AuthenticationLogoutResponse>)
+              .deleteDeleteArticle({ params: { id: id as string } })
+              .then(responseOk)
               .catch(responseError)
           )
           .otherwise(() => Promise.reject("Method not implemented")) as Promise<
