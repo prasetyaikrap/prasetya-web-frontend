@@ -29,6 +29,12 @@ export type InitClientProps<TContract> = {
   httpClient?: AxiosInstance;
 };
 
+export type InitRestClientProps<TRouter> = {
+  router: TRouter;
+  baseUrl: string;
+  httpClient?: AxiosInstance;
+};
+
 export type BaseResponseBody = {
   success: boolean;
   message: string;
@@ -46,6 +52,12 @@ export type BaseResponsesBody = BaseResponseBody & {
     previousCursor: string;
     nextCursor: string;
   };
+};
+
+export type BaseAxiosClientResponse<T = unknown> = {
+  status: number;
+  body: T;
+  headers: Headers;
 };
 
 export type CustomMetaQuery = {

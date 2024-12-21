@@ -5,8 +5,11 @@ import { ENV } from "@/configs";
 import { COOKIES } from "@/configs/cookies";
 import { deleteCookies, getCookies, setCookies } from "@/utils";
 
-import { initClient } from "../providers/dataProvider/handler";
-import { defaultAppApi } from "../providers/dataProvider/schema";
+import { initRestClient } from "../providers/dataProvider/handler";
+import {
+  AuthenticationRenewResponse,
+  defaultAppApi,
+} from "../providers/dataProvider/schema";
 
 type ExtendedAxiosError = {
   config: {
@@ -37,8 +40,8 @@ function defaultRequestInterceptor(axiosInstance: AxiosInstance) {
 }
 
 function defaultResponseInterceptor(axiosInstance: AxiosInstance) {
-  const authService = initClient({
-    contract: defaultAppApi,
+  const authService = initRestClient({
+    router: defaultAppApi,
     baseUrl: `${ENV.APP_HOST}/api`,
     httpClient: axiosInstance,
   });
@@ -67,15 +70,15 @@ function defaultResponseInterceptor(axiosInstance: AxiosInstance) {
         originalRequest._retry = true;
 
         try {
-          const {
-            data: {
-              data: { accessToken, accessTokenKey },
-            },
-          } = await authService.putRenewAdmin({
-            headers: {
-              "X-Renew-Token": true,
+          const { body: responseBody } = await authService.putRenewAdmin({
+            extraHeaders: {
+              "X-Renew-Token": "true",
             },
           });
+
+          const {
+            data: { accessToken, accessTokenKey },
+          } = responseBody as AuthenticationRenewResponse;
 
           originalRequest.headers.set("Authorization", `Bearer ${accessToken}`);
           await setCookies([

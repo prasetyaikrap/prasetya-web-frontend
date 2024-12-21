@@ -8,30 +8,34 @@ import {
 // schemas
 export type AppAPISchema = typeof defaultAppSchemas;
 
+export type AuthenticationLoginPayload = z.infer<
+  AppAPISchema["AuthenticationLoginPayload"]
+>;
 export type AuthenticationLoginResponse = z.infer<
   AppAPISchema["AuthenticationLoginResponse"]
 >;
 export type AuthenticationRenewResponse = z.infer<
   AppAPISchema["AuthenticationRenewResponse"]
 >;
-export type AuthenticationVerifyResponse = z.infer<
-  AppAPISchema["AuthenticationVerifyResponse"]
->;
 export type AuthenticationLogoutResponse = z.infer<
   AppAPISchema["AuthenticationLogoutResponse"]
 >;
 
-export type AdministratorCreateResponse = z.infer<
-  AppAPISchema["AdministratorCreateResponse"]
+export type AdministratorCreatePayload = z.infer<
+  AppAPISchema["AdministratorCreatePayload"]
 >;
-export type AdministratorGetListResponse = z.infer<
-  AppAPISchema["AdministratorGetListResponse"]
+export type AdministratorUpdatePayload = z.infer<
+  AppAPISchema["AdministratorUpdatePayload"]
 >;
-export type AdministratorGetResponse = z.infer<
-  AppAPISchema["AdministratorGetResponse"]
+
+export type ArticleCreatePayload = z.infer<
+  AppAPISchema["ArticleCreatePayload"]
 >;
-export type AdministratorUpdateResponse = z.infer<
-  AppAPISchema["AdministratorUpdateResponse"]
+export type ArticleUpdatePayload = z.infer<
+  AppAPISchema["ArticleUpdatePayload"]
+>;
+export type ArticleUpdateStatusPayload = z.infer<
+  AppAPISchema["ArticleUpdateStatusPayload"]
 >;
 
 export { defaultAppApi };

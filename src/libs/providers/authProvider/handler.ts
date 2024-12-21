@@ -4,11 +4,15 @@ import { ENV } from "@/configs";
 import { FormLoginFields } from "@/features/Login/type";
 import { deleteCookies, setCookies } from "@/utils";
 
-import { initClient } from "../dataProvider/handler";
-import { defaultAppApi } from "../dataProvider/schema";
+import { initRestClient } from "../dataProvider/handler";
+import {
+  AuthenticationLoginResponse,
+  AuthenticationLogoutResponse,
+  defaultAppApi,
+} from "../dataProvider/schema";
 
-const service = initClient({
-  contract: defaultAppApi,
+const service = initRestClient({
+  router: defaultAppApi,
   baseUrl: `${ENV.APP_HOST}/api`,
 });
 
@@ -18,13 +22,13 @@ export async function loginAdminUser(
 ): Promise<AuthActionResponse> {
   const { username, password } = payload;
   try {
-    const {
-      data: {
-        data: { accessToken, accessTokenKey, refreshToken, refreshTokenKey },
-      },
-    } = await service.postLoginAdmin({
-      data: { username, password },
+    const { body: responseBody } = await service.postLoginAdmin({
+      body: { username, password },
     });
+
+    const {
+      data: { accessToken, accessTokenKey, refreshToken, refreshTokenKey },
+    } = responseBody as AuthenticationLoginResponse;
 
     await setCookies([
       {
@@ -72,11 +76,10 @@ export async function logoutAdminUser(
   redirectPath: string
 ): Promise<AuthActionResponse> {
   try {
+    const { body: responseBody } = await service.deleteLogoutAdmin();
     const {
-      data: {
-        data: { accessTokenKey, refreshTokenKey },
-      },
-    } = await service.deleteLogoutAdmin();
+      data: { accessTokenKey, refreshTokenKey },
+    } = responseBody as AuthenticationLogoutResponse;
     await deleteCookies([accessTokenKey, refreshTokenKey]);
 
     return {
