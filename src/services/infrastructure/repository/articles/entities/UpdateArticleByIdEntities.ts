@@ -64,14 +64,12 @@ export default class UpdateArticleByIdEntities {
           featuredImage: P.not(P.string),
           content: P.not(P.string),
           publicity: P.not(P.array(P.string)),
-          author: P.not(
-            P.array({
-              id: P.string,
-              name: P.string,
-              email: P.string,
-              avatar: P.string,
-            })
-          ),
+          author: P.not({
+            id: P.string,
+            name: P.string,
+            email: P.string,
+            avatar: P.string,
+          }),
           slug_histories: P.not(P.array(P.string)),
           metadata: P.nullish,
         },

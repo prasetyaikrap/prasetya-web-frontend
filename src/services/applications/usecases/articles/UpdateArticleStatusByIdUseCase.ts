@@ -27,29 +27,14 @@ export default class UpdateArticleStatusByIdUseCase {
     this._adminRepository = adminRepository;
   }
 
-  async execute({
-    payload,
-    articleId,
-    credentials: { tokenPayload },
-  }: UpdateArticleStatusByIdUseCasePayload) {
+  async execute({ payload, articleId }: UpdateArticleStatusByIdUseCasePayload) {
     const {
       payload: { status },
     } = new UpdateArticleStatusByIdEntities(payload);
 
-    const { id, name, email, avatar } =
-      await this._adminRepository.getAdminById({
-        adminId: tokenPayload?.payload.profile.id || "",
-      });
-
     return await this._articleRepository.updateArticleStatusById({
       articleId,
       status,
-      updatedBy: {
-        id,
-        name,
-        email,
-        avatar,
-      },
     });
   }
 }

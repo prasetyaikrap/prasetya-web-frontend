@@ -7,13 +7,15 @@ import {
 
 import InvariantError from "@/services/commons/exceptions/InvariantError";
 import NotFoundError from "@/services/commons/exceptions/NotFoundError";
-import { ArticleDocProps } from "@/services/commons/types/firestoreDoc";
+import {
+  ArticleAuthor,
+  ArticleDocProps,
+} from "@/services/commons/types/firestoreDoc";
 import { QueryFilter } from "@/services/commons/types/query";
 import {
   generateFirestoreQueries,
   getPaginationMetadata,
 } from "@/services/commons/utils/query";
-import { UserField } from "@/types";
 
 import { CreateArticlePayload } from "./entities/CreateArticleEntities";
 import { UpdateArticleByIdPayload } from "./entities/UpdateArticleByIdEntities";
@@ -32,12 +34,11 @@ export type GetArticlesPayload = {
 
 export type CreateArticlePayloadProps = {
   payload: CreateArticlePayload;
-  createdBy: UserField;
+  createdBy: ArticleAuthor;
 };
 
 export type UpdateArticlePayloadProps = {
   payload: UpdateArticleByIdPayload;
-  updatedBy: UserField;
   articleId: string;
 };
 
@@ -52,7 +53,6 @@ export type GetArticleBySlugProps = {
 export type UpdateArticleStatusByIdProps = {
   articleId: string;
   status: string;
-  updatedBy: UserField;
 };
 
 export type DeleteArticleByIdProps = {
@@ -73,11 +73,10 @@ export default class ArticlesRepository {
   async createArticle({ payload, createdBy }: CreateArticlePayloadProps) {
     const res = await this.articlesCollectionRef.add({
       ...payload,
+      author: createdBy,
       slug_histories: [],
       title_search: [],
-      created_by: createdBy,
       created_at: FieldValue.serverTimestamp(),
-      updated_by: createdBy,
       updated_at: FieldValue.serverTimestamp(),
     });
 
@@ -88,17 +87,12 @@ export default class ArticlesRepository {
     return { id: res.id };
   }
 
-  async updateArticleById({
-    payload,
-    updatedBy,
-    articleId,
-  }: UpdateArticlePayloadProps) {
+  async updateArticleById({ payload, articleId }: UpdateArticlePayloadProps) {
     const { title } = payload;
     const title_search = title.split(" ").map((v) => v.trim());
     const snapshot = await this.articlesCollectionRef.doc(articleId).update({
       ...payload,
       title_search,
-      updated_by: updatedBy,
       updated_at: FieldValue.serverTimestamp(),
     });
 
@@ -195,11 +189,9 @@ export default class ArticlesRepository {
   async updateArticleStatusById({
     status,
     articleId,
-    updatedBy,
   }: UpdateArticleStatusByIdProps) {
     const snapshot = await this.articlesCollectionRef.doc(articleId).update({
       status,
-      updated_by: updatedBy,
       updated_at: FieldValue.serverTimestamp(),
     });
 

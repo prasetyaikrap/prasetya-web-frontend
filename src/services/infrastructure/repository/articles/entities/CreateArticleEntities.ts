@@ -14,7 +14,6 @@ export type CreateArticlePayload = Pick<
   | "content"
   | "publicity"
   | "status"
-  | "author"
   | "metadata"
 >;
 
@@ -33,7 +32,6 @@ export default class CreateArticleEntities {
       content,
       publicity,
       status,
-      author,
       metadata,
     } = payload;
 
@@ -47,7 +45,6 @@ export default class CreateArticleEntities {
       content,
       publicity,
       status,
-      author,
       metadata,
     };
   }
@@ -65,14 +62,6 @@ export default class CreateArticleEntities {
           content: P.not(P.string),
           publicity: P.not(P.array(P.string)),
           status: P.not(P.string),
-          author: P.not(
-            P.array({
-              id: P.string,
-              name: P.string,
-              email: P.string,
-              avatar: P.string,
-            })
-          ),
         },
         () => {
           throw new InvariantError("Create Article Failed. Invalid Payload");
