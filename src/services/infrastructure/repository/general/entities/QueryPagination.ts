@@ -1,10 +1,10 @@
-import InvariantError from "@/services/commons/exceptions/InvariantError";
 import { match, P } from "ts-pattern";
+
+import InvariantError from "@/services/commons/exceptions/InvariantError";
 
 export type QueryPaginationPayload<TQueryData = Record<string, any>> = {
   queries?: TQueryData;
   _sort?: string;
-  _page: string;
   _limit: string;
   _cursor: string;
 };
@@ -12,15 +12,13 @@ export type QueryPaginationPayload<TQueryData = Record<string, any>> = {
 export default class QueryPagination<TQueryData = Record<string, any>> {
   public queries: QueryPaginationPayload<TQueryData>["queries"];
   public _sort?: QueryPaginationPayload<TQueryData>["_sort"];
-  public _page: number;
   public _limit: number;
   public _cursor: string;
 
   constructor(payload: QueryPaginationPayload<TQueryData>, keys: string[]) {
     this._verifyPayload(payload);
-    const { _page, _limit, _sort, _cursor, queries } = payload;
+    const { _limit, _sort, _cursor, queries } = payload;
     this.queries = this._pickQueries(queries, keys);
-    this._page = parseInt(_page);
     this._limit = parseInt(_limit);
     this._sort = _sort;
     this._cursor = _cursor;
@@ -33,7 +31,6 @@ export default class QueryPagination<TQueryData = Record<string, any>> {
       })
       .with(
         {
-          _page: P.when((v) => isNaN(parseInt(v))),
           _limit: P.when((v) => isNaN(parseInt(v))),
         },
         () => {

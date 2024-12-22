@@ -28,7 +28,6 @@ export type ArticlesRepositoryProps = {
 export type GetArticlesPayload = {
   filters: QueryFilter[];
   orders: string[];
-  page: number;
   limit: number;
   cursor: string;
 };
@@ -114,13 +113,7 @@ export default class ArticlesRepository {
     return { id: articleId };
   }
 
-  async getArticles({
-    filters,
-    orders,
-    limit,
-    cursor,
-    page,
-  }: GetArticlesPayload) {
+  async getArticles({ filters, orders, limit, cursor }: GetArticlesPayload) {
     const queries = generateFirestoreQueries({
       queryRef: this.articlesCollectionRef,
       filters,
@@ -141,26 +134,17 @@ export default class ArticlesRepository {
     });
 
     const lastData = snapshot.docs[snapshot.docs.length - 1];
-    const { currentPage, totalRows, totalPages, previousCursor, nextCursor } =
-      await getPaginationMetadata({
-        queryRef: this.metadataCollectionRef,
-        totalRowsKey: "articles",
-        limit,
-        page,
-        currentCursor: cursor || "",
-        nextCursor: lastData.id,
-      });
+    const metadata = await getPaginationMetadata({
+      queryRef: this.metadataCollectionRef,
+      totalRowsKey: "articles",
+      limit,
+      currentCursor: cursor || "",
+      nextCursor: lastData.id,
+    });
 
     return {
       data: articlesData,
-      metadata: {
-        total_rows: totalRows,
-        current_page: currentPage,
-        total_page: totalPages,
-        per_page: limit,
-        previousCursor,
-        nextCursor,
-      },
+      metadata,
     };
   }
 

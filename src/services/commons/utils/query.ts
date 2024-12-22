@@ -144,17 +144,6 @@ function firestoreOrderParams(fieldOrder: string) {
   };
 }
 
-function normalizeFilterValue(value: string) {
-  const isBoolean = ["true", "false"].includes(value);
-  const isNull = value === "null";
-  const isNumber = isNaN(parseInt(value));
-
-  if (isBoolean) return value === "true";
-  if (isNull) return null;
-  if (isNumber) return parseInt(value);
-  return value;
-}
-
 export function generateFilters(queries?: {
   [key: string]: string;
 }): QueryFilter[] {
@@ -192,7 +181,6 @@ export type GetPaginationMetadataProps = {
   queryRef: CollectionReference;
   totalRowsKey: string;
   limit: number;
-  page: number;
   currentCursor: string;
   nextCursor: string;
 };
@@ -201,7 +189,6 @@ export async function getPaginationMetadata({
   queryRef,
   totalRowsKey,
   limit,
-  page,
   currentCursor,
   nextCursor,
 }: GetPaginationMetadataProps) {
@@ -211,10 +198,10 @@ export async function getPaginationMetadata({
   const totalPages = Math.ceil(totalRows / limit);
 
   return {
-    totalRows,
-    totalPages,
-    currentPage: page,
-    previousCursor: currentCursor,
-    nextCursor,
+    total_rows: totalRows,
+    total_page: totalPages,
+    per_page: limit,
+    previous_cursor: currentCursor,
+    next_cursor: nextCursor,
   };
 }

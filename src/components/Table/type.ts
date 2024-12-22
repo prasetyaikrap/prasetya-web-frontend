@@ -24,3 +24,9 @@ export type PaginationProps = {
   pageCount: number;
   setCurrent: (page: number) => void;
 };
+
+export type CursorPaginationProps = {
+  setCursorPage: ((cursor: string) => void) | null;
+  prevCursor: string | null;
+  nextCursor: string | null;
+};

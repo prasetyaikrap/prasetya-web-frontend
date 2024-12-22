@@ -24,7 +24,7 @@ export default class GetArticlesUseCase {
   }
 
   async execute({ queryParams, isPublic }: GetArticlesUseCasePayload) {
-    const { queries, _page, _limit, _sort, _cursor } = new QueryPagination(
+    const { queries, _limit, _sort, _cursor } = new QueryPagination(
       queryParams,
       [
         "title_search__arrayContainsAny",
@@ -60,7 +60,6 @@ export default class GetArticlesUseCase {
       filters,
       orders,
       limit: _limit,
-      page: _page,
       cursor: _cursor,
     });
 

@@ -34,7 +34,6 @@ export type GetAdminsPayload = {
   filters: QueryFilter[];
   orders: string[];
   limit: number;
-  page: number;
   cursor: string;
 };
 
@@ -172,7 +171,7 @@ export default class AdminRepository {
     return { id: adminDoc.id };
   }
 
-  async getAdmins({ filters, orders, limit, page, cursor }: GetAdminsPayload) {
+  async getAdmins({ filters, orders, limit, cursor }: GetAdminsPayload) {
     const queries = generateFirestoreQueries({
       queryRef: this.adminsCollectionRef,
       filters,
@@ -193,26 +192,17 @@ export default class AdminRepository {
     });
 
     const lastData = snapshot.docs[snapshot.docs.length - 1];
-    const { currentPage, totalRows, totalPages, previousCursor, nextCursor } =
-      await getPaginationMetadata({
-        queryRef: this.metadataCollectionRef,
-        totalRowsKey: "admins",
-        limit,
-        page,
-        currentCursor: cursor || "",
-        nextCursor: lastData.id,
-      });
+    const metadata = await getPaginationMetadata({
+      queryRef: this.metadataCollectionRef,
+      totalRowsKey: "admins",
+      limit,
+      currentCursor: cursor || "",
+      nextCursor: lastData.id,
+    });
 
     return {
       data: adminsData,
-      metadata: {
-        total_rows: totalRows,
-        current_page: currentPage,
-        total_page: totalPages,
-        per_page: limit,
-        previousCursor,
-        nextCursor,
-      },
+      metadata,
     };
   }
 
