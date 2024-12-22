@@ -89,17 +89,24 @@ export default class AdminRepository {
   }
 
   async addAdmin(payload: AddAdminPayload) {
-    const res = await this.adminsCollectionRef.add({
-      ...payload,
-      created_at: FieldValue.serverTimestamp(),
-      updated_at: FieldValue.serverTimestamp(),
+    const adminDoc = this.adminsCollectionRef.doc();
+    const totalRowsDoc = this.metadataCollectionRef.doc("total_rows");
+
+    await this._firestore.runTransaction(async (t) => {
+      t.set(adminDoc, {
+        ...payload,
+        is_verified: false,
+        permissions: [],
+        created_at: FieldValue.serverTimestamp(),
+        updated_at: FieldValue.serverTimestamp(),
+      });
+
+      t.update(totalRowsDoc, {
+        admins: FieldValue.increment(1),
+      });
     });
 
-    await this.metadataCollectionRef
-      .doc("total_rows")
-      .update({ admins: FieldValue.increment(1) });
-
-    return { id: res.id };
+    return { id: adminDoc.id };
   }
 
   async getAdmins({ filters, orders, limit, page, cursor }: GetAdminsPayload) {
@@ -120,6 +127,7 @@ export default class AdminRepository {
         name: d.name,
         email: d.email,
         avatar: d.avatar,
+        is_verified: d.is_verified,
         permissions: d.permissions,
         created_at: d.created_at,
         updated_at: d.updated_at,
@@ -160,14 +168,8 @@ export default class AdminRepository {
     const adminData = snapshot.data() as AdminDocProps;
 
     return {
+      ...adminData,
       id: snapshot.id,
-      username: adminData.username,
-      name: adminData.name,
-      email: adminData.email,
-      avatar: adminData.avatar,
-      permissions: adminData.permissions,
-      created_at: adminData.created_at,
-      updated_at: adminData.updated_at,
     };
   }
 

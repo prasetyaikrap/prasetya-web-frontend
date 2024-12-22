@@ -9,6 +9,7 @@ export type AdminDocProps = {
   name: string;
   email: string;
   avatar: string;
+  is_verified: boolean;
   permissions: string[];
   created_at: string;
   updated_at: string;

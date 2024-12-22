@@ -71,27 +71,30 @@ export default class ArticlesRepository {
   }
 
   async createArticle({ payload, createdBy }: CreateArticlePayloadProps) {
-    const res = await this.articlesCollectionRef.add({
-      ...payload,
-      summary: "",
-      content: "",
-      featuredImage: "",
-      categories: [],
-      tags: [],
-      author: createdBy,
-      status: "unpublish",
-      slug_histories: [],
-      title_search: [],
-      metadata: {},
-      created_at: FieldValue.serverTimestamp(),
-      updated_at: FieldValue.serverTimestamp(),
+    const articleDoc = this.articlesCollectionRef.doc();
+    const totalRowsDoc = this.metadataCollectionRef.doc("total_rows");
+
+    await this._firestore.runTransaction(async (t) => {
+      t.set(articleDoc, {
+        ...payload,
+        summary: "",
+        content: "",
+        featuredImage: "",
+        categories: [],
+        tags: [],
+        author: createdBy,
+        status: "unpublish",
+        slug_histories: [],
+        title_search: [],
+        metadata: {},
+        created_at: FieldValue.serverTimestamp(),
+        updated_at: FieldValue.serverTimestamp(),
+      });
+
+      t.update(totalRowsDoc, { articles: FieldValue.increment(1) });
     });
 
-    await this.metadataCollectionRef
-      .doc("total_rows")
-      .update({ articles: FieldValue.increment(1) });
-
-    return { id: res.id };
+    return { id: articleDoc.id };
   }
 
   async updateArticleById({ payload, articleId }: UpdateArticlePayloadProps) {
@@ -210,11 +213,13 @@ export default class ArticlesRepository {
   }
 
   async deleteArticleById({ articleId }: DeleteArticleByIdProps) {
-    const snapshot = await this.articlesCollectionRef.doc(articleId).delete();
+    const articleDoc = this.articlesCollectionRef.doc(articleId);
+    const totalRowsDoc = this.metadataCollectionRef.doc("total_rows");
 
-    if (!snapshot.isEqual) {
-      throw new InvariantError("Failed to delete article");
-    }
+    await this._firestore.runTransaction(async (t) => {
+      t.delete(articleDoc);
+      t.update(totalRowsDoc, { articles: FieldValue.increment(-1) });
+    });
 
     return { id: articleId };
   }

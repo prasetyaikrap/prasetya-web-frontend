@@ -16,13 +16,7 @@ export default class AuthenticationRepository {
   async addToken(userId: string, token: string) {
     const docId = `rt_${userId}`;
     const docRef = this._firestore.collection("authentications").doc(docId);
-    const snapshot = await docRef.get();
-
-    if (!snapshot.exists) {
-      await docRef.set({ userId, refreshTokens: FieldValue.arrayUnion(token) });
-    } else {
-      await docRef.update({ refreshTokens: FieldValue.arrayUnion(token) });
-    }
+    await docRef.set({ userId, refreshTokens: FieldValue.arrayUnion(token) });
 
     return { id: docId };
   }
