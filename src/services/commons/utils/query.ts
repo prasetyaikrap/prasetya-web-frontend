@@ -39,7 +39,10 @@ export function generateFirestoreQueries({
     return result.orderBy(field, order as OrderByDirection);
   }, queryFilters);
 
-  const fullQuery = queryOrders.startAfter(cursor).limit(limit);
+  const fullQuery = cursor
+    ? queryOrders.startAfter(cursor).limit(limit)
+    : queryOrders.limit(limit);
+
   return fullQuery;
 }
 

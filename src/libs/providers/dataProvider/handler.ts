@@ -84,26 +84,26 @@ export function initRestClient<T extends AppRouter = AppRouter>({
           withCredentials: true,
         });
 
-        return {
+        return Promise.resolve({
           status: result.status,
           body: result.data,
           headers: result.headers as unknown as Headers,
-        };
+        });
       } catch (e) {
         if (isAxiosError(e)) {
           const response = e.response as AxiosResponse;
-          return {
+          return Promise.reject({
             status: response.status,
             body: response.data,
             headers: response.headers as unknown as Headers,
-          };
+          });
         }
 
-        return {
+        return Promise.reject({
           status: 500,
           body: null,
           headers: {} as Headers,
-        };
+        });
       }
     },
   });
@@ -181,6 +181,8 @@ export function generateParams(
     {}
   );
 
+  const queries = JSON.stringify(paramsFilter);
+
   const transformedSorters = opts?.transformSorters?.(sorters) || sorters;
   const sorterString = transformedSorters
     .map((sorter) => {
@@ -192,5 +194,5 @@ export function generateParams(
     .join(",");
   const paramsSorter = sorterString ? { _sort: sorterString } : {};
 
-  return { ...paramsPagination, ...paramsFilter, ...paramsSorter };
+  return { ...paramsPagination, ...paramsSorter, queries };
 }

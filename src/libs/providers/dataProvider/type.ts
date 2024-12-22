@@ -63,6 +63,6 @@ export type BaseAxiosClientResponse<T = unknown> = {
 export type CustomMetaQuery = {
   transformFilters?: (filters?: CrudFilters) => CrudFilters;
   transformSorters?: (sorters?: CrudSorting) => CrudSorting;
-  paginationMode?: "default" | "per_page" | "none";
+  paginationMode?: "default" | "per_page" | "cursor" | "none";
   filterMode?: "default";
 } & MetaQuery;
