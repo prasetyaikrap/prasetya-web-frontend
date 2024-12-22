@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase-admin/firestore";
 import { NextRequest, userAgent } from "next/server";
 
 import {
@@ -44,4 +45,16 @@ export function isPublicEndpoint(params: RouteContextParams) {
   const publicParams = params.endpoint[0];
 
   return publicParams === "public";
+}
+
+export function convertTimestampToDate(value: Timestamp) {
+  return value.toDate();
+}
+
+export function convertTimestampToDateString(value: Timestamp) {
+  return value.toDate().toISOString();
+}
+
+export function convertDateToTimestamp(value: Date) {
+  return Timestamp.fromDate(value);
 }

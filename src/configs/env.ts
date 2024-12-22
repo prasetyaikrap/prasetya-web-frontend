@@ -10,4 +10,6 @@ export const ENV = {
   APP_VERSION: process.env.NEXT_PUBLIC_APP_VERSION ?? "dev-environment-v0.0.0",
   APP_ID: process.env.NEXT_PUBLIC_APP_ID ?? "",
   APP_ENV: process.env.NEXT_PUBLIC_APP_ENV ?? "dev",
+  GOOGLE_APP_SCRIPT_SECRET: process.env.GOOGLE_APP_SCRIPT_SECRET ?? "",
+  GOOGLE_APP_SCRIPT_WEBAPP_URL: process.env.GOOGLE_APP_SCRIPT_WEBAPP_URL ?? "",
 };

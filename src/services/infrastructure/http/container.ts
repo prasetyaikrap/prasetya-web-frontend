@@ -1,3 +1,4 @@
+import axios from "axios";
 import * as bcrypts from "bcrypt-ts";
 import * as Jose from "jose";
 
@@ -29,11 +30,16 @@ import MiddlewareHandlers from "./middleware";
 
 export default async function serviceContainer() {
   const { firestoreDB } = await firebaseInitialize();
+  const axiosInstance = axios.create();
+
   // Repository and Security
   const authenticationRepository = new AuthenticationRepository({
     firestore: firestoreDB,
   });
-  const adminRepository = new AdminRepository({ firestore: firestoreDB });
+  const adminRepository = new AdminRepository({
+    firestore: firestoreDB,
+    axiosInstance,
+  });
   const articlesRepository = new ArticlesRepository({ firestore: firestoreDB });
   const authTokenManager = new AuthTokenManager(Jose);
   const passwordHash = new PasswordHash(bcrypts);

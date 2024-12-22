@@ -14,20 +14,23 @@ export default class AuthenticationRepository {
   }
 
   async addToken(userId: string, token: string) {
-    const docId = `rt_${userId}`;
+    const docId = `auth_${userId}`;
     const docRef = this._firestore.collection("authentications").doc(docId);
-    await docRef.set({ userId, refreshTokens: FieldValue.arrayUnion(token) });
+    await docRef.set(
+      { userId, refresh_tokens: FieldValue.arrayUnion(token) },
+      { merge: true }
+    );
 
     return { id: docId };
   }
 
   async checkAvailabilityToken(userId: string, token: string) {
-    const docId = `rt_${userId}`;
+    const docId = `auth_${userId}`;
     const docRef = this._firestore.collection("authentications").doc(docId);
     const snapshot = await docRef.get();
-    const data = snapshot.data() as AuthenticationDocProps | undefined;
+    const data = snapshot.data() as AuthenticationDocProps;
 
-    const isTokenAvailable = data?.refreshTokens?.includes(token);
+    const isTokenAvailable = data.refresh_tokens?.includes(token);
 
     if (!isTokenAvailable) {
       throw new AuthenticationError("Token not found");
@@ -40,9 +43,9 @@ export default class AuthenticationRepository {
   }
 
   async deleteToken(userId: string, token: string) {
-    const docId = `rt_${userId}`;
+    const docId = `auth_${userId}`;
     const docRef = this._firestore.collection("authentications").doc(docId);
-    await docRef.update({ refreshTokens: FieldValue.arrayRemove(token) });
+    await docRef.update({ refresh_tokens: FieldValue.arrayRemove(token) });
 
     return {
       id: docId,

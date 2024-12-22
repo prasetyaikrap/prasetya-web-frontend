@@ -12,6 +12,7 @@ import {
   ArticleDocProps,
 } from "@/services/commons/types/firestoreDoc";
 import { QueryFilter } from "@/services/commons/types/query";
+import { convertTimestampToDateString } from "@/services/commons/utils/general";
 import {
   generateFirestoreQueries,
   getPaginationMetadata,
@@ -134,6 +135,8 @@ export default class ArticlesRepository {
       return {
         ...d,
         id: doc.id,
+        created_at: convertTimestampToDateString(d.created_at),
+        updated_at: convertTimestampToDateString(d.updated_at),
       };
     });
 
@@ -173,6 +176,8 @@ export default class ArticlesRepository {
     return {
       ...articleData,
       id: snapshot.id,
+      created_at: convertTimestampToDateString(articleData.created_at),
+      updated_at: convertTimestampToDateString(articleData.updated_at),
     };
   }
 
@@ -190,9 +195,13 @@ export default class ArticlesRepository {
       throw new NotFoundError("Admin not found");
     }
 
+    const articleData = snapshot.docs[0].data() as ArticleDocProps;
+
     return {
-      ...(snapshot.docs[0].data() as ArticleDocProps),
+      ...articleData,
       id: snapshot.docs[0].id,
+      created_at: convertTimestampToDateString(articleData.created_at),
+      updated_at: convertTimestampToDateString(articleData.updated_at),
     };
   }
 
