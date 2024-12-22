@@ -161,6 +161,12 @@ export function generateParams(
 ) {
   const paramsPagination = match(opts?.paginationMode)
     .with("none", () => undefined)
+    .with("cursor", () => {
+      const filterCursor = filters.find(
+        (filter) => (filter as LogicalFilter).field === "_cursor"
+      );
+      return { _limit: pagination.pageSize, _cursor: filterCursor?.value };
+    })
     .otherwise(() => ({
       _page: pagination.current,
       _limit: pagination.pageSize,
@@ -176,6 +182,7 @@ export function generateParams(
         value: string | number | boolean | undefined;
       };
 
+      if (["_cursor"].includes(field)) return params;
       return { ...params, [field]: value };
     },
     {}

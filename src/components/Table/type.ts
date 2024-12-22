@@ -12,6 +12,7 @@ export type TableProps<T extends BaseRecord = BaseRecord> = {
   chakra?: {
     tableProps?: ChakraTableProps;
   };
+  pagination?: TablePaginationProps;
 } & Table<T>;
 
 export type ColumnButtonProps = {
@@ -29,4 +30,20 @@ export type CursorPaginationProps = {
   setCursorPage: ((cursor: string) => void) | null;
   prevCursor: string | null;
   nextCursor: string | null;
+};
+
+export type TablePaginationProps = {
+  keepShowPanel?: boolean;
+  showSizeChanger?: boolean;
+  maxPageSize?: number;
+  sizes?: number[];
+  mode?: "default" | "cursor";
+};
+
+export type RefineMetaQuery = {
+  total_rows: number;
+  total_page: number;
+  per_page: number;
+  previous_cursor: string;
+  next_cursor: string;
 };
